@@ -52,6 +52,8 @@ namespace UploadersLib
         yFrog,
         [Description("imm.io")]
         Immio,
+        [Description("3d3.ca")]
+        Encrypted3d3ImageUploader,
         [Description("Custom image uploader")]
         CustomImageUploader,
         [Description("File uploader")]

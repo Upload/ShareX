@@ -72,6 +72,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AsyncBridge.Net35.0.2.0\lib\net35-Client\AsyncBridge.Net35.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net20\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="MegaApiClient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0480d311efbeb4e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MegaApiClient.1.0.0\lib\MegaApiClient.dll</HintPath>
@@ -245,6 +248,7 @@
     <Compile Include="HelperClasses\OAuth\OAuthManager.cs" />
     <Compile Include="HelperClasses\OAuth\OAuthInfo.cs" />
     <Compile Include="ImageUploaders\CustomImageUploader.cs" />
+    <Compile Include="ImageUploaders\Encrypted3d3ImageUploader.cs" />
     <Compile Include="ImageUploaders\Imgur_v3.cs" />
     <Compile Include="ImageUploaders\Picasa.cs" />
     <Compile Include="TextUploaders\CustomTextUploader.cs" />

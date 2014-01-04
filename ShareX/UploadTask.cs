@@ -626,6 +626,9 @@ namespace ShareX
                         imageUploader = new CustomImageUploader(Program.UploadersConfig.CustomUploadersList[Program.UploadersConfig.CustomImageUploaderSelected]);
                     }
                     break;
+                case ImageDestination.Encrypted3d3ImageUploader:
+                    imageUploader = new Encrypted3d3ImageUploader();
+                    break;
             }
 
             if (imageUploader != null)

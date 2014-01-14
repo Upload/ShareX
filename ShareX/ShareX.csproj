@@ -134,11 +134,14 @@
     <Compile Include="Forms\ScreenRegionForm.Designer.cs">
       <DependentUpon>ScreenRegionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SettingsForm.cs">
+    <Compile Include="Forms\ApplicationSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
+    <Compile Include="Forms\ApplicationSettingsForm.Designer.cs">
+      <DependentUpon>ApplicationSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NotificationForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\UploadTestForm.cs">
       <SubType>Form</SubType>
@@ -232,8 +235,8 @@
     <EmbeddedResource Include="Forms\ScreenRegionForm.resx">
       <DependentUpon>ScreenRegionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SettingsForm.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ApplicationSettingsForm.resx">
+      <DependentUpon>ApplicationSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -332,7 +335,6 @@
     <None Include="Resources\gear.png" />
     <None Include="Resources\block.png" />
     <None Include="Resources\present.png" />
-    <None Include="..\ShareX Setup.cmd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -420,6 +422,9 @@
     <None Include="Resources\bug.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="ShareX_Icon.ico" />
     <None Include="Resources\ru.png" />
     <None Include="Resources\keyboard--pencil.png" />

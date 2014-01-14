@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -34,7 +34,6 @@ namespace ShareX
     public partial class AfterCaptureForm : Form
     {
         public AfterCaptureTasks AfterCaptureTasks { get; private set; }
-        public Image Image { get; private set; }
         public AfterCaptureFormResult Result { get; private set; }
 
         public AfterCaptureForm(Image img, AfterCaptureTasks afterCaptureTasks)
@@ -43,9 +42,7 @@ namespace ShareX
             Icon = ShareXResources.Icon;
             AfterCaptureTasks = afterCaptureTasks;
             AddAfterCaptureItems(AfterCaptureTasks);
-            Image = img;
-            pbImage.LoadImage(Image);
-            Result = AfterCaptureFormResult.Cancel;
+            pbImage.LoadImage(img);
         }
 
         private void AddAfterCaptureItems(AfterCaptureTasks afterCaptureTasks)
@@ -83,6 +80,19 @@ namespace ShareX
             AfterCaptureTasks = GetAfterCaptureTasks();
             Result = result;
             Close();
+        }
+
+        private void lvAfterCaptureTasks_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left || e.Button == MouseButtons.Right)
+            {
+                ListViewItem lvi = lvAfterCaptureTasks.GetItemAt(e.X, e.Y);
+
+                if (lvi != null)
+                {
+                    lvi.Checked = !lvi.Checked;
+                }
+            }
         }
 
         private void btnContinue_Click(object sender, EventArgs e)

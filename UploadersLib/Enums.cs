@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -32,7 +32,7 @@ namespace UploadersLib
     {
         [Description("imgur.com")]
         Imgur,
-        [Description("imageshack.us")]
+        [Description("imageshack.com")]
         ImageShack,
         [Description("tinypic.com")]
         TinyPic,
@@ -52,6 +52,8 @@ namespace UploadersLib
         yFrog,
         [Description("imm.io")]
         Immio,
+        [Description("mediacru.sh")]
+        MediaCrush,
         [Description("3d3.ca")]
         Encrypted3d3ImageUploader,
         [Description("Custom image uploader")]
@@ -123,8 +125,6 @@ namespace UploadersLib
         Google,
         [Description("bit.ly")]
         BITLY,
-        [Description("j.mp")]
-        Jmp,
         [Description("is.gd")]
         ISGD,
         [Description("tinyurl.com")]

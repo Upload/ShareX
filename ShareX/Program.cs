@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -71,7 +71,7 @@ namespace ShareX
 
         public static readonly string StartupPath = Application.StartupPath;
 
-        private static readonly string DefaultPersonalPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ApplicationName);
+        public static readonly string DefaultPersonalPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ApplicationName);
         private static readonly string PortablePersonalPath = Path.Combine(StartupPath, ApplicationName);
         private static readonly string PersonalPathConfig = Path.Combine(StartupPath, "PersonalPath.cfg");
         private static readonly string ApplicationConfigFilename = "ApplicationConfig.json";
@@ -114,11 +114,6 @@ namespace ShareX
             {
                 if (!IsSandbox)
                 {
-                    if (Settings != null && Settings.UseCustomUploadersConfigPath && !string.IsNullOrEmpty(Settings.CustomUploadersConfigPath))
-                    {
-                        return Settings.CustomUploadersConfigPath;
-                    }
-
                     return Path.Combine(PersonalPath, UploadersConfigFilename);
                 }
 
@@ -143,12 +138,12 @@ namespace ShareX
         {
             get
             {
-                if (Settings != null && Settings.UseCustomHistoryPath && !string.IsNullOrEmpty(Settings.CustomHistoryPath))
+                if (!IsSandbox)
                 {
-                    return Settings.CustomHistoryPath;
+                    return Path.Combine(PersonalPath, HistoryFilename);
                 }
 
-                return Path.Combine(PersonalPath, HistoryFilename);
+                return null;
             }
         }
 
@@ -357,19 +352,35 @@ namespace ShareX
 
         private static void CheckPersonalPathConfig()
         {
+            string customPersonalPath = ReadPersonalPathConfig();
+
+            if (!string.IsNullOrEmpty(customPersonalPath))
+            {
+                CustomPersonalPath = Path.GetFullPath(customPersonalPath);
+
+                if (CustomPersonalPath.Equals(PortablePersonalPath, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    IsPortable = true;
+                }
+            }
+        }
+
+        public static string ReadPersonalPathConfig()
+        {
             if (File.Exists(PersonalPathConfig))
             {
-                string customPersonalPath = File.ReadAllText(PersonalPathConfig, Encoding.UTF8).Trim();
+                return File.ReadAllText(PersonalPathConfig, Encoding.UTF8).Trim();
+            }
 
-                if (!string.IsNullOrEmpty(customPersonalPath))
-                {
-                    CustomPersonalPath = Path.GetFullPath(customPersonalPath);
+            return string.Empty;
+        }
 
-                    if (CustomPersonalPath.Equals(PortablePersonalPath, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        IsPortable = true;
-                    }
-                }
+        public static void WritePersonalPathConfig(string path)
+        {
+            // If path is empty and config file is not exist then don't create it
+            if (!string.IsNullOrEmpty(path) || File.Exists(PersonalPathConfig))
+            {
+                File.WriteAllText(PersonalPathConfig, path ?? string.Empty, Encoding.UTF8);
             }
         }
 

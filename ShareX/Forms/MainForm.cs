@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -575,6 +575,14 @@ namespace ShareX
             }
         }
 
+        private void OpenMonitorTest()
+        {
+            using (MonitorTestForm monitorTestForm = new MonitorTestForm())
+            {
+                monitorTestForm.ShowDialog();
+            }
+        }
+
         #region Form events
 
         protected override void SetVisibleCore(bool value)
@@ -606,7 +614,7 @@ namespace ShareX
             {
                 e.Cancel = true;
                 Hide();
-                Program.Settings.SaveAsync();
+                Program.Settings.SaveAsync(Program.ApplicationConfigFilePath);
             }
         }
 
@@ -699,13 +707,13 @@ namespace ShareX
 
         private void tsbApplicationSettings_Click(object sender, EventArgs e)
         {
-            using (SettingsForm settingsForm = new SettingsForm())
+            using (ApplicationSettingsForm settingsForm = new ApplicationSettingsForm())
             {
                 settingsForm.ShowDialog();
             }
 
             AfterSettingsJobs();
-            Program.Settings.SaveAsync();
+            Program.Settings.SaveAsync(Program.ApplicationConfigFilePath);
         }
 
         private void tsbTaskSettings_Click(object sender, EventArgs e)
@@ -715,7 +723,7 @@ namespace ShareX
                 taskSettingsForm.ShowDialog();
             }
 
-            Program.Settings.SaveAsync();
+            Program.Settings.SaveAsync(Program.ApplicationConfigFilePath);
         }
 
         private void tsbHotkeySettings_Click(object sender, EventArgs e)
@@ -730,7 +738,7 @@ namespace ShareX
                 hotkeySettingsForm.ShowDialog();
             }
 
-            Program.HotkeysConfig.SaveAsync();
+            Program.HotkeysConfig.SaveAsync(Program.HotkeysConfigFilePath);
         }
 
         private void tsbDestinationSettings_Click(object sender, EventArgs e)
@@ -768,12 +776,14 @@ namespace ShareX
             OpenImageEffects();
         }
 
+        private void tsmiMonitorTest_Click(object sender, EventArgs e)
+        {
+            OpenMonitorTest();
+        }
+
         private void tsbScreenshotsFolder_Click(object sender, EventArgs e)
         {
-            if (!Helpers.OpenFolder(Program.ScreenshotsPath))
-            {
-                Helpers.OpenFolder(Program.ScreenshotsParentFolder);
-            }
+            Helpers.OpenFolder(Program.ScreenshotsPath);
         }
 
         private void tsbHistory_Click(object sender, EventArgs e)

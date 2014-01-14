@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -1175,6 +1175,63 @@ namespace UploadersLib
         }
 
         #endregion goo.gl
+
+        #region bit.ly
+
+        public void BitlyAuthOpen()
+        {
+            try
+            {
+                OAuth2Info oauth = new OAuth2Info(APIKeys.BitlyClientID, APIKeys.BitlyClientSecret);
+
+                string url = new BitlyURLShortener(oauth).GetAuthorizationURL();
+
+                if (!string.IsNullOrEmpty(url))
+                {
+                    Config.BitlyOAuth2Info = oauth;
+                    Helpers.LoadBrowserAsync(url);
+                    DebugHelper.WriteLine("BitlyAuthOpen - Authorization URL is opened: " + url);
+                }
+                else
+                {
+                    DebugHelper.WriteLine("BitlyAuthOpen - Authorization URL is empty.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void BitlyAuthComplete(string code)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(code) && Config.BitlyOAuth2Info != null)
+                {
+                    bool result = new BitlyURLShortener(Config.BitlyOAuth2Info).GetAccessToken(code);
+
+                    if (result)
+                    {
+                        oauth2Bitly.Status = "Login successful.";
+                        MessageBox.Show("Login successful.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        oauth2Bitly.Status = "Login failed.";
+                        MessageBox.Show("Login failed.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    oauth2Bitly.LoginStatus = result;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion bit.ly
 
         #endregion URL Shorteners
 

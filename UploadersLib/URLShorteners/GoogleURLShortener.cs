@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -182,11 +182,8 @@ namespace UploadersLib.URLShorteners
     public class GoogleURLShortenerResponse
     {
         public string kind { get; set; }
-
         public string id { get; set; }
-
         public string longUrl { get; set; }
-
         public string status { get; set; }
     }
 }

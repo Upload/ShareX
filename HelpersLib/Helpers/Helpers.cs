@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -371,14 +371,19 @@ namespace HelpersLib
             return Encode(text, URLPathCharacters);
         }
 
-        public static bool OpenFolder(string folderPath)
+        public static void OpenFolder(string folderPath)
         {
-            if (!string.IsNullOrEmpty(folderPath) && Directory.Exists(folderPath))
+            if (!string.IsNullOrEmpty(folderPath))
             {
-                Process.Start("explorer.exe", folderPath);
-                return true;
+                if (Directory.Exists(folderPath))
+                {
+                    Process.Start("explorer.exe", folderPath);
+                }
+                else
+                {
+                    MessageBox.Show("Folder not exist:\r\n" + folderPath, "ShareX", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            return false;
         }
 
         public static void OpenFolderWithFile(string filePath)
@@ -812,6 +817,14 @@ namespace HelpersLib
             using (Graphics g = Graphics.FromHwnd(IntPtr.Zero))
             {
                 return g.MeasureString(text, font).ToSize();
+            }
+        }
+
+        public static Size MeasureText(string text, Font font, int width)
+        {
+            using (Graphics g = Graphics.FromHwnd(IntPtr.Zero))
+            {
+                return g.MeasureString(text, font, width).ToSize();
             }
         }
     }

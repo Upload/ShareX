@@ -1,6 +1,6 @@
 ﻿namespace ShareX
 {
-    partial class SettingsForm
+    partial class ApplicationSettingsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -39,20 +39,18 @@
             this.cbShowTray = new System.Windows.Forms.CheckBox();
             this.cbSendToMenu = new System.Windows.Forms.CheckBox();
             this.tpPaths = new System.Windows.Forms.TabPage();
+            this.btnOpenScreenshotsFolder = new System.Windows.Forms.Button();
+            this.lblPreviewPersonalFolderPath = new System.Windows.Forms.Label();
+            this.btnBrowsePersonalFolderPath = new System.Windows.Forms.Button();
+            this.lblPersonalFolderPath = new System.Windows.Forms.Label();
+            this.txtPersonalFolderPath = new System.Windows.Forms.TextBox();
             this.btnBrowseCustomScreenshotsPath = new System.Windows.Forms.Button();
-            this.btnOpenPersonalFolder = new System.Windows.Forms.Button();
-            this.btnLoadUploadersConfig = new System.Windows.Forms.Button();
-            this.txtCustomHistoryPath = new System.Windows.Forms.TextBox();
+            this.btnOpenPersonalFolderPath = new System.Windows.Forms.Button();
             this.txtCustomScreenshotsPath = new System.Windows.Forms.TextBox();
-            this.cbUseCustomUploadersConfigPath = new System.Windows.Forms.CheckBox();
             this.cbUseCustomScreenshotsPath = new System.Windows.Forms.CheckBox();
             this.lblSaveImageSubFolderPattern = new System.Windows.Forms.Label();
-            this.btnBrowseCustomHistoryPath = new System.Windows.Forms.Button();
             this.lblSaveImageSubFolderPatternPreview = new System.Windows.Forms.Label();
-            this.txtCustomUploadersConfigPath = new System.Windows.Forms.TextBox();
             this.txtSaveImageSubFolderPattern = new System.Windows.Forms.TextBox();
-            this.cbUseCustomHistoryPath = new System.Windows.Forms.CheckBox();
-            this.btnBrowseCustomUploadersConfigPath = new System.Windows.Forms.Button();
             this.tpProxy = new System.Windows.Forms.TabPage();
             this.lblProxyNote = new System.Windows.Forms.Label();
             this.cbProxyMethod = new System.Windows.Forms.ComboBox();
@@ -87,6 +85,7 @@
             this.btnShowImagePrintSettings = new System.Windows.Forms.Button();
             this.tpAdvanced = new System.Windows.Forms.TabPage();
             this.pgSettings = new System.Windows.Forms.PropertyGrid();
+            this.lblNotePersonalFolderPath = new System.Windows.Forms.Label();
             this.tcSettings.SuspendLayout();
             this.tpGeneral.SuspendLayout();
             this.tpPaths.SuspendLayout();
@@ -223,20 +222,19 @@
             // 
             // tpPaths
             // 
+            this.tpPaths.Controls.Add(this.lblNotePersonalFolderPath);
+            this.tpPaths.Controls.Add(this.btnOpenScreenshotsFolder);
+            this.tpPaths.Controls.Add(this.lblPreviewPersonalFolderPath);
+            this.tpPaths.Controls.Add(this.btnBrowsePersonalFolderPath);
+            this.tpPaths.Controls.Add(this.lblPersonalFolderPath);
+            this.tpPaths.Controls.Add(this.txtPersonalFolderPath);
             this.tpPaths.Controls.Add(this.btnBrowseCustomScreenshotsPath);
-            this.tpPaths.Controls.Add(this.btnOpenPersonalFolder);
-            this.tpPaths.Controls.Add(this.btnLoadUploadersConfig);
-            this.tpPaths.Controls.Add(this.txtCustomHistoryPath);
+            this.tpPaths.Controls.Add(this.btnOpenPersonalFolderPath);
             this.tpPaths.Controls.Add(this.txtCustomScreenshotsPath);
-            this.tpPaths.Controls.Add(this.cbUseCustomUploadersConfigPath);
             this.tpPaths.Controls.Add(this.cbUseCustomScreenshotsPath);
             this.tpPaths.Controls.Add(this.lblSaveImageSubFolderPattern);
-            this.tpPaths.Controls.Add(this.btnBrowseCustomHistoryPath);
             this.tpPaths.Controls.Add(this.lblSaveImageSubFolderPatternPreview);
-            this.tpPaths.Controls.Add(this.txtCustomUploadersConfigPath);
             this.tpPaths.Controls.Add(this.txtSaveImageSubFolderPattern);
-            this.tpPaths.Controls.Add(this.cbUseCustomHistoryPath);
-            this.tpPaths.Controls.Add(this.btnBrowseCustomUploadersConfigPath);
             this.tpPaths.Location = new System.Drawing.Point(4, 22);
             this.tpPaths.Name = "tpPaths";
             this.tpPaths.Padding = new System.Windows.Forms.Padding(3);
@@ -245,9 +243,55 @@
             this.tpPaths.Text = "Paths";
             this.tpPaths.UseVisualStyleBackColor = true;
             // 
+            // btnOpenScreenshotsFolder
+            // 
+            this.btnOpenScreenshotsFolder.Location = new System.Drawing.Point(16, 208);
+            this.btnOpenScreenshotsFolder.Name = "btnOpenScreenshotsFolder";
+            this.btnOpenScreenshotsFolder.Size = new System.Drawing.Size(80, 23);
+            this.btnOpenScreenshotsFolder.TabIndex = 18;
+            this.btnOpenScreenshotsFolder.Text = "Open...";
+            this.btnOpenScreenshotsFolder.UseVisualStyleBackColor = true;
+            this.btnOpenScreenshotsFolder.Click += new System.EventHandler(this.btnOpenScreenshotsFolder_Click);
+            // 
+            // lblPreviewPersonalFolderPath
+            // 
+            this.lblPreviewPersonalFolderPath.AutoSize = true;
+            this.lblPreviewPersonalFolderPath.Location = new System.Drawing.Point(104, 69);
+            this.lblPreviewPersonalFolderPath.Name = "lblPreviewPersonalFolderPath";
+            this.lblPreviewPersonalFolderPath.Size = new System.Drawing.Size(16, 13);
+            this.lblPreviewPersonalFolderPath.TabIndex = 17;
+            this.lblPreviewPersonalFolderPath.Text = "...";
+            // 
+            // btnBrowsePersonalFolderPath
+            // 
+            this.btnBrowsePersonalFolderPath.Location = new System.Drawing.Point(432, 39);
+            this.btnBrowsePersonalFolderPath.Name = "btnBrowsePersonalFolderPath";
+            this.btnBrowsePersonalFolderPath.Size = new System.Drawing.Size(80, 23);
+            this.btnBrowsePersonalFolderPath.TabIndex = 16;
+            this.btnBrowsePersonalFolderPath.Text = "Browse...";
+            this.btnBrowsePersonalFolderPath.UseVisualStyleBackColor = true;
+            this.btnBrowsePersonalFolderPath.Click += new System.EventHandler(this.btnBrowsePersonalFolderPath_Click);
+            // 
+            // lblPersonalFolderPath
+            // 
+            this.lblPersonalFolderPath.AutoSize = true;
+            this.lblPersonalFolderPath.Location = new System.Drawing.Point(16, 16);
+            this.lblPersonalFolderPath.Name = "lblPersonalFolderPath";
+            this.lblPersonalFolderPath.Size = new System.Drawing.Size(117, 13);
+            this.lblPersonalFolderPath.TabIndex = 15;
+            this.lblPersonalFolderPath.Text = "ShareX personal folder:";
+            // 
+            // txtPersonalFolderPath
+            // 
+            this.txtPersonalFolderPath.Location = new System.Drawing.Point(16, 40);
+            this.txtPersonalFolderPath.Name = "txtPersonalFolderPath";
+            this.txtPersonalFolderPath.Size = new System.Drawing.Size(408, 20);
+            this.txtPersonalFolderPath.TabIndex = 14;
+            this.txtPersonalFolderPath.TextChanged += new System.EventHandler(this.txtPersonalFolderPath_TextChanged);
+            // 
             // btnBrowseCustomScreenshotsPath
             // 
-            this.btnBrowseCustomScreenshotsPath.Location = new System.Drawing.Point(432, 191);
+            this.btnBrowseCustomScreenshotsPath.Location = new System.Drawing.Point(432, 151);
             this.btnBrowseCustomScreenshotsPath.Name = "btnBrowseCustomScreenshotsPath";
             this.btnBrowseCustomScreenshotsPath.Size = new System.Drawing.Size(80, 23);
             this.btnBrowseCustomScreenshotsPath.TabIndex = 10;
@@ -255,57 +299,28 @@
             this.btnBrowseCustomScreenshotsPath.UseVisualStyleBackColor = true;
             this.btnBrowseCustomScreenshotsPath.Click += new System.EventHandler(this.btnBrowseCustomScreenshotsPath_Click);
             // 
-            // btnOpenPersonalFolder
+            // btnOpenPersonalFolderPath
             // 
-            this.btnOpenPersonalFolder.Location = new System.Drawing.Point(16, 16);
-            this.btnOpenPersonalFolder.Name = "btnOpenPersonalFolder";
-            this.btnOpenPersonalFolder.Size = new System.Drawing.Size(176, 23);
-            this.btnOpenPersonalFolder.TabIndex = 0;
-            this.btnOpenPersonalFolder.Text = "Open ShareX personal folder";
-            this.btnOpenPersonalFolder.UseVisualStyleBackColor = true;
-            this.btnOpenPersonalFolder.Click += new System.EventHandler(this.btnOpenPersonalFolder_Click);
-            // 
-            // btnLoadUploadersConfig
-            // 
-            this.btnLoadUploadersConfig.Location = new System.Drawing.Point(432, 79);
-            this.btnLoadUploadersConfig.Name = "btnLoadUploadersConfig";
-            this.btnLoadUploadersConfig.Size = new System.Drawing.Size(80, 23);
-            this.btnLoadUploadersConfig.TabIndex = 4;
-            this.btnLoadUploadersConfig.Text = "Load";
-            this.btnLoadUploadersConfig.UseVisualStyleBackColor = true;
-            this.btnLoadUploadersConfig.Click += new System.EventHandler(this.btnLoadUploadersConfig_Click);
-            // 
-            // txtCustomHistoryPath
-            // 
-            this.txtCustomHistoryPath.Location = new System.Drawing.Point(16, 136);
-            this.txtCustomHistoryPath.Name = "txtCustomHistoryPath";
-            this.txtCustomHistoryPath.Size = new System.Drawing.Size(408, 20);
-            this.txtCustomHistoryPath.TabIndex = 6;
-            this.txtCustomHistoryPath.TextChanged += new System.EventHandler(this.txtCustomHistoryPath_TextChanged);
+            this.btnOpenPersonalFolderPath.Location = new System.Drawing.Point(16, 64);
+            this.btnOpenPersonalFolderPath.Name = "btnOpenPersonalFolderPath";
+            this.btnOpenPersonalFolderPath.Size = new System.Drawing.Size(80, 23);
+            this.btnOpenPersonalFolderPath.TabIndex = 0;
+            this.btnOpenPersonalFolderPath.Text = "Open...";
+            this.btnOpenPersonalFolderPath.UseVisualStyleBackColor = true;
+            this.btnOpenPersonalFolderPath.Click += new System.EventHandler(this.btnOpenPersonalFolder_Click);
             // 
             // txtCustomScreenshotsPath
             // 
-            this.txtCustomScreenshotsPath.Location = new System.Drawing.Point(16, 192);
+            this.txtCustomScreenshotsPath.Location = new System.Drawing.Point(16, 152);
             this.txtCustomScreenshotsPath.Name = "txtCustomScreenshotsPath";
             this.txtCustomScreenshotsPath.Size = new System.Drawing.Size(408, 20);
             this.txtCustomScreenshotsPath.TabIndex = 9;
             this.txtCustomScreenshotsPath.TextChanged += new System.EventHandler(this.txtCustomScreenshotsPath_TextChanged);
             // 
-            // cbUseCustomUploadersConfigPath
-            // 
-            this.cbUseCustomUploadersConfigPath.AutoSize = true;
-            this.cbUseCustomUploadersConfigPath.Location = new System.Drawing.Point(16, 56);
-            this.cbUseCustomUploadersConfigPath.Name = "cbUseCustomUploadersConfigPath";
-            this.cbUseCustomUploadersConfigPath.Size = new System.Drawing.Size(201, 17);
-            this.cbUseCustomUploadersConfigPath.TabIndex = 1;
-            this.cbUseCustomUploadersConfigPath.Text = "Use custom uploader config file path:";
-            this.cbUseCustomUploadersConfigPath.UseVisualStyleBackColor = true;
-            this.cbUseCustomUploadersConfigPath.CheckedChanged += new System.EventHandler(this.cbUseCustomUploadersConfigPath_CheckedChanged);
-            // 
             // cbUseCustomScreenshotsPath
             // 
             this.cbUseCustomScreenshotsPath.AutoSize = true;
-            this.cbUseCustomScreenshotsPath.Location = new System.Drawing.Point(16, 168);
+            this.cbUseCustomScreenshotsPath.Location = new System.Drawing.Point(16, 128);
             this.cbUseCustomScreenshotsPath.Name = "cbUseCustomScreenshotsPath";
             this.cbUseCustomScreenshotsPath.Size = new System.Drawing.Size(174, 17);
             this.cbUseCustomScreenshotsPath.TabIndex = 8;
@@ -316,67 +331,28 @@
             // lblSaveImageSubFolderPattern
             // 
             this.lblSaveImageSubFolderPattern.AutoSize = true;
-            this.lblSaveImageSubFolderPattern.Location = new System.Drawing.Point(16, 224);
+            this.lblSaveImageSubFolderPattern.Location = new System.Drawing.Point(16, 184);
             this.lblSaveImageSubFolderPattern.Name = "lblSaveImageSubFolderPattern";
             this.lblSaveImageSubFolderPattern.Size = new System.Drawing.Size(94, 13);
             this.lblSaveImageSubFolderPattern.TabIndex = 11;
             this.lblSaveImageSubFolderPattern.Text = "Sub folder pattern:";
             // 
-            // btnBrowseCustomHistoryPath
-            // 
-            this.btnBrowseCustomHistoryPath.Location = new System.Drawing.Point(432, 135);
-            this.btnBrowseCustomHistoryPath.Name = "btnBrowseCustomHistoryPath";
-            this.btnBrowseCustomHistoryPath.Size = new System.Drawing.Size(80, 23);
-            this.btnBrowseCustomHistoryPath.TabIndex = 7;
-            this.btnBrowseCustomHistoryPath.Text = "Browse...";
-            this.btnBrowseCustomHistoryPath.UseVisualStyleBackColor = true;
-            this.btnBrowseCustomHistoryPath.Click += new System.EventHandler(this.btnBrowseCustomHistoryPath_Click);
-            // 
             // lblSaveImageSubFolderPatternPreview
             // 
             this.lblSaveImageSubFolderPatternPreview.AutoSize = true;
-            this.lblSaveImageSubFolderPatternPreview.Location = new System.Drawing.Point(16, 248);
+            this.lblSaveImageSubFolderPatternPreview.Location = new System.Drawing.Point(104, 213);
             this.lblSaveImageSubFolderPatternPreview.Name = "lblSaveImageSubFolderPatternPreview";
             this.lblSaveImageSubFolderPatternPreview.Size = new System.Drawing.Size(16, 13);
             this.lblSaveImageSubFolderPatternPreview.TabIndex = 13;
             this.lblSaveImageSubFolderPatternPreview.Text = "...";
             // 
-            // txtCustomUploadersConfigPath
-            // 
-            this.txtCustomUploadersConfigPath.Location = new System.Drawing.Point(16, 80);
-            this.txtCustomUploadersConfigPath.Name = "txtCustomUploadersConfigPath";
-            this.txtCustomUploadersConfigPath.Size = new System.Drawing.Size(320, 20);
-            this.txtCustomUploadersConfigPath.TabIndex = 2;
-            this.txtCustomUploadersConfigPath.TextChanged += new System.EventHandler(this.txtCustomUploadersConfigPath_TextChanged);
-            // 
             // txtSaveImageSubFolderPattern
             // 
-            this.txtSaveImageSubFolderPattern.Location = new System.Drawing.Point(120, 220);
+            this.txtSaveImageSubFolderPattern.Location = new System.Drawing.Point(120, 180);
             this.txtSaveImageSubFolderPattern.Name = "txtSaveImageSubFolderPattern";
-            this.txtSaveImageSubFolderPattern.Size = new System.Drawing.Size(304, 20);
+            this.txtSaveImageSubFolderPattern.Size = new System.Drawing.Size(392, 20);
             this.txtSaveImageSubFolderPattern.TabIndex = 12;
             this.txtSaveImageSubFolderPattern.TextChanged += new System.EventHandler(this.txtSaveImageSubFolderPattern_TextChanged);
-            // 
-            // cbUseCustomHistoryPath
-            // 
-            this.cbUseCustomHistoryPath.AutoSize = true;
-            this.cbUseCustomHistoryPath.Location = new System.Drawing.Point(16, 112);
-            this.cbUseCustomHistoryPath.Name = "cbUseCustomHistoryPath";
-            this.cbUseCustomHistoryPath.Size = new System.Drawing.Size(158, 17);
-            this.cbUseCustomHistoryPath.TabIndex = 5;
-            this.cbUseCustomHistoryPath.Text = "Use custom history file path:";
-            this.cbUseCustomHistoryPath.UseVisualStyleBackColor = true;
-            this.cbUseCustomHistoryPath.CheckedChanged += new System.EventHandler(this.cbUseCustomHistoryPath_CheckedChanged);
-            // 
-            // btnBrowseCustomUploadersConfigPath
-            // 
-            this.btnBrowseCustomUploadersConfigPath.Location = new System.Drawing.Point(344, 79);
-            this.btnBrowseCustomUploadersConfigPath.Name = "btnBrowseCustomUploadersConfigPath";
-            this.btnBrowseCustomUploadersConfigPath.Size = new System.Drawing.Size(80, 23);
-            this.btnBrowseCustomUploadersConfigPath.TabIndex = 3;
-            this.btnBrowseCustomUploadersConfigPath.Text = "Browse...";
-            this.btnBrowseCustomUploadersConfigPath.UseVisualStyleBackColor = true;
-            this.btnBrowseCustomUploadersConfigPath.Click += new System.EventHandler(this.btnBrowseCustomUploadersConfigPath_Click);
             // 
             // tpProxy
             // 
@@ -737,6 +713,15 @@
             this.pgSettings.Size = new System.Drawing.Size(516, 302);
             this.pgSettings.TabIndex = 0;
             // 
+            // lblNotePersonalFolderPath
+            // 
+            this.lblNotePersonalFolderPath.AutoSize = true;
+            this.lblNotePersonalFolderPath.Location = new System.Drawing.Point(16, 96);
+            this.lblNotePersonalFolderPath.Name = "lblNotePersonalFolderPath";
+            this.lblNotePersonalFolderPath.Size = new System.Drawing.Size(354, 13);
+            this.lblNotePersonalFolderPath.TabIndex = 19;
+            this.lblNotePersonalFolderPath.Text = "Note: You must reopen ShareX for personal folder changes to take effect.";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -751,6 +736,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ShareX - Settings";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingsForm_FormClosed);
             this.Shown += new System.EventHandler(this.SettingsForm_Shown);
             this.Resize += new System.EventHandler(this.SettingsForm_Resize);
             this.tcSettings.ResumeLayout(false);
@@ -780,14 +766,7 @@
         private System.Windows.Forms.TabPage tpGeneral;
         private System.Windows.Forms.TabPage tpProxy;
         private System.Windows.Forms.CheckBox cbSendToMenu;
-        private System.Windows.Forms.TextBox txtCustomHistoryPath;
-        private System.Windows.Forms.CheckBox cbUseCustomHistoryPath;
-        private System.Windows.Forms.Button btnBrowseCustomHistoryPath;
-        private System.Windows.Forms.Button btnOpenPersonalFolder;
-        private System.Windows.Forms.Button btnBrowseCustomUploadersConfigPath;
-        private System.Windows.Forms.TextBox txtCustomUploadersConfigPath;
-        private System.Windows.Forms.CheckBox cbUseCustomUploadersConfigPath;
-        private System.Windows.Forms.Button btnLoadUploadersConfig;
+        private System.Windows.Forms.Button btnOpenPersonalFolderPath;
         private System.Windows.Forms.CheckBox cbShowTray;
         private System.Windows.Forms.CheckBox cbStartWithWindows;
         private System.Windows.Forms.Label lblSaveImageSubFolderPatternPreview;
@@ -835,5 +814,11 @@
         private System.Windows.Forms.CheckBox cbTaskbarProgressEnabled;
         private System.Windows.Forms.CheckBox cbTrayIconProgressEnabled;
         private System.Windows.Forms.CheckBox cbRememberMainFormSize;
+        private System.Windows.Forms.Label lblPreviewPersonalFolderPath;
+        private System.Windows.Forms.Button btnBrowsePersonalFolderPath;
+        private System.Windows.Forms.Label lblPersonalFolderPath;
+        private System.Windows.Forms.TextBox txtPersonalFolderPath;
+        private System.Windows.Forms.Button btnOpenScreenshotsFolder;
+        private System.Windows.Forms.Label lblNotePersonalFolderPath;
     }
 }

@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -40,7 +40,6 @@ namespace UploadersLib.URLShorteners
             {
                 Dictionary<string, string> arguments = new Dictionary<string, string>();
                 arguments.Add("url", url);
-                // arguments.Add("tag", settings.Tag);
 
                 result.Response = SendGetRequest(APIURL, arguments);
 

@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -69,31 +69,35 @@ namespace HelpersLib
 {
     public static class ImageHelpers
     {
-        public static Image ResizeImage(Image img, int width, int height)
-        {
-            return ResizeImage(img, 0, 0, width, height);
-        }
-
         public static Image ResizeImage(Image img, Size size)
         {
-            return ResizeImage(img, 0, 0, size.Width, size.Height);
+            return ResizeImage(img, size.Width, size.Height);
         }
 
-        public static Image ResizeImage(Image img, int x, int y, int width, int height)
+        public static Image ResizeImage(Image img, int width, int height)
         {
             if (width < 1 || height < 1 || (img.Width == width && img.Height == height))
             {
                 return img;
             }
 
-            Bitmap bmp = new Bitmap(x + width, y + height, img.PixelFormat);
+            Bitmap bmp = new Bitmap(width, height, img.PixelFormat);
             bmp.SetResolution(img.HorizontalResolution, img.VerticalResolution);
 
-            using (Graphics g = Graphics.FromImage(bmp))
             using (img)
+            using (Graphics g = Graphics.FromImage(bmp))
             {
-                g.SetHighQuality();
-                g.DrawImage(img, x, y, width, height);
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.CompositingQuality = CompositingQuality.HighQuality;
+                g.CompositingMode = CompositingMode.SourceOver;
+
+                using (ImageAttributes ia = new ImageAttributes())
+                {
+                    ia.SetWrapMode(WrapMode.TileFlipXY);
+                    g.DrawImage(img, new Rectangle(0, 0, width, height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
+                }
             }
 
             return bmp;
@@ -111,17 +115,17 @@ namespace HelpersLib
             return ResizeImage(img, width, height);
         }
 
-        public static Image ResizeImage(Image img, int width, int height, bool allowEnlarge, bool centerImage)
+        public static Image ResizeImage(Image img, Size size, bool allowEnlarge, bool centerImage = true)
         {
-            return ResizeImage(img, 0, 0, width, height, allowEnlarge, centerImage);
+            return ResizeImage(img, size.Width, size.Height, allowEnlarge, centerImage);
         }
 
-        public static Image ResizeImage(Image img, Rectangle rect, bool allowEnlarge, bool centerImage)
+        public static Image ResizeImage(Image img, int width, int height, bool allowEnlarge, bool centerImage = true)
         {
-            return ResizeImage(img, rect.X, rect.Y, rect.Width, rect.Height, allowEnlarge, centerImage);
+            return ResizeImage(img, width, height, allowEnlarge, centerImage, Color.Transparent);
         }
 
-        public static Image ResizeImage(Image img, int x, int y, int width, int height, bool allowEnlarge, bool centerImage)
+        public static Image ResizeImage(Image img, int width, int height, bool allowEnlarge, bool centerImage, Color backColor)
         {
             double ratio;
             int newWidth, newHeight;
@@ -141,8 +145,8 @@ namespace HelpersLib
                 newHeight = (int)(img.Height * ratio);
             }
 
-            int newX = x;
-            int newY = y;
+            int newX = 0;
+            int newY = 0;
 
             if (centerImage)
             {
@@ -150,7 +154,40 @@ namespace HelpersLib
                 newY += (int)((height - (img.Height * ratio)) / 2);
             }
 
-            return ResizeImage(img, newX, newY, newWidth, newHeight);
+            Bitmap bmp = new Bitmap(width, height, img.PixelFormat);
+            bmp.SetResolution(img.HorizontalResolution, img.VerticalResolution);
+
+            using (Graphics g = Graphics.FromImage(bmp))
+            using (img)
+            {
+                g.Clear(backColor);
+                g.SetHighQuality();
+                g.DrawImage(img, newX, newY, newWidth, newHeight);
+            }
+
+            return bmp;
+        }
+
+        public static Image ResizeImageLimit(Image img, Size size)
+        {
+            return ResizeImageLimit(img, size.Width, size.Height);
+        }
+
+        /// <summary>If image size bigger than "size" then resize it and keep aspect ratio else return image.</summary>
+        public static Image ResizeImageLimit(Image img, int width, int height)
+        {
+            if (img.Width <= width && img.Height <= height)
+            {
+                return img;
+            }
+
+            double ratioX = (double)width / img.Width;
+            double ratioY = (double)height / img.Height;
+            double ratio = ratioX < ratioY ? ratioX : ratioY;
+            int newWidth = (int)(img.Width * ratio);
+            int newHeight = (int)(img.Height * ratio);
+
+            return ResizeImage(img, newWidth, newHeight);
         }
 
         public static Image CropImage(Image img, Rectangle rect)
@@ -1052,9 +1089,16 @@ namespace HelpersLib
         // http://stackoverflow.com/questions/788335/why-does-image-fromfile-keep-a-file-handle-open-sometimes
         public static Image LoadImage(string filePath)
         {
-            if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
+            try
             {
-                return Image.FromStream(new MemoryStream(File.ReadAllBytes(filePath)));
+                if (!string.IsNullOrEmpty(filePath) && Helpers.IsImageFile(filePath) && File.Exists(filePath))
+                {
+                    return Image.FromStream(new MemoryStream(File.ReadAllBytes(filePath)));
+                }
+            }
+            catch (Exception e)
+            {
+                DebugHelper.WriteException(e);
             }
 
             return null;

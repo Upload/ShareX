@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -302,28 +302,21 @@ namespace ShareX
 
                                 if (!info.TaskSettings.AdvancedSettings.DisableNotifications)
                                 {
-                                    string balloonTipText = result;
+                                    if (task.Info.TaskSettings.GeneralSettings.PlaySoundAfterUpload)
+                                    {
+                                        SystemSounds.Exclamation.Play();
+                                    }
+
+                                    if (!string.IsNullOrEmpty(info.TaskSettings.AdvancedSettings.BalloonTipContentFormat))
+                                    {
+                                        result = new UploadInfoParser().Parse(info, info.TaskSettings.AdvancedSettings.BalloonTipContentFormat);
+                                    }
+                                    TaskHelpers.ShowResultNotifications(result, info.TaskSettings, info.FilePath);
 
                                     if (info.TaskSettings.GeneralSettings.ShowAfterUploadForm)
                                     {
                                         AfterUploadForm dlg = new AfterUploadForm(info);
                                         NativeMethods.ShowWindow(dlg.Handle, (int)WindowShowStyle.ShowNoActivate);
-                                    }
-
-                                    if (!string.IsNullOrEmpty(info.TaskSettings.AdvancedSettings.BalloonTipContentFormat))
-                                    {
-                                        balloonTipText = new UploadInfoParser().Parse(info, info.TaskSettings.AdvancedSettings.BalloonTipContentFormat);
-                                    }
-
-                                    if (!string.IsNullOrEmpty(balloonTipText) && task.Info.TaskSettings.GeneralSettings.TrayBalloonTipAfterUpload && Program.MainForm.niTray.Visible)
-                                    {
-                                        Program.MainForm.niTray.Tag = result;
-                                        Program.MainForm.niTray.ShowBalloonTip(5000, "ShareX - Task completed", balloonTipText, ToolTipIcon.Info);
-                                    }
-
-                                    if (task.Info.TaskSettings.GeneralSettings.PlaySoundAfterUpload)
-                                    {
-                                        SystemSounds.Exclamation.Play();
                                     }
                                 }
                             }

@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -74,10 +74,14 @@ namespace ScreenCaptureLib
                         form.BackColor = Color.White;
                         form.FormBorderStyle = FormBorderStyle.None;
                         form.ShowInTaskbar = false;
+                        form.StartPosition = FormStartPosition.Manual;
+                        form.Location = new Point(rect.X, rect.Y);
+                        form.Size = new Size(rect.Width, rect.Height);
 
-                        NativeMethods.ShowWindow(form.Handle, (int)WindowShowStyle.ShowNormalNoActivate);
+                        NativeMethods.ShowWindow(form.Handle, (int)WindowShowStyle.ShowNoActivate);
 
-                        if (!NativeMethods.SetWindowPos(form.Handle, handle, rect.X, rect.Y, rect.Width, rect.Height, NativeMethods.SWP_NOACTIVATE))
+                        if (!NativeMethods.SetWindowPos(form.Handle, handle, 0, 0, 0, 0,
+                            SetWindowPosFlags.SWP_NOMOVE | SetWindowPosFlags.SWP_NOSIZE | SetWindowPosFlags.SWP_NOACTIVATE))
                         {
                             form.Close();
                             DebugHelper.WriteLine("Transparent capture failed. Reason: SetWindowPos fail.");

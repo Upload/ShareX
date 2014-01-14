@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -30,6 +30,7 @@ using Newtonsoft.Json;
 using ScreenCaptureLib;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using UploadersLib;
 
 namespace ShareX
@@ -167,6 +168,7 @@ namespace ShareX
                 {
                     CaptureSettings = defaultTaskSettings.CaptureSettings;
                 }
+
                 if (UseDefaultUploadSettings)
                 {
                     UploadSettings = defaultTaskSettings.UploadSettings;
@@ -193,9 +195,9 @@ namespace ShareX
     public class TaskSettingsGeneral
     {
         public bool PlaySoundAfterCapture = true;
-        public bool PlaySoundAfterUpload = true;
-        public bool TrayBalloonTipAfterUpload = true;
         public bool ShowAfterCaptureTasksForm = false;
+        public bool PlaySoundAfterUpload = true;
+        public PopUpNotificationType PopUpNotification = PopUpNotificationType.ToastNotification;
         public bool ShowAfterUploadForm = false;
         public bool SaveHistory = true;
     }
@@ -286,12 +288,24 @@ namespace ShareX
         [Category("General"), DefaultValue(false), Description("Use after capture tasks for clipboard image upload.")]
         public bool ProcessImagesDuringClipboardUpload { get; set; }
 
+        [Category("Image"), DefaultValue(256), Description("Preferred thumbnail width. 0 means aspect ratio will be used to adjust width according to height")]
+        public int ThumbnailPreferredWidth { get; set; }
+
+        [Category("Image"), DefaultValue(0), Description("Preferred thumbnail height. 0 means aspect ratio will be used to adjust height according to width.")]
+        public int ThumbnailPreferredHeight { get; set; }
+
         [Category("After upload"), DefaultValue(""),
         Description("Clipboard content format after uploading. Supported variables: $result, $url, $shorturl, $thumbnailurl, $deletionurl, $filepath, $filename, $filenamenoext, $folderpath, $foldername, $uploadtime and other variables such as %y-%mo-%d etc.")]
         public string ClipboardContentFormat { get; set; }
 
         [Category("After upload"), DefaultValue(""), Description("Balloon tip content format after uploading. Supported variables: $result, $url, $shorturl, $thumbnailurl, $deletionurl, $filepath, $filename, $filenamenoext, $folderpath, $foldername, $uploadtime and other variables such as %y-%mo-%d etc.")]
         public string BalloonTipContentFormat { get; set; }
+
+        [Category("After upload"), DefaultValue(4f), Description("How much toast window will stay on screen.")]
+        public float ToastWindowDuration { get; set; }
+
+        [Category("After upload"), DefaultValue(typeof(Size), "400, 300"), Description("Maximum toast window size.")]
+        public Size ToastWindowSize { get; set; }
 
         [Category("After upload"), DefaultValue(false), Description("After upload form will be automatically closed after 60 seconds.")]
         public bool AutoCloseAfterUploadForm { get; set; }
@@ -307,6 +321,12 @@ namespace ShareX
 
         [Category("Upload text"), DefaultValue("text"), Description("Text format e.g. csharp, cpp, etc.")]
         public string TextFormat { get; set; }
+
+        [Category("Name pattern"), DefaultValue(100), Description("Maximum name pattern length for file name.")]
+        public int NamePatternMaxLength { get; set; }
+
+        [Category("Name pattern"), DefaultValue(50), Description("Maximum name pattern title (%t) length for file name.")]
+        public int NamePatternMaxTitleLength { get; set; }
 
         public TaskSettingsAdvanced()
         {

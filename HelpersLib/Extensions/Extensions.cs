@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -189,6 +189,26 @@ namespace HelpersLib
         public static bool IsValid(this Rectangle rect)
         {
             return rect.Width > 0 && rect.Height > 0;
+        }
+
+        public static Size Offset(this Size size, int offset)
+        {
+            return new Size(size.Width + offset, size.Height + offset);
+        }
+
+        public static Rectangle RectangleOffset(this Rectangle rect, int offset)
+        {
+            return new Rectangle(rect.X - offset, rect.Y - offset, rect.Width + offset * 2, rect.Height + offset * 2);
+        }
+
+        public static Rectangle LocationOffset(this Rectangle rect, int offset)
+        {
+            return new Rectangle(rect.X + offset, rect.Y + offset, rect.Width, rect.Height);
+        }
+
+        public static Rectangle LocationOffset(this Rectangle rect, int x, int y)
+        {
+            return new Rectangle(rect.X + x, rect.Y + y, rect.Width, rect.Height);
         }
 
         public static Rectangle SizeOffset(this Rectangle rect, int offset)

@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -71,34 +71,51 @@ namespace UploadersLib
 
         private void atcImageShackAccountType_AccountTypeChanged(AccountType accountType)
         {
-            Config.ImageShackAccountType = accountType;
-        }
-
-        private void txtImageShackRegistrationCode_TextChanged(object sender, EventArgs e)
-        {
-            Config.ImageShackRegistrationCode = txtImageShackRegistrationCode.Text;
+            Config.ImageShackSettings.AccountType = accountType;
         }
 
         private void txtImageShackUsername_TextChanged(object sender, EventArgs e)
         {
-            Config.ImageShackUsername = txtImageShackUsername.Text;
+            Config.ImageShackSettings.Username = txtImageShackUsername.Text;
+        }
+
+        private void txtImageShackPassword_TextChanged(object sender, EventArgs e)
+        {
+            Config.ImageShackSettings.Password = txtImageShackPassword.Text;
+        }
+
+        private void btnImageShackLogin_Click(object sender, EventArgs e)
+        {
+            ImageShackUploader imageShackUploader = new ImageShackUploader(ApiKeys.ImageShackKey, Config.ImageShackSettings);
+
+            try
+            {
+                if (imageShackUploader.GetAccessToken())
+                {
+                    MessageBox.Show("Login successful.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Login failed.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugHelper.WriteException(ex);
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void cbImageShackIsPublic_CheckedChanged(object sender, EventArgs e)
         {
-            Config.ImageShackShowImagesInPublic = cbImageShackIsPublic.Checked;
-        }
-
-        private void btnImageShackOpenRegistrationCode_Click(object sender, EventArgs e)
-        {
-            Helpers.LoadBrowserAsync("http://profile.imageshack.us/prefs/");
+            Config.ImageShackSettings.IsPublic = cbImageShackIsPublic.Checked;
         }
 
         private void btnImageShackOpenPublicProfile_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(Config.ImageShackUsername))
+            if (!string.IsNullOrEmpty(Config.ImageShackSettings.Username))
             {
-                Helpers.LoadBrowserAsync("http://profile.imageshack.us/user/" + Config.ImageShackUsername);
+                Helpers.LoadBrowserAsync("https://imageshack.com/user/" + Config.ImageShackSettings.Username);
             }
             else
             {
@@ -108,7 +125,7 @@ namespace UploadersLib
 
         private void btnImageShackOpenMyImages_Click(object sender, EventArgs e)
         {
-            Helpers.LoadBrowserAsync("http://my.imageshack.us/v_images.php");
+            Helpers.LoadBrowserAsync("https://imageshack.com/my/images");
         }
 
         #endregion ImageShack
@@ -151,29 +168,18 @@ namespace UploadersLib
                     if (!string.IsNullOrEmpty(registrationCode))
                     {
                         Config.TinyPicRegistrationCode = registrationCode;
-                        txtTinyPicRegistrationCode.Text = registrationCode;
+                        MessageBox.Show("Login successful.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Login failed.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)
                 {
                     DebugHelper.WriteException(ex);
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-        }
-
-        private void cbTinyPicRememberUsernamePassword_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.TinyPicRememberUserPass = cbTinyPicRememberUsernamePassword.Checked;
-
-            if (Config.TinyPicRememberUserPass)
-            {
-                Config.TinyPicUsername = txtTinyPicUsername.Text;
-                Config.TinyPicPassword = txtTinyPicPassword.Text;
-            }
-            else
-            {
-                Config.TinyPicUsername = string.Empty;
-                Config.TinyPicPassword = string.Empty;
             }
         }
 
@@ -580,11 +586,6 @@ namespace UploadersLib
             Config.FTPSelectedFile = cboFtpFiles.SelectedIndex;
         }
 
-        private void btnFtpHelp_Click(object sender, EventArgs e)
-        {
-            //Helpers.LoadBrowserAsync(Links.URL_WIKI_FTPAccounts);
-        }
-
         private void btnFtpClient_Click(object sender, EventArgs e)
         {
             FTPOpenClient();
@@ -760,7 +761,257 @@ namespace UploadersLib
 
         #endregion Localhostr
 
-        #region Custom Uploader
+        #region Jira
+
+        private void txtJiraHost_TextChanged(object sender, EventArgs e)
+        {
+            Config.JiraHost = txtJiraHost.Text;
+        }
+
+        private void txtJiraIssuePrefix_TextChanged(object sender, EventArgs e)
+        {
+            Config.JiraIssuePrefix = txtJiraIssuePrefix.Text;
+        }
+
+        private void oAuthJira_OpenButtonClicked()
+        {
+            JiraAuthOpen();
+        }
+
+        private void oAuthJira_CompleteButtonClicked(string code)
+        {
+            JiraAuthComplete(code);
+        }
+
+        private void oAuthJira_RefreshButtonClicked()
+        {
+            MessageBox.Show("Refresh authorization is not supported.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        #endregion Jira
+
+        #region Mega
+
+        private void MegaConfigureTab(bool tryLogin)
+        {
+            Color OkColor = Color.Green;
+            Color NokColor = Color.DarkRed;
+
+            tpMega.Enabled = false;
+
+            atcMegaAccountType.AccountTypeChanged -= atcMegaAccountType_AccountTypeChanged;
+            atcMegaAccountType.SelectedAccountType = Config.MegaAnonymousLogin ? AccountType.Anonymous : AccountType.User;
+            atcMegaAccountType.AccountTypeChanged += atcMegaAccountType_AccountTypeChanged;
+
+            pnlMegaLogin.Enabled = !Config.MegaAnonymousLogin;
+
+            if (Config.MegaAuthInfos != null)
+            {
+                txtMegaEmail.Text = Config.MegaAuthInfos.Email;
+            }
+
+            if (Config.MegaAnonymousLogin)
+            {
+                lblMegaStatus.Text = "Configured (anonymous)";
+                lblMegaStatus.ForeColor = OkColor;
+            }
+            else if (Config.MegaAuthInfos == null)
+            {
+                lblMegaStatus.Text = "Not configured";
+                lblMegaStatus.ForeColor = NokColor;
+            }
+            else
+            {
+                cbMegaFolder.Items.Clear();
+
+                Mega mega = new Mega(Config.MegaAuthInfos);
+                if (!tryLogin || mega.TryLogin())
+                {
+                    lblMegaStatus.Text = "Configured";
+                    lblMegaStatus.ForeColor = OkColor;
+
+                    if (tryLogin)
+                    {
+                        Mega.DisplayNode[] nodes = mega.GetDisplayNodes().ToArray();
+                        cbMegaFolder.Items.AddRange(nodes);
+                        cbMegaFolder.SelectedItem = nodes.FirstOrDefault(n => n.Node != null && n.Node.Id == Config.MegaParentNodeId) ?? Mega.DisplayNode.EmptyNode;
+                    }
+                    else
+                    {
+                        cbMegaFolder.Items.Add("[Click refresh folders]");
+                        cbMegaFolder.SelectedIndex = 0;
+                    }
+                }
+                else
+                {
+                    lblMegaStatus.Text = "Invalid authentication";
+                    lblMegaStatus.ForeColor = NokColor;
+                }
+            }
+
+            tpMega.Enabled = true;
+        }
+
+        private void atcMegaAccountType_AccountTypeChanged(AccountType accountType)
+        {
+            Config.MegaAnonymousLogin = accountType == AccountType.Anonymous;
+            Config.MegaAuthInfos = null;
+            Config.MegaParentNodeId = null;
+            txtMegaEmail.Text = null;
+            txtMegaPassword.Text = null;
+            cbMegaFolder.SelectedIndex = -1;
+            MegaConfigureTab(true);
+        }
+
+        private void btnMegaLogin_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtMegaEmail.Text) || string.IsNullOrEmpty(txtMegaPassword.Text))
+            {
+                return;
+            }
+
+            Config.MegaAuthInfos = MegaApiClient.GenerateAuthInfos(txtMegaEmail.Text, txtMegaPassword.Text);
+
+            MegaConfigureTab(true);
+        }
+
+        private void cbMegaFolder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Mega.DisplayNode selectedNode = ((ComboBox)sender).SelectedItem as Mega.DisplayNode;
+            if (selectedNode != null)
+            {
+                Config.MegaParentNodeId = selectedNode == Mega.DisplayNode.EmptyNode ? null : selectedNode.Node.Id;
+            }
+        }
+
+        private void btnMegaRegister_Click(object sender, EventArgs e)
+        {
+            Helpers.LoadBrowserAsync("https://mega.co.nz/#register");
+        }
+
+        private void btnMegaRefreshFolders_Click(object sender, EventArgs e)
+        {
+            MegaConfigureTab(true);
+        }
+
+        #endregion Mega
+
+        #endregion File Uploaders
+
+        #region Text Uploaders
+
+        #region Pastebin
+
+        private void btnPastebinLogin_Click(object sender, EventArgs e)
+        {
+            PastebinLogin();
+        }
+
+        #endregion Pastebin
+
+        #region Paste.ee
+
+        private void txtPaste_eeUserAPIKey_TextChanged(object sender, EventArgs e)
+        {
+            Config.Paste_eeUserAPIKey = txtPaste_eeUserAPIKey.Text;
+        }
+
+        #endregion Paste.ee
+
+        #region Gist
+
+        private void atcGistAccountType_AccountTypeChanged(AccountType accountType)
+        {
+            this.Config.GistAnonymousLogin = accountType == AccountType.Anonymous;
+            this.oAuth2Gist.Enabled = !this.Config.GistAnonymousLogin;
+        }
+
+        private void oAuth2Gist_OpenButtonClicked()
+        {
+            this.GistAuthOpen();
+        }
+
+        private void oAuth2Gist_CompleteButtonClicked(string code)
+        {
+            this.GistAuthComplete(code);
+        }
+
+        private void chkGistPublishPublic_CheckedChanged(object sender, EventArgs e)
+        {
+            this.Config.GistPublishPublic = ((CheckBox)sender).Checked;
+        }
+
+        #endregion Gist
+
+        #endregion Text Uploaders
+
+        #region URL Shorteners
+
+        #region Google URL Shortener
+
+        private void atcGoogleURLShortenerAccountType_AccountTypeChanged(AccountType accountType)
+        {
+            Config.GoogleURLShortenerAccountType = accountType;
+        }
+
+        private void oauth2GoogleURLShortener_OpenButtonClicked()
+        {
+            GoogleURLShortenerAuthOpen();
+        }
+
+        private void oauth2GoogleURLShortener_CompleteButtonClicked(string code)
+        {
+            GoogleURLShortenerAuthComplete(code);
+        }
+
+        private void oauth2GoogleURLShortener_RefreshButtonClicked()
+        {
+            GoogleURLShortenerAuthRefresh();
+        }
+
+        #endregion Google URL Shortener
+
+        #region bit.ly
+
+        private void oauth2Bitly_OpenButtonClicked()
+        {
+            BitlyAuthOpen();
+        }
+
+        private void oauth2Bitly_CompleteButtonClicked(string code)
+        {
+            BitlyAuthComplete(code);
+        }
+
+        #endregion bit.ly
+
+        #endregion URL Shorteners
+
+        #region Other Services
+
+        private void btnTwitterLogin_Click(object sender, EventArgs e)
+        {
+            TwitterLogin();
+        }
+
+        private void cboSharedFolderImages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Config.LocalhostSelectedImages = cboSharedFolderImages.SelectedIndex;
+        }
+
+        private void cboSharedFolderText_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Config.LocalhostSelectedText = cboSharedFolderText.SelectedIndex;
+        }
+
+        private void cboSharedFolderFiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Config.LocalhostSelectedFiles = cboSharedFolderFiles.SelectedIndex;
+        }
+
+        #endregion Other Services
+
+        #region Custom Uploaders
 
         private void btnCustomUploaderAdd_Click(object sender, EventArgs e)
         {
@@ -1000,6 +1251,11 @@ namespace UploadersLib
             }
         }
 
+        private void btnCustomUploaderHelp_Click(object sender, EventArgs e)
+        {
+            Helpers.LoadBrowserAsync(Links.URL_DOCS_CUSTOM_UPLOADER);
+        }
+
         private void btnCustomUploaderShowLastResponse_Click(object sender, EventArgs e)
         {
             string response = btnCustomUploaderShowLastResponse.Tag as string;
@@ -1018,243 +1274,6 @@ namespace UploadersLib
             Helpers.LoadBrowserAsync(e.LinkText);
         }
 
-        #endregion Custom Uploader
-
-        #region Jira
-
-        private void txtJiraHost_TextChanged(object sender, EventArgs e)
-        {
-            Config.JiraHost = txtJiraHost.Text;
-        }
-
-        private void txtJiraIssuePrefix_TextChanged(object sender, EventArgs e)
-        {
-            Config.JiraIssuePrefix = txtJiraIssuePrefix.Text;
-        }
-
-        private void oAuthJira_OpenButtonClicked()
-        {
-            JiraAuthOpen();
-        }
-
-        private void oAuthJira_CompleteButtonClicked(string code)
-        {
-            JiraAuthComplete(code);
-        }
-
-        private void oAuthJira_RefreshButtonClicked()
-        {
-            MessageBox.Show("Refresh authorization is not supported.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        #endregion Jira
-
-        #region Mega
-
-        private void MegaConfigureTab(bool tryLogin)
-        {
-            Color OkColor = Color.Green;
-            Color NokColor = Color.DarkRed;
-
-            tpMega.Enabled = false;
-
-            atcMegaAccountType.AccountTypeChanged -= atcMegaAccountType_AccountTypeChanged;
-            atcMegaAccountType.SelectedAccountType = Config.MegaAnonymousLogin ? AccountType.Anonymous : AccountType.User;
-            atcMegaAccountType.AccountTypeChanged += atcMegaAccountType_AccountTypeChanged;
-
-            pnlMegaLogin.Enabled = !Config.MegaAnonymousLogin;
-
-            if (Config.MegaAuthInfos != null)
-            {
-                txtMegaEmail.Text = Config.MegaAuthInfos.Email;
-            }
-
-            if (Config.MegaAnonymousLogin)
-            {
-                lblMegaStatus.Text = "Configured (anonymous)";
-                lblMegaStatus.ForeColor = OkColor;
-            }
-            else if (Config.MegaAuthInfos == null)
-            {
-                lblMegaStatus.Text = "Not configured";
-                lblMegaStatus.ForeColor = NokColor;
-            }
-            else
-            {
-                cbMegaFolder.Items.Clear();
-
-                Mega mega = new Mega(Config.MegaAuthInfos);
-                if (!tryLogin || mega.TryLogin())
-                {
-                    lblMegaStatus.Text = "Configured";
-                    lblMegaStatus.ForeColor = OkColor;
-
-                    if (tryLogin)
-                    {
-                        Mega.DisplayNode[] nodes = mega.GetDisplayNodes().ToArray();
-                        cbMegaFolder.Items.AddRange(nodes);
-                        cbMegaFolder.SelectedItem = nodes.FirstOrDefault(n => n.Node != null && n.Node.Id == Config.MegaParentNodeId) ?? Mega.DisplayNode.EmptyNode;
-                    }
-                    else
-                    {
-                        cbMegaFolder.Items.Add("[Click refresh folders]");
-                        cbMegaFolder.SelectedIndex = 0;
-                    }
-                }
-                else
-                {
-                    lblMegaStatus.Text = "Invalid authentication";
-                    lblMegaStatus.ForeColor = NokColor;
-                }
-            }
-
-            tpMega.Enabled = true;
-        }
-
-        private void atcMegaAccountType_AccountTypeChanged(AccountType accountType)
-        {
-            Config.MegaAnonymousLogin = accountType == AccountType.Anonymous;
-            Config.MegaAuthInfos = null;
-            Config.MegaParentNodeId = null;
-            txtMegaEmail.Text = null;
-            txtMegaPassword.Text = null;
-            cbMegaFolder.SelectedIndex = -1;
-            MegaConfigureTab(true);
-        }
-
-        private void btnMegaLogin_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtMegaEmail.Text) || string.IsNullOrEmpty(txtMegaPassword.Text))
-            {
-                return;
-            }
-
-            Config.MegaAuthInfos = MegaApiClient.GenerateAuthInfos(txtMegaEmail.Text, txtMegaPassword.Text);
-
-            MegaConfigureTab(true);
-        }
-
-        private void cbMegaFolder_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Mega.DisplayNode selectedNode = ((ComboBox)sender).SelectedItem as Mega.DisplayNode;
-            if (selectedNode != null)
-            {
-                Config.MegaParentNodeId = selectedNode == Mega.DisplayNode.EmptyNode ? null : selectedNode.Node.Id;
-            }
-        }
-
-        private void btnMegaRegister_Click(object sender, EventArgs e)
-        {
-            Helpers.LoadBrowserAsync("https://mega.co.nz/#register");
-        }
-
-        private void btnMegaRefreshFolders_Click(object sender, EventArgs e)
-        {
-            MegaConfigureTab(true);
-        }
-
-        #endregion Mega
-
-        #endregion File Uploaders
-
-        #region Text Uploaders
-
-        #region Pastebin
-
-        private void btnPastebinLogin_Click(object sender, EventArgs e)
-        {
-            PastebinLogin();
-        }
-
-        #endregion Pastebin
-
-        #region Paste.ee
-
-        private void txtPaste_eeUserAPIKey_TextChanged(object sender, EventArgs e)
-        {
-            Config.Paste_eeUserAPIKey = txtPaste_eeUserAPIKey.Text;
-        }
-
-        #endregion Paste.ee
-
-        #region Gist
-
-        private void atcGistAccountType_AccountTypeChanged(AccountType accountType)
-        {
-            this.Config.GistAnonymousLogin = accountType == AccountType.Anonymous;
-            this.oAuth2Gist.Enabled = !this.Config.GistAnonymousLogin;
-        }
-
-        private void oAuth2Gist_CompleteButtonClicked(string code)
-        {
-            this.GistAuthComplete(code);
-        }
-
-        private void oAuth2Gist_OpenButtonClicked()
-        {
-            this.GistAuthOpen();
-        }
-        
-        private void oAuth2Gist_RefreshButtonClicked()
-        {
-            MessageBox.Show("Refresh authorization is not supported.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void chkGistPublishPublic_CheckedChanged(object sender, EventArgs e)
-        {
-            this.Config.GistPublishPublic = ((CheckBox)sender).Checked;
-        }
-
-        #endregion
-
-        #endregion Text Uploaders
-
-        #region URL Shorteners
-
-        private void atcGoogleURLShortenerAccountType_AccountTypeChanged(AccountType accountType)
-        {
-            Config.GoogleURLShortenerAccountType = accountType;
-        }
-
-        private void oauth2GoogleURLShortener_OpenButtonClicked()
-        {
-            GoogleURLShortenerAuthOpen();
-        }
-
-        private void oauth2GoogleURLShortener_CompleteButtonClicked(string code)
-        {
-            GoogleURLShortenerAuthComplete(code);
-        }
-
-        private void oauth2GoogleURLShortener_RefreshButtonClicked()
-        {
-            GoogleURLShortenerAuthRefresh();
-        }
-
-        #endregion URL Shorteners
-
-        #region Other Services
-
-        private void btnTwitterLogin_Click(object sender, EventArgs e)
-        {
-            TwitterLogin();
-        }
-
-        private void cboSharedFolderImages_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Config.LocalhostSelectedImages = cboSharedFolderImages.SelectedIndex;
-        }
-
-        private void cboSharedFolderText_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Config.LocalhostSelectedText = cboSharedFolderText.SelectedIndex;
-        }
-
-        private void cboSharedFolderFiles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Config.LocalhostSelectedFiles = cboSharedFolderFiles.SelectedIndex;
-        }
-
-        #endregion Other Services
+        #endregion Custom Uploaders
     }
 }

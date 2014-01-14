@@ -2,7 +2,7 @@
 
 /*
     ShareX - A program that allows you to take screenshots and share any file type
-    Copyright (C) 2008-2013 ShareX Developers
+    Copyright (C) 2008-2014 ShareX Developers
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
@@ -35,13 +35,13 @@ using UploadersLib;
 
 namespace ShareX
 {
-    public partial class SettingsForm : Form
+    public partial class ApplicationSettingsForm : Form
     {
         private bool loaded;
         private const int MaxBufferSizePower = 14;
         private ContextMenuStrip cmsSaveImageSubFolderPattern;
 
-        public SettingsForm()
+        public ApplicationSettingsForm()
         {
             InitializeComponent();
             LoadSettings();
@@ -66,10 +66,8 @@ namespace ShareX
             cbRememberMainFormSize.Checked = Program.Settings.RememberMainFormSize;
 
             // Paths
-            cbUseCustomUploadersConfigPath.Checked = Program.Settings.UseCustomUploadersConfigPath;
-            txtCustomUploadersConfigPath.Text = Program.Settings.CustomUploadersConfigPath;
-            cbUseCustomHistoryPath.Checked = Program.Settings.UseCustomHistoryPath;
-            txtCustomHistoryPath.Text = Program.Settings.CustomHistoryPath;
+            txtPersonalFolderPath.Text = Program.ReadPersonalPathConfig();
+            UpdatePersonalFolderPathPreview();
             cbUseCustomScreenshotsPath.Checked = Program.Settings.UseCustomScreenshotsPath;
             txtCustomScreenshotsPath.Text = Program.Settings.CustomScreenshotsPath;
             txtSaveImageSubFolderPattern.Text = Program.Settings.SaveImageSubFolderPattern;
@@ -121,6 +119,11 @@ namespace ShareX
             Refresh();
         }
 
+        private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Program.WritePersonalPathConfig(txtPersonalFolderPath.Text);
+        }
+
         private void UpdateProxyControls()
         {
             switch (Program.Settings.ProxySettings.ProxyMethod)
@@ -136,6 +139,22 @@ namespace ShareX
                     txtProxyHost.Enabled = nudProxyPort.Enabled = cbProxyType.Enabled = false;
                     break;
             }
+        }
+
+        private void UpdatePersonalFolderPathPreview()
+        {
+            string personalPath = txtPersonalFolderPath.Text;
+
+            if (string.IsNullOrEmpty(personalPath))
+            {
+                personalPath = Program.DefaultPersonalPath;
+            }
+            else
+            {
+                personalPath = Path.GetFullPath(personalPath);
+            }
+
+            lblPreviewPersonalFolderPath.Text = personalPath;
         }
 
         #region General
@@ -204,49 +223,19 @@ namespace ShareX
 
         #region Paths
 
+        private void txtPersonalFolderPath_TextChanged(object sender, EventArgs e)
+        {
+            UpdatePersonalFolderPathPreview();
+        }
+
+        private void btnBrowsePersonalFolderPath_Click(object sender, EventArgs e)
+        {
+            Helpers.BrowseFolder("Choose ShareX personal folder path", txtPersonalFolderPath, Program.PersonalPath);
+        }
+
         private void btnOpenPersonalFolder_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(Program.PersonalPath) && Directory.Exists(Program.PersonalPath))
-            {
-                Process.Start(Program.PersonalPath);
-            }
-        }
-
-        private void cbUseCustomUploadersConfigPath_CheckedChanged(object sender, EventArgs e)
-        {
-            Program.Settings.UseCustomUploadersConfigPath = cbUseCustomUploadersConfigPath.Checked;
-        }
-
-        private void txtCustomUploadersConfigPath_TextChanged(object sender, EventArgs e)
-        {
-            Program.Settings.CustomUploadersConfigPath = txtCustomUploadersConfigPath.Text;
-        }
-
-        private void btnBrowseCustomUploadersConfigPath_Click(object sender, EventArgs e)
-        {
-            Helpers.BrowseFile("ShareX - Choose uploaders config file path", txtCustomUploadersConfigPath, Program.PersonalPath);
-            Program.Settings.CustomUploadersConfigPath = txtCustomUploadersConfigPath.Text;
-            Program.LoadUploadersConfig();
-        }
-
-        private void btnLoadUploadersConfig_Click(object sender, EventArgs e)
-        {
-            Program.LoadUploadersConfig();
-        }
-
-        private void cbUseCustomHistoryPath_CheckedChanged(object sender, EventArgs e)
-        {
-            Program.Settings.UseCustomHistoryPath = cbUseCustomHistoryPath.Checked;
-        }
-
-        private void txtCustomHistoryPath_TextChanged(object sender, EventArgs e)
-        {
-            Program.Settings.CustomHistoryPath = txtCustomHistoryPath.Text;
-        }
-
-        private void btnBrowseCustomHistoryPath_Click(object sender, EventArgs e)
-        {
-            Helpers.BrowseFile("ShareX - Choose history file path", txtCustomHistoryPath, Program.PersonalPath);
+            Helpers.OpenFolder(lblPreviewPersonalFolderPath.Text);
         }
 
         private void cbUseCustomScreenshotsPath_CheckedChanged(object sender, EventArgs e)
@@ -270,6 +259,11 @@ namespace ShareX
         {
             Program.Settings.SaveImageSubFolderPattern = txtSaveImageSubFolderPattern.Text;
             lblSaveImageSubFolderPatternPreview.Text = Program.ScreenshotsPath;
+        }
+
+        private void btnOpenScreenshotsFolder_Click(object sender, EventArgs e)
+        {
+            Helpers.OpenFolder(lblSaveImageSubFolderPatternPreview.Text);
         }
 
         #endregion Paths

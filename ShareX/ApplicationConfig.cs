@@ -54,7 +54,7 @@ namespace ShareX
 
         public bool ShowTray = true;
         public bool SilentRun = false;
-        public bool AutoCheckUpdate = true;
+        public bool AutoCheckUpdate = false;
         public bool TrayIconProgressEnabled = true;
         public bool TaskbarProgressEnabled = true;
         public bool RememberMainFormSize = false;

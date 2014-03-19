@@ -53,6 +53,7 @@ namespace ShareX
         #region General
 
         public bool ShowTray = true;
+        public bool SilentRun = false;
         public bool AutoCheckUpdate = true;
         public bool TrayIconProgressEnabled = true;
         public bool TaskbarProgressEnabled = true;
@@ -121,6 +122,7 @@ namespace ShareX
 
         #region AutoCapture Form
 
+        public Rectangle AutoCaptureRegion = Rectangle.Empty;
         public decimal AutoCaptureRepeatTime = 60;
         public bool AutoCaptureMinimizeToTray = true;
         public bool AutoCaptureWaitUpload = true;

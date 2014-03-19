@@ -70,10 +70,11 @@
       <HintPath>..\packages\AsyncBridge.Net35.0.2.0\lib\net35-Client\AsyncBridge.Net35.dll</HintPath>
     </Reference>
     <Reference Include="MegaApiClient">
-      <HintPath>..\packages\MegaApiClient.1.0.0\lib\MegaApiClient.dll</HintPath>
+      <HintPath>..\packages\MegaApiClient.1.0.2\lib\MegaApiClient.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net35\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -108,6 +109,12 @@
     </Compile>
     <Compile Include="Forms\ExternalProgramForm.Designer.cs">
       <DependentUpon>ExternalProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FileExistForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FileExistForm.Designer.cs">
+      <DependentUpon>FileExistForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainForm_Capture.cs">
       <SubType>Form</SubType>
@@ -228,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ExternalProgramForm.resx">
       <DependentUpon>ExternalProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FileExistForm.resx">
+      <DependentUpon>FileExistForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ScreenColorPicker.resx">
       <DependentUpon>ScreenColorPicker.cs</DependentUpon>
@@ -425,6 +435,8 @@
     <None Include="LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\checkbox_uncheck.png" />
+    <None Include="Resources\checkbox_check.png" />
     <Content Include="ShareX_Icon.ico" />
     <None Include="Resources\ru.png" />
     <None Include="Resources\keyboard--pencil.png" />

@@ -1,11 +1,20 @@
-﻿ShareX 8.5 - 2014-01-25
+﻿ShareX 8.6.0 - 2014-03-18
+
+* New file operations wizard if file exists
+* Image and text destinations can have different file uploaders
+* Added uPaste.me text uploader support
+* Added yourls.org URL shortener support
+* Automatically shorten URL if the URL is longer than the specified length
+* Toast notification window location is now customizable
+
+ShareX 8.5.0 - 2014-01-13
  
- * Updated ImageShack uploader to support their latest API
- * Added MediaCrush image uploader support (thanks Drew DeVault)
- * Added option for toast notifications 
- * Added bit.ly user account support
- * Added UI support to modify personal path
- * Added new tool to test the monitor for backlight bleeding and dead pixels
+* Updated ImageShack uploader to support their latest API
+* Added MediaCrush image uploader support (thanks @SirCmpwn)
+* Added option for toast notifications 
+* Added bit.ly user account support
+* Added UI support to modify personal path
+* Added new tool to test the monitor for backlight bleeding and dead pixels
 
 ShareX 8.4.1 - 2013-12-05
 

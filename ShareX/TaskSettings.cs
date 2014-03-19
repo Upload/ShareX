@@ -28,6 +28,7 @@ using ImageEffectsLib;
 using IndexerLib;
 using Newtonsoft.Json;
 using ScreenCaptureLib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -48,7 +49,9 @@ namespace ShareX
 
         public bool UseDefaultDestinations = true;
         public ImageDestination ImageDestination = ImageDestination.Imgur;
+        public FileDestination ImageFileDestination = FileDestination.Dropbox;
         public TextDestination TextDestination = TextDestination.Pastebin;
+        public FileDestination TextFileDestination = FileDestination.Dropbox;
         public FileDestination FileDestination = FileDestination.Dropbox;
         public UrlShortenerType URLShortenerDestination = UrlShortenerType.BITLY;
         public SocialNetworkingService SocialNetworkingServiceDestination = SocialNetworkingService.Twitter;
@@ -148,7 +151,9 @@ namespace ShareX
                 if (UseDefaultDestinations)
                 {
                     ImageDestination = defaultTaskSettings.ImageDestination;
+                    ImageFileDestination = defaultTaskSettings.ImageFileDestination;
                     TextDestination = defaultTaskSettings.TextDestination;
+                    TextFileDestination = defaultTaskSettings.TextFileDestination;
                     FileDestination = defaultTaskSettings.FileDestination;
                     URLShortenerDestination = defaultTaskSettings.URLShortenerDestination;
                     SocialNetworkingServiceDestination = defaultTaskSettings.SocialNetworkingServiceDestination;
@@ -204,15 +209,16 @@ namespace ShareX
 
     public class TaskSettingsImage
     {
-        #region Image / Quality
+        #region Image / General
 
         public EImageFormat ImageFormat = EImageFormat.PNG;
         public int ImageJPEGQuality = 90;
         public GIFQuality ImageGIFQuality = GIFQuality.Default;
         public int ImageSizeLimit = 1024;
         public EImageFormat ImageFormat2 = EImageFormat.JPEG;
+        public FileExistAction FileExistAction = FileExistAction.Ask;
 
-        #endregion Image / Quality
+        #endregion Image / General
 
         #region Image / Effects
 
@@ -301,11 +307,41 @@ namespace ShareX
         [Category("After upload"), DefaultValue(""), Description("Balloon tip content format after uploading. Supported variables: $result, $url, $shorturl, $thumbnailurl, $deletionurl, $filepath, $filename, $filenamenoext, $folderpath, $foldername, $uploadtime and other variables such as %y-%mo-%d etc.")]
         public string BalloonTipContentFormat { get; set; }
 
-        [Category("After upload"), DefaultValue(4f), Description("How much toast window will stay on screen.")]
-        public float ToastWindowDuration { get; set; }
+        [Category("After upload / Automatic URL Shortener"), DefaultValue(0), Description("Automatically shorten URL if the URL is longer than the specified number of characters. 0 means automatic URL shortening is not active.")]
+        public int AutoShortenURLLength { get; set; }
 
-        [Category("After upload"), DefaultValue(typeof(Size), "400, 300"), Description("Maximum toast window size.")]
-        public Size ToastWindowSize { get; set; }
+        private float toastWindowDuration;
+
+        [Category("After upload / Notifications"), DefaultValue(4f), Description("Specify how long should toast notification window will stay on screen (in seconds).")]
+        public float ToastWindowDuration
+        {
+            get
+            {
+                return toastWindowDuration;
+            }
+            set
+            {
+                toastWindowDuration = Math.Max(value, 1f);
+            }
+        }
+
+        [Category("After upload / Notifications"), DefaultValue(ContentAlignment.BottomRight), Description("Specify where should toast notification window appear on the screen.")]
+        public ContentAlignment ToastWindowPlacement { get; set; }
+
+        private Size toastWindowSize;
+
+        [Category("After upload / Notifications"), DefaultValue(typeof(Size), "400, 300"), Description("Maximum toast notification window size.")]
+        public Size ToastWindowSize
+        {
+            get
+            {
+                return toastWindowSize;
+            }
+            set
+            {
+                toastWindowSize = new Size(Math.Max(value.Width, 100), Math.Max(value.Height, 100));
+            }
+        }
 
         [Category("After upload"), DefaultValue(false), Description("After upload form will be automatically closed after 60 seconds.")]
         public bool AutoCloseAfterUploadForm { get; set; }

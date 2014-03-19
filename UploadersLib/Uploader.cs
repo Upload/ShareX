@@ -123,9 +123,9 @@ namespace UploadersLib
             return SendPostRequestURLEncoded(url, CreateQuery(arguments), responseType);
         }
 
-        protected string SendPostRequestJSON(string url, string json, ResponseType responseType = ResponseType.Text)
+        protected string SendPostRequestJSON(string url, string json, ResponseType responseType = ResponseType.Text, CookieCollection cookies = null, NameValueCollection headers = null)
         {
-            using (HttpWebResponse response = PostResponseJSON(url, json))
+            using (HttpWebResponse response = PostResponseJSON(url, json, cookies, headers))
             {
                 return ResponseToString(response, responseType);
             }
@@ -167,14 +167,14 @@ namespace UploadersLib
             return PostResponseURLEncoded(url, CreateQuery(arguments));
         }
 
-        private HttpWebResponse PostResponseJSON(string url, string json)
+        private HttpWebResponse PostResponseJSON(string url, string json, CookieCollection cookies = null, NameValueCollection headers = null)
         {
             byte[] data = Encoding.UTF8.GetBytes(json);
 
             using (MemoryStream stream = new MemoryStream())
             {
                 stream.Write(data, 0, data.Length);
-                return GetResponseUsingPost(url, stream, null, "application/json");
+                return GetResponseUsingPost(url, stream, null, "application/json", cookies, headers);
             }
         }
 
@@ -209,7 +209,7 @@ namespace UploadersLib
 
         protected UploadResult UploadData(Stream dataStream, string url, string fileName, string fileFormName = "file",
             Dictionary<string, string> arguments = null, CookieCollection cookies = null, NameValueCollection headers = null,
-            bool suppressWebExceptions = true)
+            ResponseType responseType = ResponseType.Text, bool suppressWebExceptions = true)
         {
             UploadResult result = new UploadResult();
 
@@ -235,13 +235,14 @@ namespace UploadersLib
                     requestStream.Write(bytesDataClose, 0, bytesDataClose.Length);
                 }
 
-                result.Response = ResponseToString(request.GetResponse());
+                result.Response = ResponseToString(request.GetResponse(), responseType);
                 result.IsSuccess = true;
             }
             catch (WebException e)
             {
                 if (!suppressWebExceptions)
                     throw;
+
                 if (!stopUpload) result.Response = AddWebError(e);
             }
             catch (Exception e)
@@ -497,6 +498,14 @@ namespace UploadersLib
                             }
                         case ResponseType.RedirectionURL:
                             return response.ResponseUri.OriginalString;
+                        case ResponseType.Headers:
+                            StringBuilder sbHeaders = new StringBuilder();
+                            foreach (string key in response.Headers.AllKeys)
+                            {
+                                string value = response.Headers[key];
+                                sbHeaders.AppendFormat("{0}: \"{1}\"{2}", key, value, Environment.NewLine);
+                            }
+                            return sbHeaders.ToString().Trim();
                     }
                 }
             }
@@ -599,7 +608,7 @@ namespace UploadersLib
                 str.AppendLine("StackTrace:");
                 str.AppendLine(e.StackTrace);
 
-                string errorText = str.ToString();
+                string errorText = str.ToString().Trim();
                 Errors.Add(errorText);
                 DebugHelper.WriteLine("AddWebError(): " + errorText);
             }

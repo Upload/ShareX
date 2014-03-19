@@ -40,6 +40,7 @@ namespace UploadersLib
         #region Image uploaders
 
         // ImageShack
+
         public ImageShackOptions ImageShackSettings = new ImageShackOptions();
 
         // TinyPic
@@ -100,6 +101,11 @@ namespace UploadersLib
         public OAuth2Info GistOAuth2Info = null;
         public bool GistPublishPublic = false;
 
+        // uPaste
+
+        public string UpasteUserKey = string.Empty;
+        public bool UpasteIsPublic = false;
+
         #endregion Text uploaders
 
         #region File uploaders
@@ -115,6 +121,7 @@ namespace UploadersLib
         // Google Drive
 
         public OAuth2Info GoogleDriveOAuth2Info = null;
+        public bool GoogleDriveIsPublic = false;
 
         // RapidShare
 
@@ -199,6 +206,13 @@ namespace UploadersLib
 
         public AccountType GoogleURLShortenerAccountType = AccountType.Anonymous;
         public OAuth2Info GoogleURLShortenerOAuth2Info = null;
+
+        // yourls.org
+
+        public string YourlsAPIURL = "http://yoursite.com/yourls-api.php";
+        public string YourlsSignature = string.Empty;
+        public string YourlsUsername = string.Empty;
+        public string YourlsPassword = string.Empty;
 
         #endregion URL shorteners
 
@@ -340,6 +354,8 @@ namespace UploadersLib
                     return GoogleURLShortenerAccountType == AccountType.Anonymous || OAuth2Info.CheckOAuth(GoogleURLShortenerOAuth2Info);
                 case UrlShortenerType.BITLY:
                     return OAuth2Info.CheckOAuth(BitlyOAuth2Info);
+                case UrlShortenerType.YOURLS:
+                    return !string.IsNullOrEmpty(YourlsAPIURL) && (!string.IsNullOrEmpty(YourlsSignature) || (!string.IsNullOrEmpty(YourlsUsername) && !string.IsNullOrEmpty(YourlsPassword)));
                 case UrlShortenerType.CustomURLShortener:
                     return CustomUploadersList != null && CustomUploadersList.IsValidIndex(CustomURLShortenerSelected);
                 default:

@@ -41,9 +41,7 @@ namespace UploadersLib
     {
         public UploadersConfig Config { get; private set; }
 
-        public UploadersAPIKeys APIKeys { get; private set; }
-
-        public UploadersConfigForm(UploadersConfig uploadersConfig, UploadersAPIKeys uploadersAPIKeys)
+        public UploadersConfigForm(UploadersConfig uploadersConfig)
         {
             InitializeComponent();
             Icon = ShareXResources.Icon;
@@ -51,7 +49,6 @@ namespace UploadersLib
             ControlSettings();
             CreateUserControlEvents();
             LoadSettings(uploadersConfig);
-            APIKeys = uploadersAPIKeys;
             Text = "ShareX - Outputs Configuration" + (string.IsNullOrEmpty(uploadersConfig.FilePath) ? string.Empty : ": " + uploadersConfig.FilePath);
         }
 
@@ -86,7 +83,7 @@ namespace UploadersLib
 
         private void btnImageShackLogin_Click(object sender, EventArgs e)
         {
-            ImageShackUploader imageShackUploader = new ImageShackUploader(ApiKeys.ImageShackKey, Config.ImageShackSettings);
+            ImageShackUploader imageShackUploader = new ImageShackUploader(APIKeys.ImageShackKey, Config.ImageShackSettings);
 
             try
             {
@@ -447,6 +444,11 @@ namespace UploadersLib
         private void oauth2GoogleDrive_RefreshButtonClicked()
         {
             GoogleDriveAuthRefresh();
+        }
+
+        private void cbGoogleDriveIsPublic_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.GoogleDriveIsPublic = cbGoogleDriveIsPublic.Checked;
         }
 
         #endregion Google Drive
@@ -922,26 +924,40 @@ namespace UploadersLib
 
         private void atcGistAccountType_AccountTypeChanged(AccountType accountType)
         {
-            this.Config.GistAnonymousLogin = accountType == AccountType.Anonymous;
-            this.oAuth2Gist.Enabled = !this.Config.GistAnonymousLogin;
+            Config.GistAnonymousLogin = accountType == AccountType.Anonymous;
+            oAuth2Gist.Enabled = !Config.GistAnonymousLogin;
         }
 
         private void oAuth2Gist_OpenButtonClicked()
         {
-            this.GistAuthOpen();
+            GistAuthOpen();
         }
 
         private void oAuth2Gist_CompleteButtonClicked(string code)
         {
-            this.GistAuthComplete(code);
+            GistAuthComplete(code);
         }
 
         private void chkGistPublishPublic_CheckedChanged(object sender, EventArgs e)
         {
-            this.Config.GistPublishPublic = ((CheckBox)sender).Checked;
+            Config.GistPublishPublic = ((CheckBox)sender).Checked;
         }
 
         #endregion Gist
+
+        #region uPaste
+
+        private void txtUpasteUserKey_TextChanged(object sender, EventArgs e)
+        {
+            Config.UpasteUserKey = txtUpasteUserKey.Text;
+        }
+
+        private void cbUpasteIsPublic_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.UpasteIsPublic = cbUpasteIsPublic.Checked;
+        }
+
+        #endregion uPaste
 
         #endregion Text Uploaders
 
@@ -984,6 +1000,31 @@ namespace UploadersLib
         }
 
         #endregion bit.ly
+
+        #region yourls.org
+
+        private void txtYourlsAPIURL_TextChanged(object sender, EventArgs e)
+        {
+            Config.YourlsAPIURL = txtYourlsAPIURL.Text;
+        }
+
+        private void txtYourlsSignature_TextChanged(object sender, EventArgs e)
+        {
+            Config.YourlsSignature = txtYourlsSignature.Text.Trim();
+            txtYourlsUsername.Enabled = txtYourlsPassword.Enabled = string.IsNullOrEmpty(Config.YourlsSignature);
+        }
+
+        private void txtYourlsUsername_TextChanged(object sender, EventArgs e)
+        {
+            Config.YourlsUsername = txtYourlsUsername.Text;
+        }
+
+        private void txtYourlsPassword_TextChanged(object sender, EventArgs e)
+        {
+            Config.YourlsPassword = txtYourlsPassword.Text;
+        }
+
+        #endregion yourls.org
 
         #endregion URL Shorteners
 

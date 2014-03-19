@@ -27,7 +27,7 @@ using System.ComponentModel;
 
 namespace UploadersLib
 {
-    [Description("Image uploaders")]
+    [Description("Image uploaders"), DefaultValue(ImageDestination.Imgur)]
     public enum ImageDestination
     {
         [Description("imgur.com")]
@@ -42,16 +42,12 @@ namespace UploadersLib
         Photobucket,
         [Description("picasaweb.google.com")]
         Picasa,
-        [Description("uploadscreenshot.com")]
-        UploadScreenshot,
         [Description("twitpic.com")]
         Twitpic,
         [Description("twitsnaps.com")]
         Twitsnaps,
         [Description("yfrog.com")]
         yFrog,
-        [Description("imm.io")]
-        Immio,
         [Description("mediacru.sh")]
         MediaCrush,
         [Description("3d3.ca")]
@@ -62,7 +58,7 @@ namespace UploadersLib
         FileUploader
     }
 
-    [Description("Text uploaders")]
+    [Description("Text uploaders"), DefaultValue(TextDestination.Pastebin)]
     public enum TextDestination
     {
         [Description("pastebin.com")]
@@ -79,21 +75,23 @@ namespace UploadersLib
         Paste_ee,
         [Description("gist.github.com")]
         Gist,
+        [Description("upaste.me")]
+        Upaste,
         [Description("Custom text uploader")]
         CustomTextUploader,
         [Description("File uploader")]
         FileUploader
     }
 
-    [Description("File uploaders")]
+    [Description("File uploaders"), DefaultValue(FileDestination.Dropbox)]
     public enum FileDestination
     {
         [Description("dropbox.com")]
         Dropbox,
-        [Description("mega.co.nz")]
-        Mega,
         [Description("FTP Server")]
         FTP,
+        [Description("mega.co.nz")]
+        Mega,
         [Description("drive.google.com")]
         GoogleDrive,
         [Description("rapidshare.com")]
@@ -118,24 +116,26 @@ namespace UploadersLib
         CustomFileUploader
     }
 
-    [Description("URL shorteners")]
+    [Description("URL shorteners"), DefaultValue(UrlShortenerType.BITLY)]
     public enum UrlShortenerType
     {
-        [Description("goo.gl")]
-        Google,
         [Description("bit.ly")]
         BITLY,
+        [Description("goo.gl")]
+        Google,
         [Description("is.gd")]
         ISGD,
         [Description("tinyurl.com")]
         TINYURL,
         [Description("turl.ca")]
         TURL,
+        [Description("yourls.org")]
+        YOURLS,
         [Description("Custom URL shortener")]
         CustomURLShortener
     }
 
-    [Description("Social networking services")]
+    [Description("Social networking services"), DefaultValue(SocialNetworkingService.Twitter)]
     public enum SocialNetworkingService
     {
         [Description("twitter.com")]
@@ -157,7 +157,9 @@ namespace UploadersLib
         [Description("Response text")]
         Text,
         [Description("Redirection URL")]
-        RedirectionURL
+        RedirectionURL,
+        [Description("Response headers")]
+        Headers
     }
 
     public enum ProxyMethod
@@ -211,21 +213,6 @@ namespace UploadersLib
         Ftps
     }
 
-    public enum LinkType
-    {
-        URL,
-        ThumbnailURL,
-        DeletionLink,
-        FULLIMAGE_TINYURL
-    }
-
-    public enum URLType
-    {
-        URL,
-        ThumbnailURL,
-        DeletionURL
-    }
-
     public enum Privacy
     {
         Public,
@@ -238,34 +225,6 @@ namespace UploadersLib
         Anonymous,
         [Description("User")]
         User
-    }
-
-    public enum OutputEnum
-    {
-        [Description("Clipboard")]
-        Clipboard,
-        [Description("File")]
-        LocalDisk,
-        [Description("Upload")]
-        RemoteHost,
-        [Description("E-mail")]
-        Email,
-        [Description("Printer")]
-        Printer,
-        [Description("Shared folder")]
-        SharedFolder
-    }
-
-    public enum ClipboardContentEnum
-    {
-        [Description("Image or Text")]
-        Data,
-        [Description("Local file path")]
-        Local,
-        [Description("Uploaded URL")]
-        Remote,
-        [Description("Text using OCR")]
-        OCR
     }
 
     public enum LinkFormatEnum

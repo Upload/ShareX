@@ -516,33 +516,27 @@ namespace HelpersLib
             return Regex.IsMatch(url.Trim(), pattern, RegexOptions.IgnoreCase);
         }
 
-        public static string GetUniqueFilePath(string folder, string filename)
+        public static string GetUniqueFilePath(string filepath)
         {
-            string filepath = Path.Combine(folder, filename);
-
             if (File.Exists(filepath))
             {
-                string filenameWithoutExt, ext;
-                int num;
+                string folder = Path.GetDirectoryName(filepath);
+                string filename = Path.GetFileNameWithoutExtension(filepath);
+                string extension = Path.GetExtension(filepath);
+                int number = 1;
 
-                GroupCollection groups = Regex.Match(filepath, @"(.+ \()(\d+)(\)\.\w+)").Groups;
+                Match regex = Regex.Match(filepath, @"(.+) \((\d+)\)\.\w+");
 
-                if (string.IsNullOrEmpty(groups[2].Value))
+                if (regex.Success)
                 {
-                    filenameWithoutExt = Path.GetFileNameWithoutExtension(filename) + " (";
-                    num = 1;
-                    ext = ")" + Path.GetExtension(filename);
-                }
-                else
-                {
-                    filenameWithoutExt = groups[1].Value;
-                    num = int.Parse(groups[2].Value);
-                    ext = groups[3].Value;
+                    filename = regex.Groups[1].Value;
+                    number = int.Parse(regex.Groups[2].Value);
                 }
 
                 do
                 {
-                    filepath = filenameWithoutExt + ++num + ext;
+                    number++;
+                    filepath = Path.Combine(folder, string.Format("{0} ({1}){2}", filename, number, extension));
                 }
                 while (File.Exists(filepath));
             }
@@ -781,14 +775,14 @@ namespace HelpersLib
             return result.ToString();
         }
 
-        public static Point GetPosition(ContentAlignment alignment, Point offset, Size sourceImage, Size img)
+        public static Point GetPosition(ContentAlignment placement, Point offset, Size backgroundSize, Size objectSize)
         {
-            int midX = sourceImage.Width / 2 - img.Width / 2;
-            int midY = sourceImage.Height / 2 - img.Height / 2;
-            int right = sourceImage.Width - img.Width;
-            int bottom = sourceImage.Height - img.Height;
+            int midX = backgroundSize.Width / 2 - objectSize.Width / 2;
+            int midY = backgroundSize.Height / 2 - objectSize.Height / 2;
+            int right = backgroundSize.Width - objectSize.Width;
+            int bottom = backgroundSize.Height - objectSize.Height;
 
-            switch (alignment)
+            switch (placement)
             {
                 default:
                 case ContentAlignment.TopLeft:

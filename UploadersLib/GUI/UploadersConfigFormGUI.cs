@@ -76,12 +76,14 @@ namespace UploadersLib
             textUploadersImageList.ColorDepth = ColorDepth.Depth32Bit;
             textUploadersImageList.Images.Add("Pastebin", Resources.Pastebin);
             textUploadersImageList.Images.Add("Gist", Resources.Gist);
+            textUploadersImageList.Images.Add("Upaste", Resources.Upaste);
             tcTextUploaders.ImageList = textUploadersImageList;
 
             ImageList urlShortenersImageList = new ImageList();
             urlShortenersImageList.ColorDepth = ColorDepth.Depth32Bit;
             urlShortenersImageList.Images.Add("Google", Resources.Google);
             urlShortenersImageList.Images.Add("Bitly", Resources.Bitly);
+            urlShortenersImageList.Images.Add("Yourls", Resources.Yourls);
             tcURLShorteners.ImageList = urlShortenersImageList;
 
             ImageList socialNetworkingServicesImageList = new ImageList();
@@ -114,9 +116,11 @@ namespace UploadersLib
             tpPastebin.ImageKey = "Pastebin";
             tpGoogleURLShortener.ImageKey = "Google";
             tpBitly.ImageKey = "Bitly";
+            tpYourls.ImageKey = "Yourls";
             tpTwitter.ImageKey = "Twitter";
             tpMega.ImageKey = "Mega";
             tpGist.ImageKey = "Gist";
+            tpUpaste.ImageKey = "Upaste";
 
             cmsCustomUploaderArgValue = NameParser.CreateCodesMenu(txtCustomUploaderArgValue, ReplacementVariables.n);
 
@@ -227,6 +231,11 @@ namespace UploadersLib
                 oAuth2Gist.LoginStatus = true;
             }
 
+            // Upaste
+
+            txtUpasteUserKey.Text = Config.UpasteUserKey;
+            cbUpasteIsPublic.Checked = Config.UpasteIsPublic;
+
             #endregion Text uploaders
 
             #region File uploaders
@@ -246,6 +255,8 @@ namespace UploadersLib
                 oauth2GoogleDrive.Status = "Login successful.";
                 oauth2GoogleDrive.LoginStatus = true;
             }
+
+            cbGoogleDriveIsPublic.Checked = Config.GoogleDriveIsPublic;
 
             // Minus
 
@@ -370,7 +381,7 @@ namespace UploadersLib
         - Consumer Name: {1}
         - Public Key (without quotes): '{3}'
 
-- You can now authenticate to Jira", Links.URL_WEBSITE, Application.ProductName, ApiKeys.JiraConsumerKey, Jira.PublicKey);
+- You can now authenticate to Jira", Links.URL_WEBSITE, Application.ProductName, APIKeys.JiraConsumerKey, Jira.PublicKey);
 
             if (OAuthInfo.CheckOAuth(Config.JiraOAuthInfo))
             {
@@ -403,6 +414,14 @@ namespace UploadersLib
                 oauth2Bitly.Status = "Login successful.";
                 oauth2Bitly.LoginStatus = true;
             }
+
+            // yourls.org
+
+            txtYourlsAPIURL.Text = Config.YourlsAPIURL;
+            txtYourlsSignature.Text = Config.YourlsSignature;
+            txtYourlsUsername.Enabled = txtYourlsPassword.Enabled = string.IsNullOrEmpty(Config.YourlsSignature);
+            txtYourlsUsername.Text = Config.YourlsUsername;
+            txtYourlsPassword.Text = Config.YourlsPassword;
 
             #endregion URL Shorteners
 

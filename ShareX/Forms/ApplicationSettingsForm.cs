@@ -61,7 +61,9 @@ namespace ShareX
             cbStartWithWindows.Checked = ShortcutHelpers.CheckShortcut(Environment.SpecialFolder.Startup); //RegistryHelper.CheckStartWithWindows();
             cbSendToMenu.Checked = ShortcutHelpers.CheckShortcut(Environment.SpecialFolder.SendTo);
             cbShellContextMenu.Checked = RegistryHelpers.CheckShellContextMenu();
-            cbCheckUpdates.Checked = Program.Settings.AutoCheckUpdate;
+            // Disable update checks for 3d3 version
+            cbCheckUpdates.Checked = false;
+            cbCheckUpdates.Enabled = false;
             cbTrayIconProgressEnabled.Checked = Program.Settings.TrayIconProgressEnabled;
             cbTaskbarProgressEnabled.Enabled = TaskbarManager.IsPlatformSupported;
             cbTaskbarProgressEnabled.Checked = Program.Settings.TaskbarProgressEnabled;

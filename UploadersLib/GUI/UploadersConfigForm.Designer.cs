@@ -155,7 +155,6 @@
             this.cboFtpText = new System.Windows.Forms.ComboBox();
             this.cboFtpImages = new System.Windows.Forms.ComboBox();
             this.tpMega = new System.Windows.Forms.TabPage();
-            this.atcMegaAccountType = new UploadersLib.GUI.AccountTypeControl();
             this.lblMegaStatus = new System.Windows.Forms.Label();
             this.pnlMegaLogin = new System.Windows.Forms.Panel();
             this.btnMegaRefreshFolders = new System.Windows.Forms.Button();
@@ -168,6 +167,28 @@
             this.txtMegaPassword = new System.Windows.Forms.TextBox();
             this.btnMegaLogin = new System.Windows.Forms.Button();
             this.lblMegaStatusTitle = new System.Windows.Forms.Label();
+            this.tpAmazonS3 = new System.Windows.Forms.TabPage();
+            this.cbAmazonS3CustomCNAME = new System.Windows.Forms.CheckBox();
+            this.cbAmazonS3Endpoint = new System.Windows.Forms.ComboBox();
+            this.lblAmazonS3BucketName = new System.Windows.Forms.Label();
+            this.txtAmazonS3BucketName = new System.Windows.Forms.TextBox();
+            this.lblAmazonS3Endpoint = new System.Windows.Forms.Label();
+            this.txtAmazonS3ObjectPrefix = new System.Windows.Forms.TextBox();
+            this.lblAmazonS3ObjectPrefix = new System.Windows.Forms.Label();
+            this.cbAmazonS3UseRRS = new System.Windows.Forms.CheckBox();
+            this.txtAmazonS3SecretKey = new System.Windows.Forms.TextBox();
+            this.lblAmazonS3SecretKey = new System.Windows.Forms.Label();
+            this.lblAmazonS3AccessKey = new System.Windows.Forms.Label();
+            this.txtAmazonS3AccessKey = new System.Windows.Forms.TextBox();
+            this.tpPushbullet = new System.Windows.Forms.TabPage();
+            this.lblPushbulletDevices = new System.Windows.Forms.Label();
+            this.cboPushbulletDevices = new System.Windows.Forms.ComboBox();
+            this.btnPushbulletGetDeviceList = new System.Windows.Forms.Button();
+            this.lblPushbulletUserKey = new System.Windows.Forms.Label();
+            this.txtPushbulletUserKey = new System.Windows.Forms.TextBox();
+            this.tpGoogleDrive = new System.Windows.Forms.TabPage();
+            this.cbGoogleDriveIsPublic = new System.Windows.Forms.CheckBox();
+            this.oauth2GoogleDrive = new UploadersLib.GUI.OAuth2Control();
             this.tpBox = new System.Windows.Forms.TabPage();
             this.txtBoxFolderID = new System.Windows.Forms.TextBox();
             this.lblBoxFolderID = new System.Windows.Forms.Label();
@@ -204,6 +225,23 @@
             this.lblLocalhostrEmail = new System.Windows.Forms.Label();
             this.txtLocalhostrPassword = new System.Windows.Forms.TextBox();
             this.txtLocalhostrEmail = new System.Windows.Forms.TextBox();
+            this.tpMinus = new System.Windows.Forms.TabPage();
+            this.lblMinusURLType = new System.Windows.Forms.Label();
+            this.cbMinusURLType = new System.Windows.Forms.ComboBox();
+            this.gbMinusUserPass = new System.Windows.Forms.GroupBox();
+            this.lblMinusAuthStatus = new System.Windows.Forms.Label();
+            this.btnMinusRefreshAuth = new System.Windows.Forms.Button();
+            this.lblMinusPassword = new System.Windows.Forms.Label();
+            this.lblMinusUsername = new System.Windows.Forms.Label();
+            this.txtMinusPassword = new System.Windows.Forms.TextBox();
+            this.txtMinusUsername = new System.Windows.Forms.TextBox();
+            this.btnMinusAuth = new System.Windows.Forms.Button();
+            this.gbMinusUpload = new System.Windows.Forms.GroupBox();
+            this.btnMinusReadFolderList = new System.Windows.Forms.Button();
+            this.chkMinusPublic = new System.Windows.Forms.CheckBox();
+            this.btnMinusFolderAdd = new System.Windows.Forms.Button();
+            this.btnMinusFolderRemove = new System.Windows.Forms.Button();
+            this.cboMinusFolders = new System.Windows.Forms.ComboBox();
             this.tpJira = new System.Windows.Forms.TabPage();
             this.txtJiraIssuePrefix = new System.Windows.Forms.TextBox();
             this.lblJiraIssuePrefix = new System.Windows.Forms.Label();
@@ -212,25 +250,6 @@
             this.txtJiraHost = new System.Windows.Forms.TextBox();
             this.lblJiraHost = new System.Windows.Forms.Label();
             this.oAuthJira = new UploadersLib.GUI.OAuth2Control();
-            this.tpGoogleDrive = new System.Windows.Forms.TabPage();
-            this.oauth2GoogleDrive = new UploadersLib.GUI.OAuth2Control();
-            this.tpMinus = new System.Windows.Forms.TabPage();
-            this.gbMinusUserPass = new System.Windows.Forms.GroupBox();
-            this.btnAuthRefresh = new System.Windows.Forms.Button();
-            this.lblMinusPassword = new System.Windows.Forms.Label();
-            this.lblMinusUsername = new System.Windows.Forms.Label();
-            this.txtMinusPassword = new System.Windows.Forms.TextBox();
-            this.txtMinusUsername = new System.Windows.Forms.TextBox();
-            this.btnMinusAuth = new System.Windows.Forms.Button();
-            this.gbMinusUpload = new System.Windows.Forms.GroupBox();
-            this.lblMinusURLType = new System.Windows.Forms.Label();
-            this.cbMinusURLType = new System.Windows.Forms.ComboBox();
-            this.btnMinusReadFolderList = new System.Windows.Forms.Button();
-            this.chkMinusPublic = new System.Windows.Forms.CheckBox();
-            this.btnMinusFolderAdd = new System.Windows.Forms.Button();
-            this.btnMinusFolderRemove = new System.Windows.Forms.Button();
-            this.cboMinusFolders = new System.Windows.Forms.ComboBox();
-            this.lblMinusAuthStatus = new System.Windows.Forms.Label();
             this.tpEmail = new System.Windows.Forms.TabPage();
             this.chkEmailConfirm = new System.Windows.Forms.CheckBox();
             this.lblEmailSmtpServer = new System.Windows.Forms.Label();
@@ -337,7 +356,6 @@
             this.txtRapidSharePremiumUserName = new System.Windows.Forms.TextBox();
             this.ttHelpTip = new System.Windows.Forms.ToolTip(this.components);
             this.actRapidShareAccountType = new UploadersLib.GUI.AccountTypeControl();
-            this.cbGoogleDriveIsPublic = new System.Windows.Forms.CheckBox();
             this.tcUploaders.SuspendLayout();
             this.tpImageUploaders.SuspendLayout();
             this.tcImageUploaders.SuspendLayout();
@@ -369,17 +387,19 @@
             this.gbFtpSettings.SuspendLayout();
             this.tpMega.SuspendLayout();
             this.pnlMegaLogin.SuspendLayout();
+            this.tpAmazonS3.SuspendLayout();
+            this.tpPushbullet.SuspendLayout();
+            this.tpGoogleDrive.SuspendLayout();
             this.tpBox.SuspendLayout();
             this.tpRapidShare.SuspendLayout();
             this.tpSendSpace.SuspendLayout();
             this.tpGe_tt.SuspendLayout();
             this.tpHostr.SuspendLayout();
-            this.tpJira.SuspendLayout();
-            this.gpJiraServer.SuspendLayout();
-            this.tpGoogleDrive.SuspendLayout();
             this.tpMinus.SuspendLayout();
             this.gbMinusUserPass.SuspendLayout();
             this.gbMinusUpload.SuspendLayout();
+            this.tpJira.SuspendLayout();
+            this.gpJiraServer.SuspendLayout();
             this.tpEmail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudEmailSmtpPort)).BeginInit();
             this.tpSharedFolder.SuspendLayout();
@@ -1420,18 +1440,21 @@
             this.tcFileUploaders.Controls.Add(this.tpDropbox);
             this.tcFileUploaders.Controls.Add(this.tpFTP);
             this.tcFileUploaders.Controls.Add(this.tpMega);
+            this.tcFileUploaders.Controls.Add(this.tpAmazonS3);
+            this.tcFileUploaders.Controls.Add(this.tpPushbullet);
             this.tcFileUploaders.Controls.Add(this.tpGoogleDrive);
             this.tcFileUploaders.Controls.Add(this.tpBox);
             this.tcFileUploaders.Controls.Add(this.tpRapidShare);
             this.tcFileUploaders.Controls.Add(this.tpSendSpace);
             this.tcFileUploaders.Controls.Add(this.tpGe_tt);
             this.tcFileUploaders.Controls.Add(this.tpHostr);
-            this.tcFileUploaders.Controls.Add(this.tpJira);
             this.tcFileUploaders.Controls.Add(this.tpMinus);
+            this.tcFileUploaders.Controls.Add(this.tpJira);
             this.tcFileUploaders.Controls.Add(this.tpEmail);
             this.tcFileUploaders.Controls.Add(this.tpSharedFolder);
             this.tcFileUploaders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcFileUploaders.Location = new System.Drawing.Point(3, 3);
+            this.tcFileUploaders.Multiline = true;
             this.tcFileUploaders.Name = "tcFileUploaders";
             this.tcFileUploaders.SelectedIndex = 0;
             this.tcFileUploaders.Size = new System.Drawing.Size(812, 501);
@@ -1450,10 +1473,10 @@
             this.tpDropbox.Controls.Add(this.lblDropboxPath);
             this.tpDropbox.Controls.Add(this.btnDropboxOpenAuthorize);
             this.tpDropbox.Controls.Add(this.txtDropboxPath);
-            this.tpDropbox.Location = new System.Drawing.Point(4, 22);
+            this.tpDropbox.Location = new System.Drawing.Point(4, 40);
             this.tpDropbox.Name = "tpDropbox";
             this.tpDropbox.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDropbox.Size = new System.Drawing.Size(804, 475);
+            this.tpDropbox.Size = new System.Drawing.Size(804, 457);
             this.tpDropbox.TabIndex = 0;
             this.tpDropbox.Text = "Dropbox";
             this.tpDropbox.UseVisualStyleBackColor = true;
@@ -1572,10 +1595,10 @@
             // tpFTP
             // 
             this.tpFTP.Controls.Add(this.tlpFtp);
-            this.tpFTP.Location = new System.Drawing.Point(4, 22);
+            this.tpFTP.Location = new System.Drawing.Point(4, 40);
             this.tpFTP.Name = "tpFTP";
             this.tpFTP.Padding = new System.Windows.Forms.Padding(3);
-            this.tpFTP.Size = new System.Drawing.Size(804, 475);
+            this.tpFTP.Size = new System.Drawing.Size(804, 457);
             this.tpFTP.TabIndex = 4;
             this.tpFTP.Text = "FTP";
             this.tpFTP.UseVisualStyleBackColor = true;
@@ -1592,7 +1615,7 @@
             this.tlpFtp.RowCount = 2;
             this.tlpFtp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
             this.tlpFtp.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlpFtp.Size = new System.Drawing.Size(798, 469);
+            this.tlpFtp.Size = new System.Drawing.Size(798, 451);
             this.tlpFtp.TabIndex = 0;
             // 
             // panelFtp
@@ -1604,7 +1627,7 @@
             this.panelFtp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFtp.Location = new System.Drawing.Point(3, 3);
             this.panelFtp.Name = "panelFtp";
-            this.panelFtp.Size = new System.Drawing.Size(792, 345);
+            this.panelFtp.Size = new System.Drawing.Size(792, 332);
             this.panelFtp.TabIndex = 0;
             // 
             // btnFtpClient
@@ -1651,7 +1674,7 @@
             this.ucFTPAccounts.Location = new System.Drawing.Point(0, 0);
             this.ucFTPAccounts.Margin = new System.Windows.Forms.Padding(4);
             this.ucFTPAccounts.Name = "ucFTPAccounts";
-            this.ucFTPAccounts.Size = new System.Drawing.Size(792, 345);
+            this.ucFTPAccounts.Size = new System.Drawing.Size(792, 332);
             this.ucFTPAccounts.TabIndex = 0;
             // 
             // gbFtpSettings
@@ -1663,9 +1686,9 @@
             this.gbFtpSettings.Controls.Add(this.cboFtpText);
             this.gbFtpSettings.Controls.Add(this.cboFtpImages);
             this.gbFtpSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbFtpSettings.Location = new System.Drawing.Point(3, 354);
+            this.gbFtpSettings.Location = new System.Drawing.Point(3, 341);
             this.gbFtpSettings.Name = "gbFtpSettings";
-            this.gbFtpSettings.Size = new System.Drawing.Size(792, 112);
+            this.gbFtpSettings.Size = new System.Drawing.Size(792, 107);
             this.gbFtpSettings.TabIndex = 1;
             this.gbFtpSettings.TabStop = false;
             this.gbFtpSettings.Text = "FTP Settings";
@@ -1729,29 +1752,20 @@
             // 
             // tpMega
             // 
-            this.tpMega.Controls.Add(this.atcMegaAccountType);
             this.tpMega.Controls.Add(this.lblMegaStatus);
             this.tpMega.Controls.Add(this.pnlMegaLogin);
             this.tpMega.Controls.Add(this.lblMegaStatusTitle);
-            this.tpMega.Location = new System.Drawing.Point(4, 22);
+            this.tpMega.Location = new System.Drawing.Point(4, 40);
             this.tpMega.Name = "tpMega";
-            this.tpMega.Size = new System.Drawing.Size(804, 475);
+            this.tpMega.Size = new System.Drawing.Size(804, 457);
             this.tpMega.TabIndex = 12;
             this.tpMega.Text = "Mega";
             this.tpMega.UseVisualStyleBackColor = true;
             // 
-            // atcMegaAccountType
-            // 
-            this.atcMegaAccountType.Location = new System.Drawing.Point(16, 34);
-            this.atcMegaAccountType.Name = "atcMegaAccountType";
-            this.atcMegaAccountType.SelectedAccountType = UploadersLib.AccountType.Anonymous;
-            this.atcMegaAccountType.Size = new System.Drawing.Size(214, 29);
-            this.atcMegaAccountType.TabIndex = 14;
-            // 
             // lblMegaStatus
             // 
             this.lblMegaStatus.AutoSize = true;
-            this.lblMegaStatus.Location = new System.Drawing.Point(70, 17);
+            this.lblMegaStatus.Location = new System.Drawing.Point(80, 16);
             this.lblMegaStatus.Name = "lblMegaStatus";
             this.lblMegaStatus.Size = new System.Drawing.Size(186, 13);
             this.lblMegaStatus.TabIndex = 13;
@@ -1768,14 +1782,14 @@
             this.pnlMegaLogin.Controls.Add(this.lblMegaPassword);
             this.pnlMegaLogin.Controls.Add(this.txtMegaPassword);
             this.pnlMegaLogin.Controls.Add(this.btnMegaLogin);
-            this.pnlMegaLogin.Location = new System.Drawing.Point(12, 67);
+            this.pnlMegaLogin.Location = new System.Drawing.Point(12, 40);
             this.pnlMegaLogin.Name = "pnlMegaLogin";
             this.pnlMegaLogin.Size = new System.Drawing.Size(378, 226);
             this.pnlMegaLogin.TabIndex = 11;
             // 
             // btnMegaRefreshFolders
             // 
-            this.btnMegaRefreshFolders.Location = new System.Drawing.Point(152, 132);
+            this.btnMegaRefreshFolders.Location = new System.Drawing.Point(72, 132);
             this.btnMegaRefreshFolders.Name = "btnMegaRefreshFolders";
             this.btnMegaRefreshFolders.Size = new System.Drawing.Size(96, 24);
             this.btnMegaRefreshFolders.TabIndex = 16;
@@ -1866,6 +1880,252 @@
             this.lblMegaStatusTitle.TabIndex = 12;
             this.lblMegaStatusTitle.Text = "Status: ";
             // 
+            // tpAmazonS3
+            // 
+            this.tpAmazonS3.Controls.Add(this.cbAmazonS3CustomCNAME);
+            this.tpAmazonS3.Controls.Add(this.cbAmazonS3Endpoint);
+            this.tpAmazonS3.Controls.Add(this.lblAmazonS3BucketName);
+            this.tpAmazonS3.Controls.Add(this.txtAmazonS3BucketName);
+            this.tpAmazonS3.Controls.Add(this.lblAmazonS3Endpoint);
+            this.tpAmazonS3.Controls.Add(this.txtAmazonS3ObjectPrefix);
+            this.tpAmazonS3.Controls.Add(this.lblAmazonS3ObjectPrefix);
+            this.tpAmazonS3.Controls.Add(this.cbAmazonS3UseRRS);
+            this.tpAmazonS3.Controls.Add(this.txtAmazonS3SecretKey);
+            this.tpAmazonS3.Controls.Add(this.lblAmazonS3SecretKey);
+            this.tpAmazonS3.Controls.Add(this.lblAmazonS3AccessKey);
+            this.tpAmazonS3.Controls.Add(this.txtAmazonS3AccessKey);
+            this.tpAmazonS3.Location = new System.Drawing.Point(4, 40);
+            this.tpAmazonS3.Name = "tpAmazonS3";
+            this.tpAmazonS3.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAmazonS3.Size = new System.Drawing.Size(804, 457);
+            this.tpAmazonS3.TabIndex = 13;
+            this.tpAmazonS3.Text = "Amazon S3";
+            this.tpAmazonS3.UseVisualStyleBackColor = true;
+            // 
+            // cbAmazonS3CustomCNAME
+            // 
+            this.cbAmazonS3CustomCNAME.AutoSize = true;
+            this.cbAmazonS3CustomCNAME.Location = new System.Drawing.Point(108, 182);
+            this.cbAmazonS3CustomCNAME.Name = "cbAmazonS3CustomCNAME";
+            this.cbAmazonS3CustomCNAME.Size = new System.Drawing.Size(163, 17);
+            this.cbAmazonS3CustomCNAME.TabIndex = 20;
+            this.cbAmazonS3CustomCNAME.Text = "Bucket uses custom CNAME";
+            this.ttHelpTip.SetToolTip(this.cbAmazonS3CustomCNAME, "Use this option if you have a bucket set up with a custom CNAME.\r\nFor example, if" +
+        " your bucket is called bucket.example.com, and is accessible\r\nfrom http://bucket" +
+        ".example.com/.");
+            this.cbAmazonS3CustomCNAME.UseVisualStyleBackColor = true;
+            this.cbAmazonS3CustomCNAME.CheckedChanged += new System.EventHandler(this.cbAmazonS3CustomCNAME_CheckedChanged);
+            // 
+            // cbAmazonS3Endpoint
+            // 
+            this.cbAmazonS3Endpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAmazonS3Endpoint.FormattingEnabled = true;
+            this.cbAmazonS3Endpoint.Items.AddRange(new object[] {
+            "https://s3-ap-northeast-1.amazonaws.com/",
+            "https://s3-ap-southeast-1.amazonaws.com/",
+            "https://s3-ap-southeast-2.amazonaws.com/",
+            "https://s3-eu-west-1.amazonaws.com/",
+            "https://s3-sa-east-1.amazonaws.com/",
+            "https://s3-us-west-1.amazonaws.com/",
+            "https://s3-us-west-2.amazonaws.com/",
+            "https://s3.amazonaws.com/"});
+            this.cbAmazonS3Endpoint.Location = new System.Drawing.Point(108, 78);
+            this.cbAmazonS3Endpoint.Name = "cbAmazonS3Endpoint";
+            this.cbAmazonS3Endpoint.Size = new System.Drawing.Size(346, 21);
+            this.cbAmazonS3Endpoint.TabIndex = 19;
+            this.cbAmazonS3Endpoint.SelectionChangeCommitted += new System.EventHandler(this.cbAmazonS3Endpoint_SelectionChangeCommitted);
+            this.cbAmazonS3Endpoint.TextChanged += new System.EventHandler(this.cbAmazonS3Endpoint_TextChanged);
+            // 
+            // lblAmazonS3BucketName
+            // 
+            this.lblAmazonS3BucketName.AutoSize = true;
+            this.lblAmazonS3BucketName.Location = new System.Drawing.Point(21, 109);
+            this.lblAmazonS3BucketName.Name = "lblAmazonS3BucketName";
+            this.lblAmazonS3BucketName.Size = new System.Drawing.Size(75, 13);
+            this.lblAmazonS3BucketName.TabIndex = 18;
+            this.lblAmazonS3BucketName.Text = "Bucket Name:";
+            // 
+            // txtAmazonS3BucketName
+            // 
+            this.txtAmazonS3BucketName.Location = new System.Drawing.Point(108, 106);
+            this.txtAmazonS3BucketName.Name = "txtAmazonS3BucketName";
+            this.txtAmazonS3BucketName.Size = new System.Drawing.Size(184, 20);
+            this.txtAmazonS3BucketName.TabIndex = 17;
+            this.txtAmazonS3BucketName.TextChanged += new System.EventHandler(this.txtAmazonS3BucketName_TextChanged);
+            // 
+            // lblAmazonS3Endpoint
+            // 
+            this.lblAmazonS3Endpoint.AutoSize = true;
+            this.lblAmazonS3Endpoint.Location = new System.Drawing.Point(44, 82);
+            this.lblAmazonS3Endpoint.Name = "lblAmazonS3Endpoint";
+            this.lblAmazonS3Endpoint.Size = new System.Drawing.Size(52, 13);
+            this.lblAmazonS3Endpoint.TabIndex = 16;
+            this.lblAmazonS3Endpoint.Text = "Endpoint:";
+            // 
+            // txtAmazonS3ObjectPrefix
+            // 
+            this.txtAmazonS3ObjectPrefix.Location = new System.Drawing.Point(108, 132);
+            this.txtAmazonS3ObjectPrefix.Name = "txtAmazonS3ObjectPrefix";
+            this.txtAmazonS3ObjectPrefix.Size = new System.Drawing.Size(184, 20);
+            this.txtAmazonS3ObjectPrefix.TabIndex = 14;
+            this.ttHelpTip.SetToolTip(this.txtAmazonS3ObjectPrefix, "The name to prefix objects with when storing them. The first \"/\" isn\'t necessary." +
+        "");
+            this.txtAmazonS3ObjectPrefix.TextChanged += new System.EventHandler(this.txtAmazonS3ObjectPrefix_TextChanged);
+            // 
+            // lblAmazonS3ObjectPrefix
+            // 
+            this.lblAmazonS3ObjectPrefix.AutoSize = true;
+            this.lblAmazonS3ObjectPrefix.Location = new System.Drawing.Point(26, 135);
+            this.lblAmazonS3ObjectPrefix.Name = "lblAmazonS3ObjectPrefix";
+            this.lblAmazonS3ObjectPrefix.Size = new System.Drawing.Size(70, 13);
+            this.lblAmazonS3ObjectPrefix.TabIndex = 13;
+            this.lblAmazonS3ObjectPrefix.Text = "Object Prefix:";
+            // 
+            // cbAmazonS3UseRRS
+            // 
+            this.cbAmazonS3UseRRS.AutoSize = true;
+            this.cbAmazonS3UseRRS.Location = new System.Drawing.Point(108, 158);
+            this.cbAmazonS3UseRRS.Name = "cbAmazonS3UseRRS";
+            this.cbAmazonS3UseRRS.Size = new System.Drawing.Size(184, 17);
+            this.cbAmazonS3UseRRS.TabIndex = 11;
+            this.cbAmazonS3UseRRS.Text = "Use reduced redundancy storage";
+            this.ttHelpTip.SetToolTip(this.cbAmazonS3UseRRS, resources.GetString("cbAmazonS3UseRRS.ToolTip"));
+            this.cbAmazonS3UseRRS.UseVisualStyleBackColor = true;
+            this.cbAmazonS3UseRRS.CheckedChanged += new System.EventHandler(this.cbAmazonS3UseRRS_CheckedChanged);
+            // 
+            // txtAmazonS3SecretKey
+            // 
+            this.txtAmazonS3SecretKey.Location = new System.Drawing.Point(108, 52);
+            this.txtAmazonS3SecretKey.Name = "txtAmazonS3SecretKey";
+            this.txtAmazonS3SecretKey.Size = new System.Drawing.Size(346, 20);
+            this.txtAmazonS3SecretKey.TabIndex = 4;
+            this.txtAmazonS3SecretKey.UseSystemPasswordChar = true;
+            this.txtAmazonS3SecretKey.TextChanged += new System.EventHandler(this.txtAmazonS3SecretKey_TextChanged);
+            // 
+            // lblAmazonS3SecretKey
+            // 
+            this.lblAmazonS3SecretKey.AutoSize = true;
+            this.lblAmazonS3SecretKey.Location = new System.Drawing.Point(34, 55);
+            this.lblAmazonS3SecretKey.Name = "lblAmazonS3SecretKey";
+            this.lblAmazonS3SecretKey.Size = new System.Drawing.Size(62, 13);
+            this.lblAmazonS3SecretKey.TabIndex = 3;
+            this.lblAmazonS3SecretKey.Text = "Secret Key:";
+            // 
+            // lblAmazonS3AccessKey
+            // 
+            this.lblAmazonS3AccessKey.AutoSize = true;
+            this.lblAmazonS3AccessKey.Location = new System.Drawing.Point(30, 26);
+            this.lblAmazonS3AccessKey.Name = "lblAmazonS3AccessKey";
+            this.lblAmazonS3AccessKey.Size = new System.Drawing.Size(66, 13);
+            this.lblAmazonS3AccessKey.TabIndex = 1;
+            this.lblAmazonS3AccessKey.Text = "Access Key:";
+            // 
+            // txtAmazonS3AccessKey
+            // 
+            this.txtAmazonS3AccessKey.Location = new System.Drawing.Point(108, 23);
+            this.txtAmazonS3AccessKey.Name = "txtAmazonS3AccessKey";
+            this.txtAmazonS3AccessKey.Size = new System.Drawing.Size(346, 20);
+            this.txtAmazonS3AccessKey.TabIndex = 2;
+            this.txtAmazonS3AccessKey.TextChanged += new System.EventHandler(this.txtAmazonS3AccessKey_TextChanged);
+            // 
+            // tpPushbullet
+            // 
+            this.tpPushbullet.Controls.Add(this.lblPushbulletDevices);
+            this.tpPushbullet.Controls.Add(this.cboPushbulletDevices);
+            this.tpPushbullet.Controls.Add(this.btnPushbulletGetDeviceList);
+            this.tpPushbullet.Controls.Add(this.lblPushbulletUserKey);
+            this.tpPushbullet.Controls.Add(this.txtPushbulletUserKey);
+            this.tpPushbullet.Location = new System.Drawing.Point(4, 40);
+            this.tpPushbullet.Name = "tpPushbullet";
+            this.tpPushbullet.Padding = new System.Windows.Forms.Padding(3);
+            this.tpPushbullet.Size = new System.Drawing.Size(804, 457);
+            this.tpPushbullet.TabIndex = 14;
+            this.tpPushbullet.Text = "Pushbullet";
+            this.tpPushbullet.UseVisualStyleBackColor = true;
+            // 
+            // lblPushbulletDevices
+            // 
+            this.lblPushbulletDevices.AutoSize = true;
+            this.lblPushbulletDevices.Location = new System.Drawing.Point(16, 43);
+            this.lblPushbulletDevices.Name = "lblPushbulletDevices";
+            this.lblPushbulletDevices.Size = new System.Drawing.Size(44, 13);
+            this.lblPushbulletDevices.TabIndex = 12;
+            this.lblPushbulletDevices.Text = "&Device:";
+            // 
+            // cboPushbulletDevices
+            // 
+            this.cboPushbulletDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboPushbulletDevices.Enabled = false;
+            this.cboPushbulletDevices.FormattingEnabled = true;
+            this.cboPushbulletDevices.Location = new System.Drawing.Point(94, 40);
+            this.cboPushbulletDevices.Name = "cboPushbulletDevices";
+            this.cboPushbulletDevices.Size = new System.Drawing.Size(346, 21);
+            this.cboPushbulletDevices.TabIndex = 13;
+            this.cboPushbulletDevices.SelectedIndexChanged += new System.EventHandler(this.cboPushbulletDevices_SelectedIndexChanged);
+            // 
+            // btnPushbulletGetDeviceList
+            // 
+            this.btnPushbulletGetDeviceList.Enabled = false;
+            this.btnPushbulletGetDeviceList.Location = new System.Drawing.Point(448, 39);
+            this.btnPushbulletGetDeviceList.Name = "btnPushbulletGetDeviceList";
+            this.btnPushbulletGetDeviceList.Size = new System.Drawing.Size(107, 23);
+            this.btnPushbulletGetDeviceList.TabIndex = 11;
+            this.btnPushbulletGetDeviceList.Text = "Get device list";
+            this.btnPushbulletGetDeviceList.UseVisualStyleBackColor = true;
+            this.btnPushbulletGetDeviceList.Click += new System.EventHandler(this.btnPushbulletGetDeviceList_Click);
+            // 
+            // lblPushbulletUserKey
+            // 
+            this.lblPushbulletUserKey.AutoSize = true;
+            this.lblPushbulletUserKey.Location = new System.Drawing.Point(16, 16);
+            this.lblPushbulletUserKey.Name = "lblPushbulletUserKey";
+            this.lblPushbulletUserKey.Size = new System.Drawing.Size(72, 13);
+            this.lblPushbulletUserKey.TabIndex = 9;
+            this.lblPushbulletUserKey.Text = "User &API key:";
+            // 
+            // txtPushbulletUserKey
+            // 
+            this.txtPushbulletUserKey.Location = new System.Drawing.Point(94, 13);
+            this.txtPushbulletUserKey.Name = "txtPushbulletUserKey";
+            this.txtPushbulletUserKey.Size = new System.Drawing.Size(346, 20);
+            this.txtPushbulletUserKey.TabIndex = 10;
+            this.txtPushbulletUserKey.TextChanged += new System.EventHandler(this.txtPushbulletUserKey_TextChanged);
+            // 
+            // tpGoogleDrive
+            // 
+            this.tpGoogleDrive.Controls.Add(this.cbGoogleDriveIsPublic);
+            this.tpGoogleDrive.Controls.Add(this.oauth2GoogleDrive);
+            this.tpGoogleDrive.Location = new System.Drawing.Point(4, 40);
+            this.tpGoogleDrive.Name = "tpGoogleDrive";
+            this.tpGoogleDrive.Padding = new System.Windows.Forms.Padding(3);
+            this.tpGoogleDrive.Size = new System.Drawing.Size(804, 457);
+            this.tpGoogleDrive.TabIndex = 1;
+            this.tpGoogleDrive.Text = "Google Drive";
+            this.tpGoogleDrive.UseVisualStyleBackColor = true;
+            // 
+            // cbGoogleDriveIsPublic
+            // 
+            this.cbGoogleDriveIsPublic.AutoSize = true;
+            this.cbGoogleDriveIsPublic.Location = new System.Drawing.Point(16, 232);
+            this.cbGoogleDriveIsPublic.Name = "cbGoogleDriveIsPublic";
+            this.cbGoogleDriveIsPublic.Size = new System.Drawing.Size(106, 17);
+            this.cbGoogleDriveIsPublic.TabIndex = 1;
+            this.cbGoogleDriveIsPublic.Text = "Is public upload?";
+            this.cbGoogleDriveIsPublic.UseVisualStyleBackColor = true;
+            this.cbGoogleDriveIsPublic.CheckedChanged += new System.EventHandler(this.cbGoogleDriveIsPublic_CheckedChanged);
+            // 
+            // oauth2GoogleDrive
+            // 
+            this.oauth2GoogleDrive.Location = new System.Drawing.Point(16, 16);
+            this.oauth2GoogleDrive.LoginStatus = false;
+            this.oauth2GoogleDrive.Name = "oauth2GoogleDrive";
+            this.oauth2GoogleDrive.Size = new System.Drawing.Size(328, 207);
+            this.oauth2GoogleDrive.Status = "Status: Login required.";
+            this.oauth2GoogleDrive.TabIndex = 0;
+            this.oauth2GoogleDrive.OpenButtonClicked += new UploadersLib.GUI.OAuth2Control.OpenButtonClickedEventHandler(this.oauth2GoogleDrive_OpenButtonClicked);
+            this.oauth2GoogleDrive.CompleteButtonClicked += new UploadersLib.GUI.OAuth2Control.CompleteButtonClickedEventHandler(this.oauth2GoogleDrive_CompleteButtonClicked);
+            this.oauth2GoogleDrive.RefreshButtonClicked += new UploadersLib.GUI.OAuth2Control.RefreshButtonClickedEventHandler(this.oauth2GoogleDrive_RefreshButtonClicked);
+            // 
             // tpBox
             // 
             this.tpBox.Controls.Add(this.txtBoxFolderID);
@@ -1874,10 +2134,10 @@
             this.tpBox.Controls.Add(this.tvBoxFolders);
             this.tpBox.Controls.Add(this.btnBoxCompleteAuth);
             this.tpBox.Controls.Add(this.btnBoxOpenAuthorize);
-            this.tpBox.Location = new System.Drawing.Point(4, 22);
+            this.tpBox.Location = new System.Drawing.Point(4, 40);
             this.tpBox.Name = "tpBox";
             this.tpBox.Padding = new System.Windows.Forms.Padding(3);
-            this.tpBox.Size = new System.Drawing.Size(804, 475);
+            this.tpBox.Size = new System.Drawing.Size(804, 457);
             this.tpBox.TabIndex = 2;
             this.tpBox.Text = "Box";
             this.tpBox.UseVisualStyleBackColor = true;
@@ -1948,10 +2208,10 @@
             this.tpRapidShare.Controls.Add(this.lblRapidSharePremiumUsername);
             this.tpRapidShare.Controls.Add(this.txtRapidSharePassword);
             this.tpRapidShare.Controls.Add(this.txtRapidShareUsername);
-            this.tpRapidShare.Location = new System.Drawing.Point(4, 22);
+            this.tpRapidShare.Location = new System.Drawing.Point(4, 40);
             this.tpRapidShare.Name = "tpRapidShare";
             this.tpRapidShare.Padding = new System.Windows.Forms.Padding(3);
-            this.tpRapidShare.Size = new System.Drawing.Size(804, 475);
+            this.tpRapidShare.Size = new System.Drawing.Size(804, 457);
             this.tpRapidShare.TabIndex = 5;
             this.tpRapidShare.Text = "RapidShare";
             this.tpRapidShare.UseVisualStyleBackColor = true;
@@ -2034,10 +2294,10 @@
             this.tpSendSpace.Controls.Add(this.txtSendSpacePassword);
             this.tpSendSpace.Controls.Add(this.txtSendSpaceUserName);
             this.tpSendSpace.Controls.Add(this.atcSendSpaceAccountType);
-            this.tpSendSpace.Location = new System.Drawing.Point(4, 22);
+            this.tpSendSpace.Location = new System.Drawing.Point(4, 40);
             this.tpSendSpace.Name = "tpSendSpace";
             this.tpSendSpace.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSendSpace.Size = new System.Drawing.Size(804, 475);
+            this.tpSendSpace.Size = new System.Drawing.Size(804, 457);
             this.tpSendSpace.TabIndex = 6;
             this.tpSendSpace.Text = "SendSpace";
             this.tpSendSpace.UseVisualStyleBackColor = true;
@@ -2104,10 +2364,10 @@
             this.tpGe_tt.Controls.Add(this.btnGe_ttLogin);
             this.tpGe_tt.Controls.Add(this.txtGe_ttPassword);
             this.tpGe_tt.Controls.Add(this.txtGe_ttEmail);
-            this.tpGe_tt.Location = new System.Drawing.Point(4, 22);
+            this.tpGe_tt.Location = new System.Drawing.Point(4, 40);
             this.tpGe_tt.Name = "tpGe_tt";
             this.tpGe_tt.Padding = new System.Windows.Forms.Padding(3);
-            this.tpGe_tt.Size = new System.Drawing.Size(804, 475);
+            this.tpGe_tt.Size = new System.Drawing.Size(804, 457);
             this.tpGe_tt.TabIndex = 7;
             this.tpGe_tt.Text = "Ge.tt";
             this.tpGe_tt.UseVisualStyleBackColor = true;
@@ -2171,10 +2431,10 @@
             this.tpHostr.Controls.Add(this.lblLocalhostrEmail);
             this.tpHostr.Controls.Add(this.txtLocalhostrPassword);
             this.tpHostr.Controls.Add(this.txtLocalhostrEmail);
-            this.tpHostr.Location = new System.Drawing.Point(4, 22);
+            this.tpHostr.Location = new System.Drawing.Point(4, 40);
             this.tpHostr.Name = "tpHostr";
             this.tpHostr.Padding = new System.Windows.Forms.Padding(3);
-            this.tpHostr.Size = new System.Drawing.Size(804, 475);
+            this.tpHostr.Size = new System.Drawing.Size(804, 457);
             this.tpHostr.TabIndex = 8;
             this.tpHostr.Text = "Hostr";
             this.tpHostr.UseVisualStyleBackColor = true;
@@ -2225,15 +2485,191 @@
             this.txtLocalhostrEmail.TabIndex = 1;
             this.txtLocalhostrEmail.TextChanged += new System.EventHandler(this.txtLocalhostrEmail_TextChanged);
             // 
+            // tpMinus
+            // 
+            this.tpMinus.Controls.Add(this.lblMinusURLType);
+            this.tpMinus.Controls.Add(this.cbMinusURLType);
+            this.tpMinus.Controls.Add(this.gbMinusUserPass);
+            this.tpMinus.Controls.Add(this.gbMinusUpload);
+            this.tpMinus.Location = new System.Drawing.Point(4, 40);
+            this.tpMinus.Name = "tpMinus";
+            this.tpMinus.Padding = new System.Windows.Forms.Padding(3);
+            this.tpMinus.Size = new System.Drawing.Size(804, 457);
+            this.tpMinus.TabIndex = 3;
+            this.tpMinus.Text = "Minus";
+            this.tpMinus.UseVisualStyleBackColor = true;
+            // 
+            // lblMinusURLType
+            // 
+            this.lblMinusURLType.AutoSize = true;
+            this.lblMinusURLType.Location = new System.Drawing.Point(16, 240);
+            this.lblMinusURLType.Name = "lblMinusURLType";
+            this.lblMinusURLType.Size = new System.Drawing.Size(55, 13);
+            this.lblMinusURLType.TabIndex = 4;
+            this.lblMinusURLType.Text = "URL type:";
+            // 
+            // cbMinusURLType
+            // 
+            this.cbMinusURLType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMinusURLType.FormattingEnabled = true;
+            this.cbMinusURLType.Location = new System.Drawing.Point(80, 236);
+            this.cbMinusURLType.Name = "cbMinusURLType";
+            this.cbMinusURLType.Size = new System.Drawing.Size(88, 21);
+            this.cbMinusURLType.TabIndex = 6;
+            this.cbMinusURLType.SelectedIndexChanged += new System.EventHandler(this.cbMinusURLType_SelectedIndexChanged);
+            // 
+            // gbMinusUserPass
+            // 
+            this.gbMinusUserPass.Controls.Add(this.lblMinusAuthStatus);
+            this.gbMinusUserPass.Controls.Add(this.btnMinusRefreshAuth);
+            this.gbMinusUserPass.Controls.Add(this.lblMinusPassword);
+            this.gbMinusUserPass.Controls.Add(this.lblMinusUsername);
+            this.gbMinusUserPass.Controls.Add(this.txtMinusPassword);
+            this.gbMinusUserPass.Controls.Add(this.txtMinusUsername);
+            this.gbMinusUserPass.Controls.Add(this.btnMinusAuth);
+            this.gbMinusUserPass.Location = new System.Drawing.Point(16, 16);
+            this.gbMinusUserPass.Name = "gbMinusUserPass";
+            this.gbMinusUserPass.Size = new System.Drawing.Size(712, 112);
+            this.gbMinusUserPass.TabIndex = 0;
+            this.gbMinusUserPass.TabStop = false;
+            this.gbMinusUserPass.Text = "Authentication";
+            // 
+            // lblMinusAuthStatus
+            // 
+            this.lblMinusAuthStatus.AutoSize = true;
+            this.lblMinusAuthStatus.Location = new System.Drawing.Point(312, 86);
+            this.lblMinusAuthStatus.Name = "lblMinusAuthStatus";
+            this.lblMinusAuthStatus.Size = new System.Drawing.Size(67, 13);
+            this.lblMinusAuthStatus.TabIndex = 6;
+            this.lblMinusAuthStatus.Text = "Login status:";
+            // 
+            // btnMinusRefreshAuth
+            // 
+            this.btnMinusRefreshAuth.Location = new System.Drawing.Point(160, 80);
+            this.btnMinusRefreshAuth.Name = "btnMinusRefreshAuth";
+            this.btnMinusRefreshAuth.Size = new System.Drawing.Size(144, 24);
+            this.btnMinusRefreshAuth.TabIndex = 3;
+            this.btnMinusRefreshAuth.Text = "Refresh authorization";
+            this.btnMinusRefreshAuth.UseVisualStyleBackColor = true;
+            this.btnMinusRefreshAuth.Click += new System.EventHandler(this.btnAuthRefresh_Click);
+            // 
+            // lblMinusPassword
+            // 
+            this.lblMinusPassword.AutoSize = true;
+            this.lblMinusPassword.Location = new System.Drawing.Point(8, 56);
+            this.lblMinusPassword.Name = "lblMinusPassword";
+            this.lblMinusPassword.Size = new System.Drawing.Size(56, 13);
+            this.lblMinusPassword.TabIndex = 4;
+            this.lblMinusPassword.Text = "Password:";
+            // 
+            // lblMinusUsername
+            // 
+            this.lblMinusUsername.AutoSize = true;
+            this.lblMinusUsername.Location = new System.Drawing.Point(8, 24);
+            this.lblMinusUsername.Name = "lblMinusUsername";
+            this.lblMinusUsername.Size = new System.Drawing.Size(58, 13);
+            this.lblMinusUsername.TabIndex = 0;
+            this.lblMinusUsername.Text = "Username:";
+            // 
+            // txtMinusPassword
+            // 
+            this.txtMinusPassword.Location = new System.Drawing.Point(72, 52);
+            this.txtMinusPassword.Name = "txtMinusPassword";
+            this.txtMinusPassword.PasswordChar = '*';
+            this.txtMinusPassword.Size = new System.Drawing.Size(232, 20);
+            this.txtMinusPassword.TabIndex = 5;
+            // 
+            // txtMinusUsername
+            // 
+            this.txtMinusUsername.Location = new System.Drawing.Point(72, 20);
+            this.txtMinusUsername.Name = "txtMinusUsername";
+            this.txtMinusUsername.Size = new System.Drawing.Size(232, 20);
+            this.txtMinusUsername.TabIndex = 1;
+            // 
+            // btnMinusAuth
+            // 
+            this.btnMinusAuth.Location = new System.Drawing.Point(8, 80);
+            this.btnMinusAuth.Name = "btnMinusAuth";
+            this.btnMinusAuth.Size = new System.Drawing.Size(144, 24);
+            this.btnMinusAuth.TabIndex = 2;
+            this.btnMinusAuth.Text = "Authorize";
+            this.btnMinusAuth.UseVisualStyleBackColor = true;
+            this.btnMinusAuth.Click += new System.EventHandler(this.btnMinusAuth_Click);
+            // 
+            // gbMinusUpload
+            // 
+            this.gbMinusUpload.Controls.Add(this.btnMinusReadFolderList);
+            this.gbMinusUpload.Controls.Add(this.chkMinusPublic);
+            this.gbMinusUpload.Controls.Add(this.btnMinusFolderAdd);
+            this.gbMinusUpload.Controls.Add(this.btnMinusFolderRemove);
+            this.gbMinusUpload.Controls.Add(this.cboMinusFolders);
+            this.gbMinusUpload.Location = new System.Drawing.Point(16, 136);
+            this.gbMinusUpload.Name = "gbMinusUpload";
+            this.gbMinusUpload.Size = new System.Drawing.Size(712, 88);
+            this.gbMinusUpload.TabIndex = 1;
+            this.gbMinusUpload.TabStop = false;
+            this.gbMinusUpload.Text = "Upload images to";
+            // 
+            // btnMinusReadFolderList
+            // 
+            this.btnMinusReadFolderList.AutoSize = true;
+            this.btnMinusReadFolderList.Location = new System.Drawing.Point(8, 24);
+            this.btnMinusReadFolderList.Name = "btnMinusReadFolderList";
+            this.btnMinusReadFolderList.Size = new System.Drawing.Size(144, 23);
+            this.btnMinusReadFolderList.TabIndex = 5;
+            this.btnMinusReadFolderList.Text = "Reload folder list";
+            this.btnMinusReadFolderList.UseVisualStyleBackColor = true;
+            this.btnMinusReadFolderList.Click += new System.EventHandler(this.btnMinusReadFolderList_Click);
+            // 
+            // chkMinusPublic
+            // 
+            this.chkMinusPublic.AutoSize = true;
+            this.chkMinusPublic.Location = new System.Drawing.Point(464, 58);
+            this.chkMinusPublic.Name = "chkMinusPublic";
+            this.chkMinusPublic.Size = new System.Drawing.Size(55, 17);
+            this.chkMinusPublic.TabIndex = 3;
+            this.chkMinusPublic.Text = "Public";
+            this.chkMinusPublic.UseVisualStyleBackColor = true;
+            // 
+            // btnMinusFolderAdd
+            // 
+            this.btnMinusFolderAdd.Location = new System.Drawing.Point(160, 24);
+            this.btnMinusFolderAdd.Name = "btnMinusFolderAdd";
+            this.btnMinusFolderAdd.Size = new System.Drawing.Size(144, 23);
+            this.btnMinusFolderAdd.TabIndex = 0;
+            this.btnMinusFolderAdd.Text = "Add folder";
+            this.btnMinusFolderAdd.UseVisualStyleBackColor = true;
+            this.btnMinusFolderAdd.Click += new System.EventHandler(this.btnMinusFolderAdd_Click);
+            // 
+            // btnMinusFolderRemove
+            // 
+            this.btnMinusFolderRemove.AutoSize = true;
+            this.btnMinusFolderRemove.Location = new System.Drawing.Point(312, 24);
+            this.btnMinusFolderRemove.Name = "btnMinusFolderRemove";
+            this.btnMinusFolderRemove.Size = new System.Drawing.Size(144, 23);
+            this.btnMinusFolderRemove.TabIndex = 1;
+            this.btnMinusFolderRemove.Text = "Remove folder";
+            this.btnMinusFolderRemove.UseVisualStyleBackColor = true;
+            this.btnMinusFolderRemove.Click += new System.EventHandler(this.btnMinusFolderRemove_Click);
+            // 
+            // cboMinusFolders
+            // 
+            this.cboMinusFolders.FormattingEnabled = true;
+            this.cboMinusFolders.Location = new System.Drawing.Point(8, 56);
+            this.cboMinusFolders.Name = "cboMinusFolders";
+            this.cboMinusFolders.Size = new System.Drawing.Size(448, 21);
+            this.cboMinusFolders.TabIndex = 2;
+            this.cboMinusFolders.SelectedIndexChanged += new System.EventHandler(this.cboMinusFolders_SelectedIndexChanged);
+            // 
             // tpJira
             // 
             this.tpJira.Controls.Add(this.txtJiraIssuePrefix);
             this.tpJira.Controls.Add(this.lblJiraIssuePrefix);
             this.tpJira.Controls.Add(this.gpJiraServer);
             this.tpJira.Controls.Add(this.oAuthJira);
-            this.tpJira.Location = new System.Drawing.Point(4, 22);
+            this.tpJira.Location = new System.Drawing.Point(4, 40);
             this.tpJira.Name = "tpJira";
-            this.tpJira.Size = new System.Drawing.Size(804, 475);
+            this.tpJira.Size = new System.Drawing.Size(804, 457);
             this.tpJira.TabIndex = 11;
             this.tpJira.Text = "Atlassian Jira";
             this.tpJira.UseVisualStyleBackColor = true;
@@ -2310,209 +2746,6 @@
             this.oAuthJira.CompleteButtonClicked += new UploadersLib.GUI.OAuth2Control.CompleteButtonClickedEventHandler(this.oAuthJira_CompleteButtonClicked);
             this.oAuthJira.RefreshButtonClicked += new UploadersLib.GUI.OAuth2Control.RefreshButtonClickedEventHandler(this.oAuthJira_RefreshButtonClicked);
             // 
-            // tpGoogleDrive
-            // 
-            this.tpGoogleDrive.Controls.Add(this.cbGoogleDriveIsPublic);
-            this.tpGoogleDrive.Controls.Add(this.oauth2GoogleDrive);
-            this.tpGoogleDrive.Location = new System.Drawing.Point(4, 22);
-            this.tpGoogleDrive.Name = "tpGoogleDrive";
-            this.tpGoogleDrive.Padding = new System.Windows.Forms.Padding(3);
-            this.tpGoogleDrive.Size = new System.Drawing.Size(804, 475);
-            this.tpGoogleDrive.TabIndex = 1;
-            this.tpGoogleDrive.Text = "Google Drive";
-            this.tpGoogleDrive.UseVisualStyleBackColor = true;
-            // 
-            // oauth2GoogleDrive
-            // 
-            this.oauth2GoogleDrive.Location = new System.Drawing.Point(16, 16);
-            this.oauth2GoogleDrive.LoginStatus = false;
-            this.oauth2GoogleDrive.Name = "oauth2GoogleDrive";
-            this.oauth2GoogleDrive.Size = new System.Drawing.Size(328, 207);
-            this.oauth2GoogleDrive.Status = "Status: Login required.";
-            this.oauth2GoogleDrive.TabIndex = 0;
-            this.oauth2GoogleDrive.OpenButtonClicked += new UploadersLib.GUI.OAuth2Control.OpenButtonClickedEventHandler(this.oauth2GoogleDrive_OpenButtonClicked);
-            this.oauth2GoogleDrive.CompleteButtonClicked += new UploadersLib.GUI.OAuth2Control.CompleteButtonClickedEventHandler(this.oauth2GoogleDrive_CompleteButtonClicked);
-            this.oauth2GoogleDrive.RefreshButtonClicked += new UploadersLib.GUI.OAuth2Control.RefreshButtonClickedEventHandler(this.oauth2GoogleDrive_RefreshButtonClicked);
-            // 
-            // tpMinus
-            // 
-            this.tpMinus.Controls.Add(this.gbMinusUserPass);
-            this.tpMinus.Controls.Add(this.gbMinusUpload);
-            this.tpMinus.Controls.Add(this.lblMinusAuthStatus);
-            this.tpMinus.Location = new System.Drawing.Point(4, 22);
-            this.tpMinus.Name = "tpMinus";
-            this.tpMinus.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMinus.Size = new System.Drawing.Size(804, 475);
-            this.tpMinus.TabIndex = 3;
-            this.tpMinus.Text = "Minus";
-            this.tpMinus.UseVisualStyleBackColor = true;
-            // 
-            // gbMinusUserPass
-            // 
-            this.gbMinusUserPass.Controls.Add(this.btnAuthRefresh);
-            this.gbMinusUserPass.Controls.Add(this.lblMinusPassword);
-            this.gbMinusUserPass.Controls.Add(this.lblMinusUsername);
-            this.gbMinusUserPass.Controls.Add(this.txtMinusPassword);
-            this.gbMinusUserPass.Controls.Add(this.txtMinusUsername);
-            this.gbMinusUserPass.Controls.Add(this.btnMinusAuth);
-            this.gbMinusUserPass.Location = new System.Drawing.Point(16, 16);
-            this.gbMinusUserPass.Name = "gbMinusUserPass";
-            this.gbMinusUserPass.Size = new System.Drawing.Size(712, 88);
-            this.gbMinusUserPass.TabIndex = 0;
-            this.gbMinusUserPass.TabStop = false;
-            this.gbMinusUserPass.Text = "Authentication";
-            // 
-            // btnAuthRefresh
-            // 
-            this.btnAuthRefresh.Location = new System.Drawing.Point(552, 16);
-            this.btnAuthRefresh.Name = "btnAuthRefresh";
-            this.btnAuthRefresh.Size = new System.Drawing.Size(144, 24);
-            this.btnAuthRefresh.TabIndex = 3;
-            this.btnAuthRefresh.Text = "Refresh Authorization";
-            this.btnAuthRefresh.UseVisualStyleBackColor = true;
-            this.btnAuthRefresh.Click += new System.EventHandler(this.btnAuthRefresh_Click);
-            // 
-            // lblMinusPassword
-            // 
-            this.lblMinusPassword.AutoSize = true;
-            this.lblMinusPassword.Location = new System.Drawing.Point(8, 56);
-            this.lblMinusPassword.Name = "lblMinusPassword";
-            this.lblMinusPassword.Size = new System.Drawing.Size(56, 13);
-            this.lblMinusPassword.TabIndex = 4;
-            this.lblMinusPassword.Text = "Password:";
-            // 
-            // lblMinusUsername
-            // 
-            this.lblMinusUsername.AutoSize = true;
-            this.lblMinusUsername.Location = new System.Drawing.Point(8, 24);
-            this.lblMinusUsername.Name = "lblMinusUsername";
-            this.lblMinusUsername.Size = new System.Drawing.Size(58, 13);
-            this.lblMinusUsername.TabIndex = 0;
-            this.lblMinusUsername.Text = "Username:";
-            // 
-            // txtMinusPassword
-            // 
-            this.txtMinusPassword.Location = new System.Drawing.Point(72, 52);
-            this.txtMinusPassword.Name = "txtMinusPassword";
-            this.txtMinusPassword.PasswordChar = '*';
-            this.txtMinusPassword.Size = new System.Drawing.Size(136, 20);
-            this.txtMinusPassword.TabIndex = 5;
-            // 
-            // txtMinusUsername
-            // 
-            this.txtMinusUsername.Location = new System.Drawing.Point(72, 20);
-            this.txtMinusUsername.Name = "txtMinusUsername";
-            this.txtMinusUsername.Size = new System.Drawing.Size(136, 20);
-            this.txtMinusUsername.TabIndex = 1;
-            // 
-            // btnMinusAuth
-            // 
-            this.btnMinusAuth.Location = new System.Drawing.Point(400, 16);
-            this.btnMinusAuth.Name = "btnMinusAuth";
-            this.btnMinusAuth.Size = new System.Drawing.Size(144, 24);
-            this.btnMinusAuth.TabIndex = 2;
-            this.btnMinusAuth.Text = "Authorize";
-            this.btnMinusAuth.UseVisualStyleBackColor = true;
-            this.btnMinusAuth.Click += new System.EventHandler(this.btnMinusAuth_Click);
-            // 
-            // gbMinusUpload
-            // 
-            this.gbMinusUpload.Controls.Add(this.lblMinusURLType);
-            this.gbMinusUpload.Controls.Add(this.cbMinusURLType);
-            this.gbMinusUpload.Controls.Add(this.btnMinusReadFolderList);
-            this.gbMinusUpload.Controls.Add(this.chkMinusPublic);
-            this.gbMinusUpload.Controls.Add(this.btnMinusFolderAdd);
-            this.gbMinusUpload.Controls.Add(this.btnMinusFolderRemove);
-            this.gbMinusUpload.Controls.Add(this.cboMinusFolders);
-            this.gbMinusUpload.Location = new System.Drawing.Point(16, 112);
-            this.gbMinusUpload.Name = "gbMinusUpload";
-            this.gbMinusUpload.Size = new System.Drawing.Size(712, 88);
-            this.gbMinusUpload.TabIndex = 1;
-            this.gbMinusUpload.TabStop = false;
-            this.gbMinusUpload.Text = "Upload images to";
-            // 
-            // lblMinusURLType
-            // 
-            this.lblMinusURLType.AutoSize = true;
-            this.lblMinusURLType.Location = new System.Drawing.Point(16, 56);
-            this.lblMinusURLType.Name = "lblMinusURLType";
-            this.lblMinusURLType.Size = new System.Drawing.Size(55, 13);
-            this.lblMinusURLType.TabIndex = 4;
-            this.lblMinusURLType.Text = "URL type:";
-            // 
-            // cbMinusURLType
-            // 
-            this.cbMinusURLType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbMinusURLType.FormattingEnabled = true;
-            this.cbMinusURLType.Location = new System.Drawing.Point(80, 52);
-            this.cbMinusURLType.Name = "cbMinusURLType";
-            this.cbMinusURLType.Size = new System.Drawing.Size(88, 21);
-            this.cbMinusURLType.TabIndex = 6;
-            this.cbMinusURLType.SelectedIndexChanged += new System.EventHandler(this.cbMinusURLType_SelectedIndexChanged);
-            // 
-            // btnMinusReadFolderList
-            // 
-            this.btnMinusReadFolderList.AutoSize = true;
-            this.btnMinusReadFolderList.Location = new System.Drawing.Point(512, 48);
-            this.btnMinusReadFolderList.Name = "btnMinusReadFolderList";
-            this.btnMinusReadFolderList.Size = new System.Drawing.Size(184, 23);
-            this.btnMinusReadFolderList.TabIndex = 5;
-            this.btnMinusReadFolderList.Text = "Reload folder list";
-            this.btnMinusReadFolderList.UseVisualStyleBackColor = true;
-            this.btnMinusReadFolderList.Click += new System.EventHandler(this.btnMinusReadFolderList_Click);
-            // 
-            // chkMinusPublic
-            // 
-            this.chkMinusPublic.AutoSize = true;
-            this.chkMinusPublic.Location = new System.Drawing.Point(416, 26);
-            this.chkMinusPublic.Name = "chkMinusPublic";
-            this.chkMinusPublic.Size = new System.Drawing.Size(55, 17);
-            this.chkMinusPublic.TabIndex = 3;
-            this.chkMinusPublic.Text = "Public";
-            this.chkMinusPublic.UseVisualStyleBackColor = true;
-            // 
-            // btnMinusFolderAdd
-            // 
-            this.btnMinusFolderAdd.Location = new System.Drawing.Point(512, 16);
-            this.btnMinusFolderAdd.Name = "btnMinusFolderAdd";
-            this.btnMinusFolderAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnMinusFolderAdd.TabIndex = 0;
-            this.btnMinusFolderAdd.Text = "Add folder";
-            this.btnMinusFolderAdd.UseVisualStyleBackColor = true;
-            this.btnMinusFolderAdd.Click += new System.EventHandler(this.btnMinusFolderAdd_Click);
-            // 
-            // btnMinusFolderRemove
-            // 
-            this.btnMinusFolderRemove.AutoSize = true;
-            this.btnMinusFolderRemove.Location = new System.Drawing.Point(592, 16);
-            this.btnMinusFolderRemove.Name = "btnMinusFolderRemove";
-            this.btnMinusFolderRemove.Size = new System.Drawing.Size(104, 23);
-            this.btnMinusFolderRemove.TabIndex = 1;
-            this.btnMinusFolderRemove.Text = "Remove folder";
-            this.btnMinusFolderRemove.UseVisualStyleBackColor = true;
-            this.btnMinusFolderRemove.Click += new System.EventHandler(this.btnMinusFolderRemove_Click);
-            // 
-            // cboMinusFolders
-            // 
-            this.cboMinusFolders.FormattingEnabled = true;
-            this.cboMinusFolders.Location = new System.Drawing.Point(16, 24);
-            this.cboMinusFolders.Name = "cboMinusFolders";
-            this.cboMinusFolders.Size = new System.Drawing.Size(392, 21);
-            this.cboMinusFolders.TabIndex = 2;
-            this.cboMinusFolders.SelectedIndexChanged += new System.EventHandler(this.cboMinusFolders_SelectedIndexChanged);
-            // 
-            // lblMinusAuthStatus
-            // 
-            this.lblMinusAuthStatus.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lblMinusAuthStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblMinusAuthStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblMinusAuthStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblMinusAuthStatus.Location = new System.Drawing.Point(3, 453);
-            this.lblMinusAuthStatus.Name = "lblMinusAuthStatus";
-            this.lblMinusAuthStatus.Size = new System.Drawing.Size(798, 19);
-            this.lblMinusAuthStatus.TabIndex = 2;
-            this.lblMinusAuthStatus.Text = "Login status:";
-            // 
             // tpEmail
             // 
             this.tpEmail.Controls.Add(this.chkEmailConfirm);
@@ -2529,10 +2762,10 @@
             this.tpEmail.Controls.Add(this.nudEmailSmtpPort);
             this.tpEmail.Controls.Add(this.lblEmailSmtpPort);
             this.tpEmail.Controls.Add(this.txtEmailDefaultSubject);
-            this.tpEmail.Location = new System.Drawing.Point(4, 22);
+            this.tpEmail.Location = new System.Drawing.Point(4, 40);
             this.tpEmail.Name = "tpEmail";
             this.tpEmail.Padding = new System.Windows.Forms.Padding(3);
-            this.tpEmail.Size = new System.Drawing.Size(804, 475);
+            this.tpEmail.Size = new System.Drawing.Size(804, 457);
             this.tpEmail.TabIndex = 10;
             this.tpEmail.Text = "Email";
             this.tpEmail.UseVisualStyleBackColor = true;
@@ -2677,10 +2910,10 @@
             // tpSharedFolder
             // 
             this.tpSharedFolder.Controls.Add(this.tlpSharedFolders);
-            this.tpSharedFolder.Location = new System.Drawing.Point(4, 22);
+            this.tpSharedFolder.Location = new System.Drawing.Point(4, 40);
             this.tpSharedFolder.Name = "tpSharedFolder";
             this.tpSharedFolder.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSharedFolder.Size = new System.Drawing.Size(804, 475);
+            this.tpSharedFolder.Size = new System.Drawing.Size(804, 457);
             this.tpSharedFolder.TabIndex = 9;
             this.tpSharedFolder.Text = "Shared folder";
             this.tpSharedFolder.UseVisualStyleBackColor = true;
@@ -2702,7 +2935,7 @@
             this.tlpSharedFolders.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpSharedFolders.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpSharedFolders.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpSharedFolders.Size = new System.Drawing.Size(798, 469);
+            this.tlpSharedFolders.Size = new System.Drawing.Size(798, 451);
             this.tlpSharedFolders.TabIndex = 0;
             // 
             // ucLocalhostAccounts
@@ -2711,7 +2944,7 @@
             this.ucLocalhostAccounts.Location = new System.Drawing.Point(4, 4);
             this.ucLocalhostAccounts.Margin = new System.Windows.Forms.Padding(4);
             this.ucLocalhostAccounts.Name = "ucLocalhostAccounts";
-            this.ucLocalhostAccounts.Size = new System.Drawing.Size(790, 343);
+            this.ucLocalhostAccounts.Size = new System.Drawing.Size(790, 330);
             this.ucLocalhostAccounts.TabIndex = 0;
             // 
             // gbSharedFolder
@@ -2723,9 +2956,9 @@
             this.gbSharedFolder.Controls.Add(this.cboSharedFolderText);
             this.gbSharedFolder.Controls.Add(this.cboSharedFolderImages);
             this.gbSharedFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbSharedFolder.Location = new System.Drawing.Point(3, 354);
+            this.gbSharedFolder.Location = new System.Drawing.Point(3, 341);
             this.gbSharedFolder.Name = "gbSharedFolder";
-            this.gbSharedFolder.Size = new System.Drawing.Size(792, 112);
+            this.gbSharedFolder.Size = new System.Drawing.Size(792, 107);
             this.gbSharedFolder.TabIndex = 1;
             this.gbSharedFolder.TabStop = false;
             this.gbSharedFolder.Text = "Settings";
@@ -3613,17 +3846,6 @@
             this.actRapidShareAccountType.Size = new System.Drawing.Size(214, 29);
             this.actRapidShareAccountType.TabIndex = 16;
             // 
-            // cbGoogleDriveIsPublic
-            // 
-            this.cbGoogleDriveIsPublic.AutoSize = true;
-            this.cbGoogleDriveIsPublic.Location = new System.Drawing.Point(16, 232);
-            this.cbGoogleDriveIsPublic.Name = "cbGoogleDriveIsPublic";
-            this.cbGoogleDriveIsPublic.Size = new System.Drawing.Size(106, 17);
-            this.cbGoogleDriveIsPublic.TabIndex = 1;
-            this.cbGoogleDriveIsPublic.Text = "Is public upload?";
-            this.cbGoogleDriveIsPublic.UseVisualStyleBackColor = true;
-            this.cbGoogleDriveIsPublic.CheckedChanged += new System.EventHandler(this.cbGoogleDriveIsPublic_CheckedChanged);
-            // 
             // UploadersConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3688,6 +3910,12 @@
             this.tpMega.PerformLayout();
             this.pnlMegaLogin.ResumeLayout(false);
             this.pnlMegaLogin.PerformLayout();
+            this.tpAmazonS3.ResumeLayout(false);
+            this.tpAmazonS3.PerformLayout();
+            this.tpPushbullet.ResumeLayout(false);
+            this.tpPushbullet.PerformLayout();
+            this.tpGoogleDrive.ResumeLayout(false);
+            this.tpGoogleDrive.PerformLayout();
             this.tpBox.ResumeLayout(false);
             this.tpBox.PerformLayout();
             this.tpRapidShare.ResumeLayout(false);
@@ -3698,17 +3926,16 @@
             this.tpGe_tt.PerformLayout();
             this.tpHostr.ResumeLayout(false);
             this.tpHostr.PerformLayout();
-            this.tpJira.ResumeLayout(false);
-            this.tpJira.PerformLayout();
-            this.gpJiraServer.ResumeLayout(false);
-            this.gpJiraServer.PerformLayout();
-            this.tpGoogleDrive.ResumeLayout(false);
-            this.tpGoogleDrive.PerformLayout();
             this.tpMinus.ResumeLayout(false);
+            this.tpMinus.PerformLayout();
             this.gbMinusUserPass.ResumeLayout(false);
             this.gbMinusUserPass.PerformLayout();
             this.gbMinusUpload.ResumeLayout(false);
             this.gbMinusUpload.PerformLayout();
+            this.tpJira.ResumeLayout(false);
+            this.tpJira.PerformLayout();
+            this.gpJiraServer.ResumeLayout(false);
+            this.gpJiraServer.PerformLayout();
             this.tpEmail.ResumeLayout(false);
             this.tpEmail.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudEmailSmtpPort)).EndInit();
@@ -3899,7 +4126,6 @@
         private System.Windows.Forms.Button btnPhotobucketRemoveAlbum;
         private System.Windows.Forms.Button btnPhotobucketAddAlbum;
         private System.Windows.Forms.TabPage tpMinus;
-        private System.Windows.Forms.Label lblMinusAuthStatus;
         private System.Windows.Forms.Button btnMinusAuth;
         private System.Windows.Forms.Label lblMinusPassword;
         private System.Windows.Forms.Label lblMinusUsername;
@@ -3911,7 +4137,7 @@
         private System.Windows.Forms.ComboBox cboMinusFolders;
         private System.Windows.Forms.CheckBox chkMinusPublic;
         private System.Windows.Forms.Button btnMinusReadFolderList;
-        private System.Windows.Forms.Button btnAuthRefresh;
+        private System.Windows.Forms.Button btnMinusRefreshAuth;
         private System.Windows.Forms.GroupBox gbMinusUserPass;
         private System.Windows.Forms.CheckBox chkEmailConfirm;
         private System.Windows.Forms.TableLayoutPanel tlpSharedFolders;
@@ -4017,7 +4243,6 @@
         private System.Windows.Forms.ComboBox cbMegaFolder;
         private System.Windows.Forms.Label lblMegaStatusTitle;
         private System.Windows.Forms.Label lblMegaStatus;
-        private GUI.AccountTypeControl atcMegaAccountType;
         private System.Windows.Forms.Button btnMegaRegister;
         private System.Windows.Forms.Button btnMegaRefreshFolders;
         private System.Windows.Forms.TabPage tpGist;
@@ -4047,5 +4272,25 @@
         private System.Windows.Forms.TextBox txtUpasteUserKey;
         private System.Windows.Forms.CheckBox cbUpasteIsPublic;
         private System.Windows.Forms.CheckBox cbGoogleDriveIsPublic;
+        private System.Windows.Forms.Label lblMinusAuthStatus;
+        private System.Windows.Forms.TabPage tpAmazonS3;
+        private System.Windows.Forms.TextBox txtAmazonS3AccessKey;
+        private System.Windows.Forms.Label lblAmazonS3SecretKey;
+        private System.Windows.Forms.Label lblAmazonS3AccessKey;
+        private System.Windows.Forms.CheckBox cbAmazonS3UseRRS;
+        private System.Windows.Forms.TextBox txtAmazonS3ObjectPrefix;
+        private System.Windows.Forms.Label lblAmazonS3ObjectPrefix;
+        private System.Windows.Forms.Label lblAmazonS3Endpoint;
+        private System.Windows.Forms.Label lblAmazonS3BucketName;
+        private System.Windows.Forms.TextBox txtAmazonS3BucketName;
+        private System.Windows.Forms.ComboBox cbAmazonS3Endpoint;
+        private System.Windows.Forms.TextBox txtAmazonS3SecretKey;
+        private System.Windows.Forms.CheckBox cbAmazonS3CustomCNAME;
+        private System.Windows.Forms.TabPage tpPushbullet;
+        private System.Windows.Forms.Label lblPushbulletDevices;
+        private System.Windows.Forms.ComboBox cboPushbulletDevices;
+        private System.Windows.Forms.Button btnPushbulletGetDeviceList;
+        private System.Windows.Forms.Label lblPushbulletUserKey;
+        private System.Windows.Forms.TextBox txtPushbulletUserKey;
     }
 }

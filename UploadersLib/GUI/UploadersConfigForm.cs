@@ -31,9 +31,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using UploadersLib.FileUploaders;
-using UploadersLib.HelperClasses;
 using UploadersLib.ImageUploaders;
-using UploadersLib.Properties;
 
 namespace UploadersLib
 {
@@ -49,7 +47,7 @@ namespace UploadersLib
             ControlSettings();
             CreateUserControlEvents();
             LoadSettings(uploadersConfig);
-            Text = "ShareX - Outputs Configuration" + (string.IsNullOrEmpty(uploadersConfig.FilePath) ? string.Empty : ": " + uploadersConfig.FilePath);
+            Text = "ShareX - Outputs Configuration" + (string.IsNullOrEmpty(uploadersConfig.FilePath) ? string.Empty : " - " + uploadersConfig.FilePath);
         }
 
         private void UploadersConfigForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -381,6 +379,67 @@ namespace UploadersLib
 
         #endregion Image Uploaders
 
+        #region Text Uploaders
+
+        #region Pastebin
+
+        private void btnPastebinLogin_Click(object sender, EventArgs e)
+        {
+            PastebinLogin();
+        }
+
+        #endregion Pastebin
+
+        #region Paste.ee
+
+        private void txtPaste_eeUserAPIKey_TextChanged(object sender, EventArgs e)
+        {
+            Config.Paste_eeUserAPIKey = txtPaste_eeUserAPIKey.Text;
+        }
+
+        #endregion Paste.ee
+
+        #region Gist
+
+        private void atcGistAccountType_AccountTypeChanged(AccountType accountType)
+        {
+            Config.GistAnonymousLogin = accountType == AccountType.Anonymous;
+            oAuth2Gist.Enabled = !Config.GistAnonymousLogin;
+        }
+
+        private void oAuth2Gist_OpenButtonClicked()
+        {
+            GistAuthOpen();
+        }
+
+        private void oAuth2Gist_CompleteButtonClicked(string code)
+        {
+            GistAuthComplete(code);
+        }
+
+        private void chkGistPublishPublic_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.GistPublishPublic = ((CheckBox)sender).Checked;
+        }
+
+        #endregion Gist
+
+        #region uPaste
+
+        private void txtUpasteUserKey_TextChanged(object sender, EventArgs e)
+        {
+            Config.UpasteUserKey = txtUpasteUserKey.Text;
+        }
+
+        private void cbUpasteIsPublic_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.UpasteIsPublic = cbUpasteIsPublic.Checked;
+        }
+
+        #endregion uPaste
+
+        #endregion Text Uploaders
+
         #region File Uploaders
 
         #region Dropbox
@@ -488,11 +547,6 @@ namespace UploadersLib
 
         #region Minus
 
-        private bool HasFolder(string name)
-        {
-            return cboMinusFolders.Items.Cast<MinusFolder>().Any(mf => mf.name == name);
-        }
-
         private void btnMinusAuth_Click(object sender, EventArgs e)
         {
             MinusAuth();
@@ -515,29 +569,43 @@ namespace UploadersLib
 
         private void btnMinusFolderAdd_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(cboMinusFolders.Text) && !HasFolder(cboMinusFolders.Text))
+            if (!string.IsNullOrEmpty(cboMinusFolders.Text) && !MinusHasFolder(cboMinusFolders.Text))
             {
-                Minus minus = new Minus(Config.MinusConfig, new OAuthInfo(APIKeys.MinusConsumerKey, APIKeys.MinusConsumerSecret));
+                btnMinusFolderAdd.Enabled = false;
+
+                Minus minus = new Minus(Config.MinusConfig, Config.MinusOAuth2Info);
                 MinusFolder dir = minus.CreateFolder(cboMinusFolders.Text, chkMinusPublic.Checked);
                 if (dir != null)
                 {
                     cboMinusFolders.Items.Add(dir);
+                    cboMinusFolders.SelectedIndex = cboMinusFolders.Items.Count - 1;
                 }
+
+                btnMinusFolderAdd.Enabled = true;
             }
         }
 
         private void btnMinusFolderRemove_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(cboMinusFolders.Text) && HasFolder(cboMinusFolders.Text))
+            if (!string.IsNullOrEmpty(cboMinusFolders.Text) && MinusHasFolder(cboMinusFolders.Text))
             {
-                Minus minus = new Minus(Config.MinusConfig, new OAuthInfo(APIKeys.MinusConsumerKey, APIKeys.MinusConsumerSecret));
+                btnMinusFolderRemove.Enabled = false;
 
-                int id = cboMinusFolders.SelectedIndex;
+                Minus minus = new Minus(Config.MinusConfig, Config.MinusOAuth2Info);
 
-                if (minus.DeleteFolder(id))
+                int index = cboMinusFolders.SelectedIndex;
+
+                if (minus.DeleteFolder(index))
                 {
-                    cboMinusFolders.Items.RemoveAt(id);
+                    cboMinusFolders.Items.RemoveAt(index);
+
+                    if (cboMinusFolders.Items.Count > 0)
+                    {
+                        cboMinusFolders.SelectedIndex = 0;
+                    }
                 }
+
+                btnMinusFolderRemove.Enabled = true;
             }
         }
 
@@ -547,8 +615,7 @@ namespace UploadersLib
             {
                 btnMinusReadFolderList.Enabled = false;
 
-                List<MinusFolder> tempListMf = new Minus(Config.MinusConfig,
-                    new OAuthInfo(APIKeys.MinusConsumerKey, APIKeys.MinusConsumerSecret)).ReadFolderList(MinusScope.read_all);
+                List<MinusFolder> tempListMf = new Minus(Config.MinusConfig, Config.MinusOAuth2Info).ReadFolderList();
 
                 if (tempListMf.Count > 0)
                 {
@@ -801,23 +868,12 @@ namespace UploadersLib
 
             tpMega.Enabled = false;
 
-            atcMegaAccountType.AccountTypeChanged -= atcMegaAccountType_AccountTypeChanged;
-            atcMegaAccountType.SelectedAccountType = Config.MegaAnonymousLogin ? AccountType.Anonymous : AccountType.User;
-            atcMegaAccountType.AccountTypeChanged += atcMegaAccountType_AccountTypeChanged;
-
-            pnlMegaLogin.Enabled = !Config.MegaAnonymousLogin;
-
             if (Config.MegaAuthInfos != null)
             {
                 txtMegaEmail.Text = Config.MegaAuthInfos.Email;
             }
 
-            if (Config.MegaAnonymousLogin)
-            {
-                lblMegaStatus.Text = "Configured (anonymous)";
-                lblMegaStatus.ForeColor = OkColor;
-            }
-            else if (Config.MegaAuthInfos == null)
+            if (Config.MegaAuthInfos == null)
             {
                 lblMegaStatus.Text = "Not configured";
                 lblMegaStatus.ForeColor = NokColor;
@@ -854,17 +910,6 @@ namespace UploadersLib
             tpMega.Enabled = true;
         }
 
-        private void atcMegaAccountType_AccountTypeChanged(AccountType accountType)
-        {
-            Config.MegaAnonymousLogin = accountType == AccountType.Anonymous;
-            Config.MegaAuthInfos = null;
-            Config.MegaParentNodeId = null;
-            txtMegaEmail.Text = null;
-            txtMegaPassword.Text = null;
-            cbMegaFolder.SelectedIndex = -1;
-            MegaConfigureTab(true);
-        }
-
         private void btnMegaLogin_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtMegaEmail.Text) || string.IsNullOrEmpty(txtMegaPassword.Text))
@@ -898,68 +943,75 @@ namespace UploadersLib
 
         #endregion Mega
 
+        #region Amazon S3
+
+        private void txtAmazonS3AccessKey_TextChanged(object sender, EventArgs e)
+        {
+            Config.AmazonS3Settings.AccessKeyID = txtAmazonS3AccessKey.Text;
+        }
+
+        private void txtAmazonS3SecretKey_TextChanged(object sender, EventArgs e)
+        {
+            Config.AmazonS3Settings.SecretAccessKey = txtAmazonS3SecretKey.Text;
+        }
+
+        private void txtAmazonS3ObjectPrefix_TextChanged(object sender, EventArgs e)
+        {
+            Config.AmazonS3Settings.ObjectPrefix = txtAmazonS3ObjectPrefix.Text;
+        }
+
+        private void cbAmazonS3Endpoint_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            Config.AmazonS3Settings.Endpoint = cbAmazonS3Endpoint.Text;
+        }
+
+        private void cbAmazonS3Endpoint_TextChanged(object sender, EventArgs e)
+        {
+            Config.AmazonS3Settings.Endpoint = cbAmazonS3Endpoint.Text;
+        }
+
+        private void txtAmazonS3BucketName_TextChanged(object sender, EventArgs e)
+        {
+            Config.AmazonS3Settings.Bucket = txtAmazonS3BucketName.Text;
+        }
+
+        private void cbAmazonS3UseRRS_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.AmazonS3Settings.UseReducedRedundancyStorage = cbAmazonS3UseRRS.Checked;
+        }
+
+        private void cbAmazonS3CustomCNAME_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.AmazonS3Settings.UseCustomCNAME = cbAmazonS3CustomCNAME.Checked;
+        }
+
+        #endregion Amazon S3
+
+        #region Pushbullet
+
+        private void txtPushbulletUserKey_TextChanged(object sender, EventArgs e)
+        {
+            bool enable = !string.IsNullOrEmpty(txtPushbulletUserKey.Text.Trim());
+
+            cboPushbulletDevices.Enabled = enable;
+            btnPushbulletGetDeviceList.Enabled = enable;
+
+            Config.PushbulletSettings.UserAPIKey = txtPushbulletUserKey.Text;
+        }
+
+        private void cboPushbulletDevices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Config.PushbulletSettings.SelectedDevice = cboPushbulletDevices.SelectedIndex;
+        }
+
+        private void btnPushbulletGetDeviceList_Click(object sender, EventArgs e)
+        {
+            PushbulletGetDevices();
+        }
+
+        #endregion Pushbullet
+
         #endregion File Uploaders
-
-        #region Text Uploaders
-
-        #region Pastebin
-
-        private void btnPastebinLogin_Click(object sender, EventArgs e)
-        {
-            PastebinLogin();
-        }
-
-        #endregion Pastebin
-
-        #region Paste.ee
-
-        private void txtPaste_eeUserAPIKey_TextChanged(object sender, EventArgs e)
-        {
-            Config.Paste_eeUserAPIKey = txtPaste_eeUserAPIKey.Text;
-        }
-
-        #endregion Paste.ee
-
-        #region Gist
-
-        private void atcGistAccountType_AccountTypeChanged(AccountType accountType)
-        {
-            Config.GistAnonymousLogin = accountType == AccountType.Anonymous;
-            oAuth2Gist.Enabled = !Config.GistAnonymousLogin;
-        }
-
-        private void oAuth2Gist_OpenButtonClicked()
-        {
-            GistAuthOpen();
-        }
-
-        private void oAuth2Gist_CompleteButtonClicked(string code)
-        {
-            GistAuthComplete(code);
-        }
-
-        private void chkGistPublishPublic_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.GistPublishPublic = ((CheckBox)sender).Checked;
-        }
-
-        #endregion Gist
-
-        #region uPaste
-
-        private void txtUpasteUserKey_TextChanged(object sender, EventArgs e)
-        {
-            Config.UpasteUserKey = txtUpasteUserKey.Text;
-        }
-
-        private void cbUpasteIsPublic_CheckedChanged(object sender, EventArgs e)
-        {
-            Config.UpasteIsPublic = cbUpasteIsPublic.Checked;
-        }
-
-        #endregion uPaste
-
-        #endregion Text Uploaders
 
         #region URL Shorteners
 

@@ -32,8 +32,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Media;
-using System.Net;
-using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -444,6 +442,12 @@ namespace HelpersLib
             return (OSVersion.Major == 6 && OSVersion.Minor >= 2) || OSVersion.Major > 6;
         }
 
+        public static bool IsDefaultInstallDir()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+            return Application.ExecutablePath.StartsWith(path);
+        }
+
         public static void LoadBrowserAsync(string url)
         {
             if (!string.IsNullOrEmpty(url))
@@ -475,8 +479,9 @@ namespace HelpersLib
 
         public static bool IsValidURLRegex(string url)
         {
-            // https://gist.github.com/729294
+            if (string.IsNullOrEmpty(url)) return false;
 
+            // https://gist.github.com/729294
             string pattern =
                 "^" +
                 // protocol identifier
@@ -514,6 +519,15 @@ namespace HelpersLib
                 "$";
 
             return Regex.IsMatch(url.Trim(), pattern, RegexOptions.IgnoreCase);
+        }
+
+        public static bool IsValidIPAddress(string ip)
+        {
+            if (string.IsNullOrEmpty(ip)) return false;
+
+            string pattern = @"(?<First>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Second>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Third>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Fourth>2[0-4]\d|25[0-5]|[01]?\d\d?)";
+
+            return Regex.IsMatch(ip.Trim(), pattern);
         }
 
         public static string GetUniqueFilePath(string filepath)

@@ -69,8 +69,9 @@
     <Reference Include="AsyncBridge.Net35">
       <HintPath>..\packages\AsyncBridge.Net35.0.2.0\lib\net35-Client\AsyncBridge.Net35.dll</HintPath>
     </Reference>
-    <Reference Include="MegaApiClient">
-      <HintPath>..\packages\MegaApiClient.1.0.2\lib\MegaApiClient.dll</HintPath>
+    <Reference Include="MegaApiClient, Version=1.0.4.0, Culture=neutral, PublicKeyToken=0480d311efbeb4e2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MegaApiClient.1.0.4\lib\MegaApiClient.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -81,6 +82,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Threading">
       <HintPath>..\packages\TaskParallelLibrary.1.0.2856.0\lib\Net35\System.Threading.dll</HintPath>
     </Reference>
@@ -103,6 +105,9 @@
     </Compile>
     <Compile Include="Forms\AutoCaptureForm.Designer.cs">
       <DependentUpon>AutoCaptureForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DropForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ExternalProgramForm.cs">
       <SubType>Form</SubType>
@@ -284,6 +289,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DNSChanger\DNSChanger.csproj">
+      <Project>{f1061d2b-4c92-42b9-9a98-34118d6b45a8}</Project>
+      <Name>DNSChanger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HistoryLib\HistoryLib.csproj">
       <Project>{E7DE6237-AEA2-498B-8F56-9B392472C490}</Project>
       <Name>HistoryLib</Name>
@@ -437,6 +446,8 @@
     </None>
     <None Include="Resources\checkbox_uncheck.png" />
     <None Include="Resources\checkbox_check.png" />
+    <None Include="Resources\network-ip.png" />
+    <None Include="Resources\inbox--plus.png" />
     <Content Include="ShareX_Icon.ico" />
     <None Include="Resources\ru.png" />
     <None Include="Resources\keyboard--pencil.png" />

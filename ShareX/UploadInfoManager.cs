@@ -24,7 +24,6 @@
 #endregion License Information (GPL v3)
 
 using HelpersLib;
-using ShareX.Properties;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -263,7 +262,7 @@ namespace ShareX
                 if (!string.IsNullOrEmpty(errors))
                 {
                     using (ErrorForm form = new ErrorForm(Application.ProductName, "Upload errors", errors, DebugHelper.Logger,
-                        Program.LogFilePath, Links.URL_ISSUES))
+                        Program.LogsFilePath, Links.URL_ISSUES))
                     {
                         form.ShowDialog();
                     }

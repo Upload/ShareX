@@ -31,7 +31,6 @@ using GreenshotPlugin.Controls;
 using GreenshotPlugin.Core;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -1331,6 +1330,7 @@ namespace Greenshot
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             forceClose = true;
             Close();
         }

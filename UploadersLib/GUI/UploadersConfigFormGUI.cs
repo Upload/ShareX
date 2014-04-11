@@ -70,6 +70,8 @@ namespace UploadersLib
             fileUploadersImageList.Images.Add("Email", Resources.mail);
             fileUploadersImageList.Images.Add("Jira", Resources.jira);
             fileUploadersImageList.Images.Add("Mega", Resources.Mega);
+            fileUploadersImageList.Images.Add("AmazonS3", Resources.AmazonS3);
+            fileUploadersImageList.Images.Add("Pushbullet", Resources.Pushbullet);
             tcFileUploaders.ImageList = fileUploadersImageList;
 
             ImageList textUploadersImageList = new ImageList();
@@ -114,6 +116,7 @@ namespace UploadersLib
             tpHostr.ImageKey = "Localhostr";
             tpCustomUploaders.ImageKey = "CustomUploader";
             tpPastebin.ImageKey = "Pastebin";
+            tpPushbullet.ImageKey = "Pushbullet";
             tpGoogleURLShortener.ImageKey = "Google";
             tpBitly.ImageKey = "Bitly";
             tpYourls.ImageKey = "Yourls";
@@ -121,6 +124,7 @@ namespace UploadersLib
             tpMega.ImageKey = "Mega";
             tpGist.ImageKey = "Gist";
             tpUpaste.ImageKey = "Upaste";
+            tpAmazonS3.ImageKey = "AmazonS3";
 
             cmsCustomUploaderArgValue = NameParser.CreateCodesMenu(txtCustomUploaderArgValue, ReplacementVariables.n);
 
@@ -219,6 +223,24 @@ namespace UploadersLib
             // Paste.ee
 
             txtPaste_eeUserAPIKey.Text = Config.Paste_eeUserAPIKey;
+
+            //Pushbullet
+
+            txtPushbulletUserKey.Text = Config.PushbulletSettings.UserAPIKey;
+
+            if (Config.PushbulletSettings.DeviceList.Count > 0)
+            {
+                Config.PushbulletSettings.DeviceList.ForEach(x => cboPushbulletDevices.Items.Add(x.Name));
+
+                if (Config.PushbulletSettings.DeviceList.IsValidIndex(Config.PushbulletSettings.SelectedDevice))
+                {
+                    cboPushbulletDevices.SelectedIndex = Config.PushbulletSettings.SelectedDevice;
+                }
+                else
+                {
+                    cboPushbulletDevices.SelectedIndex = 0;
+                }
+            }
 
             // Gist
 
@@ -392,6 +414,16 @@ namespace UploadersLib
             // Mega
 
             MegaConfigureTab(false);
+
+            // Amazon S3
+
+            txtAmazonS3AccessKey.Text = Config.AmazonS3Settings.AccessKeyID;
+            txtAmazonS3SecretKey.Text = Config.AmazonS3Settings.SecretAccessKey;
+            cbAmazonS3UseRRS.Checked = Config.AmazonS3Settings.UseReducedRedundancyStorage;
+            cbAmazonS3Endpoint.Text = Config.AmazonS3Settings.Endpoint;
+            cbAmazonS3CustomCNAME.Checked = Config.AmazonS3Settings.UseCustomCNAME;
+            txtAmazonS3BucketName.Text = Config.AmazonS3Settings.Bucket;
+            txtAmazonS3ObjectPrefix.Text = Config.AmazonS3Settings.ObjectPrefix;
 
             #endregion File uploaders
 

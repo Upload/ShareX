@@ -92,6 +92,10 @@ namespace UploadersLib
         FTP,
         [Description("mega.co.nz")]
         Mega,
+        [Description("s3.amazon.com")]
+        AmazonS3,
+        [Description("pushbullet.com")]
+        Pushbullet,
         [Description("drive.google.com")]
         GoogleDrive,
         [Description("rapidshare.com")]

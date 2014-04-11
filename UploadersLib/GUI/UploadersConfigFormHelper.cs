@@ -29,6 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
@@ -38,7 +39,6 @@ using UploadersLib.FileUploaders;
 using UploadersLib.Forms;
 using UploadersLib.HelperClasses;
 using UploadersLib.ImageUploaders;
-using UploadersLib.Properties;
 using UploadersLib.SocialServices;
 using UploadersLib.TextUploaders;
 using UploadersLib.URLShorteners;
@@ -725,22 +725,20 @@ namespace UploadersLib
             if (!string.IsNullOrEmpty(txtMinusUsername.Text) && !string.IsNullOrEmpty(txtMinusPassword.Text))
             {
                 btnMinusAuth.Enabled = false;
+                btnMinusRefreshAuth.Enabled = false;
 
                 try
                 {
                     Config.MinusConfig.Username = txtMinusUsername.Text;
                     Config.MinusConfig.Password = txtMinusPassword.Text;
-                    Minus minus = new Minus(Config.MinusConfig, new OAuthInfo(APIKeys.MinusConsumerKey, APIKeys.MinusConsumerSecret));
-                    string url = minus.GetAuthorizationURL();
+                    Config.MinusOAuth2Info = new OAuth2Info(APIKeys.MinusConsumerKey, APIKeys.MinusConsumerSecret);
+                    Minus minus = new Minus(Config.MinusConfig, Config.MinusOAuth2Info);
 
-                    if (!string.IsNullOrEmpty(url))
+                    if (minus.GetAccessToken())
                     {
-                        if (minus.GetAccessToken())
-                        {
-                            minus.ReadFolderList(MinusScope.upload_new);
-                            MinusUpdateControls();
-                            MessageBox.Show("Login successful.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
+                        minus.ReadFolderList();
+                        MinusUpdateControls();
+                        MessageBox.Show("Login successful.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
@@ -754,31 +752,48 @@ namespace UploadersLib
                 finally
                 {
                     btnMinusAuth.Enabled = true;
+                    btnMinusRefreshAuth.Enabled = true;
                 }
             }
         }
 
         public void MinusAuthRefresh()
         {
-            if (Config.MinusConfig != null)
+            btnMinusAuth.Enabled = false;
+            btnMinusRefreshAuth.Enabled = false;
+
+            try
             {
-                try
+                if (OAuth2Info.CheckOAuth(Config.MinusOAuth2Info))
                 {
-                    Minus minus = new Minus(Config.MinusConfig, new OAuthInfo(APIKeys.MinusConsumerKey, APIKeys.MinusConsumerSecret));
-                    minus.RefreshAccessTokens();
+                    bool result = new Minus(Config.MinusConfig, Config.MinusOAuth2Info).RefreshAccessToken();
+
+                    if (result)
+                    {
+                        MessageBox.Show("Login successful.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Login failed.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnMinusAuth.Enabled = true;
+                btnMinusRefreshAuth.Enabled = true;
             }
         }
 
         public void MinusUpdateControls()
         {
-            if (Config.MinusConfig != null && Config.MinusConfig.MinusUser != null)
+            if (Config.MinusConfig != null && Config.MinusConfig.MinusUser != null && OAuth2Info.CheckOAuth(Config.MinusOAuth2Info))
             {
-                lblMinusAuthStatus.Text = "Logged in: " + Config.MinusConfig.MinusUser.display_name;
+                lblMinusAuthStatus.Text = "Logged in as " + Config.MinusConfig.MinusUser.display_name + ".";
                 txtMinusUsername.Text = Config.MinusConfig.Username;
                 txtMinusPassword.Text = Config.MinusConfig.Password;
                 cboMinusFolders.Items.Clear();
@@ -792,8 +807,13 @@ namespace UploadersLib
             else
             {
                 lblMinusAuthStatus.Text = "Not logged in.";
-                btnAuthRefresh.Enabled = false;
+                btnMinusRefreshAuth.Enabled = false;
             }
+        }
+
+        private bool MinusHasFolder(string name)
+        {
+            return cboMinusFolders.Items.Cast<MinusFolder>().Any(mf => mf.name == name);
         }
 
         #endregion Minus
@@ -1045,6 +1065,33 @@ namespace UploadersLib
         }
 
         #endregion Pastebin
+
+        #region Pushbullet
+
+        public void PushbulletGetDevices()
+        {
+            cboPushbulletDevices.Items.Clear();
+            cboPushbulletDevices.ResetText();
+
+            Pushbullet pushbullet = new Pushbullet(Config.PushbulletSettings);
+            Config.PushbulletSettings.DeviceList = pushbullet.GetDeviceList();
+
+            if (Config.PushbulletSettings.DeviceList.Count > 0)
+            {
+                Config.PushbulletSettings.SelectedDevice = 0;
+
+                cboPushbulletDevices.Enabled = true;
+
+                Config.PushbulletSettings.DeviceList.ForEach(pbDevice =>
+                {
+                    cboPushbulletDevices.Items.Add(pbDevice.Name);
+                });
+
+                cboPushbulletDevices.SelectedIndex = 0;
+            }
+        }
+
+        #endregion Pushbullet
 
         #region Twitter
 

@@ -130,6 +130,8 @@ namespace ShareX
         ClipboardUploadWithContentViewer,
         [Description("File upload")]
         FileUpload,
+        [Description("Drag & drop upload")]
+        DragDropUpload,
         [Description("Capture entire screen")]
         PrintScreen,
         [Description("Capture active window")]
@@ -183,6 +185,23 @@ namespace ShareX
         BalloonTip,
         [Description("Show toast notification with preview")]
         ToastNotification
+    }
+
+    [DefaultValue(ToastClickAction.OpenUrl)]
+    public enum ToastClickAction
+    {
+        [Description("Annotate image")]
+        AnnotateImage,
+        [Description("Copy image to clipboard")]
+        CopyImageToClipboard,
+        [Description("Open file")]
+        OpenFile,
+        [Description("Open folder")]
+        OpenFolder,
+        [Description("Open URL")]
+        OpenUrl,
+        [Description("Upload")]
+        Upload,
     }
 
     public enum FileExistAction

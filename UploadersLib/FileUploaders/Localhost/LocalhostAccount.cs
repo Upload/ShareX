@@ -29,7 +29,6 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.IO;
 using System.Web;
-using System.Windows.Forms.Design;
 
 namespace UploadersLib
 {
@@ -39,7 +38,7 @@ namespace UploadersLib
         public string Name { get; set; }
 
         [Category("Localhost"), Description(@"Root folder, e.g. C:\Inetpub\wwwroot")]
-        [Editor(typeof(FolderNameEditor), typeof(UITypeEditor))]
+        [Editor(typeof(DirectoryNameEditor), typeof(UITypeEditor))]
         public string LocalhostRoot { get; set; }
 
         [Category("Localhost"), Description("Port Number"), DefaultValue(80)]

@@ -32,6 +32,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Design;
 using UploadersLib;
 
 namespace ShareX
@@ -195,6 +196,17 @@ namespace ShareX
                 }
             }
         }
+
+        public string CaptureFolder
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(AdvancedSettings.CapturePath))
+                    return AdvancedSettings.CapturePath;
+
+                return Program.ScreenshotsPath;
+            }
+        }
     }
 
     public class TaskSettingsGeneral
@@ -300,6 +312,10 @@ namespace ShareX
         [Category("Image"), DefaultValue(0), Description("Preferred thumbnail height. 0 means aspect ratio will be used to adjust height according to width.")]
         public int ThumbnailPreferredHeight { get; set; }
 
+        [Category("Paths"), Description("Custom capture path takes precedence over path configured in Application configuration.")]
+        [Editor(typeof(DirectoryNameEditor), typeof(UITypeEditor))]
+        public string CapturePath { get; set; }
+
         [Category("After upload"), DefaultValue(""),
         Description("Clipboard content format after uploading. Supported variables: $result, $url, $shorturl, $thumbnailurl, $deletionurl, $filepath, $filename, $filenamenoext, $folderpath, $foldername, $uploadtime and other variables such as %y-%mo-%d etc.")]
         public string ClipboardContentFormat { get; set; }
@@ -327,6 +343,9 @@ namespace ShareX
 
         [Category("After upload / Notifications"), DefaultValue(ContentAlignment.BottomRight), Description("Specify where should toast notification window appear on the screen.")]
         public ContentAlignment ToastWindowPlacement { get; set; }
+
+        [Category("After upload / Notifications"), DefaultValue(ToastClickAction.OpenUrl), Description("Specify action after toast notification window is left clicked.")]
+        public ToastClickAction ToastWindowClickAction { get; set; }
 
         private Size toastWindowSize;
 

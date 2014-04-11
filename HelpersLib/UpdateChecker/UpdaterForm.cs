@@ -23,7 +23,6 @@
 
 #endregion License Information (GPL v3)
 
-using HelpersLib.Properties;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -32,7 +31,6 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Threading;
-using System.Web;
 using System.Windows.Forms;
 
 namespace HelpersLib
@@ -159,7 +157,11 @@ namespace HelpersLib
                     psi.Arguments = "/VERYSILENT";
                 }
 
-                psi.Verb = "runas";
+                if (Helpers.IsDefaultInstallDir())
+                {
+                    psi.Verb = "runas";
+                }
+
                 psi.UseShellExecute = true;
                 Process.Start(psi);
             }

@@ -24,9 +24,7 @@
 #endregion License Information (GPL v3)
 
 using HelpersLib;
-using ImageEffectsLib;
 using IndexerLib;
-using ShareX.Properties;
 using System;
 using System.Drawing;
 using System.IO;
@@ -404,7 +402,7 @@ namespace ShareX
 
                     if (Info.TaskSettings.AfterCaptureJob.HasFlag(AfterCaptureTasks.SaveImageToFile))
                     {
-                        string filePath = TaskHelpers.CheckFilePath(Program.ScreenshotsPath, Info.FileName, Info.TaskSettings);
+                        string filePath = TaskHelpers.CheckFilePath(Info.TaskSettings.CaptureFolder, Info.FileName, Info.TaskSettings);
 
                         if (!string.IsNullOrEmpty(filePath))
                         {
@@ -418,7 +416,7 @@ namespace ShareX
                     {
                         using (SaveFileDialog sfd = new SaveFileDialog())
                         {
-                            sfd.InitialDirectory = Program.ScreenshotsPath;
+                            sfd.InitialDirectory = Info.TaskSettings.CaptureFolder;
                             sfd.FileName = Info.FileName;
                             sfd.DefaultExt = Path.GetExtension(Info.FileName).Substring(1);
                             sfd.Filter = string.Format("*{0}|*{0}|All files (*.*)|*.*", Path.GetExtension(Info.FileName));
@@ -752,7 +750,7 @@ namespace ShareX
                     }
                     break;
                 case FileDestination.Minus:
-                    fileUploader = new Minus(Program.UploadersConfig.MinusConfig, new OAuthInfo(APIKeys.MinusConsumerKey, APIKeys.MinusConsumerSecret));
+                    fileUploader = new Minus(Program.UploadersConfig.MinusConfig, Program.UploadersConfig.MinusOAuth2Info);
                     break;
                 case FileDestination.Box:
                     fileUploader = new Box(APIKeys.BoxKey)
@@ -841,7 +839,13 @@ namespace ShareX
                     fileUploader = new Jira(Program.UploadersConfig.JiraHost, Program.UploadersConfig.JiraOAuthInfo, Program.UploadersConfig.JiraIssuePrefix);
                     break;
                 case FileDestination.Mega:
-                    fileUploader = Program.UploadersConfig.MegaAnonymousLogin ? new Mega() : new Mega(Program.UploadersConfig.MegaAuthInfos, Program.UploadersConfig.MegaParentNodeId);
+                    fileUploader = new Mega(Program.UploadersConfig.MegaAuthInfos, Program.UploadersConfig.MegaParentNodeId);
+                    break;
+                case FileDestination.AmazonS3:
+                    fileUploader = new AmazonS3(Program.UploadersConfig.AmazonS3Settings);
+                    break;
+                case FileDestination.Pushbullet:
+                    fileUploader = new Pushbullet(Program.UploadersConfig.PushbulletSettings);
                     break;
             }
 

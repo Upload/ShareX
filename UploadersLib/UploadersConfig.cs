@@ -106,6 +106,10 @@ namespace UploadersLib
         public string UpasteUserKey = string.Empty;
         public bool UpasteIsPublic = false;
 
+        // Pushbullet
+
+        public PushbulletSettings PushbulletSettings = new PushbulletSettings();
+
         #endregion Text uploaders
 
         #region File uploaders
@@ -137,6 +141,7 @@ namespace UploadersLib
 
         // Minus
 
+        public OAuth2Info MinusOAuth2Info = null;
         public MinusOptions MinusConfig = new MinusOptions();
 
         // Box
@@ -190,9 +195,16 @@ namespace UploadersLib
 
         // Mega
 
-        public bool MegaAnonymousLogin = true;
         public MegaApiClient.AuthInfos MegaAuthInfos = null;
         public string MegaParentNodeId = null;
+
+        // Amazon S3
+
+        public AmazonS3Settings AmazonS3Settings = new AmazonS3Settings()
+        {
+            ObjectPrefix = Application.ProductName + "/%y-%mo/",
+            UseReducedRedundancyStorage = true
+        };
 
         #endregion File uploaders
 
@@ -340,7 +352,10 @@ namespace UploadersLib
                 case FileDestination.Jira:
                     return OAuthInfo.CheckOAuth(JiraOAuthInfo);
                 case FileDestination.Mega:
-                    return MegaAnonymousLogin || (MegaAuthInfos != null && MegaAuthInfos.Email != null && MegaAuthInfos.Hash != null && MegaAuthInfos.PasswordAesKey != null);
+                    return MegaAuthInfos != null && MegaAuthInfos.Email != null && MegaAuthInfos.Hash != null && MegaAuthInfos.PasswordAesKey != null;
+                case FileDestination.Pushbullet:
+                    return PushbulletSettings != null && !string.IsNullOrEmpty(PushbulletSettings.UserAPIKey) && PushbulletSettings.DeviceList != null &&
+                        PushbulletSettings.DeviceList.IsValidIndex(PushbulletSettings.SelectedDevice);
                 default:
                     return true;
             }

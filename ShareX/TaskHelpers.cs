@@ -345,20 +345,11 @@ namespace ShareX
 
         public static UpdateChecker CheckUpdate()
         {
-            UpdateChecker updateChecker = new GitHubUpdateChecker("ShareX", "ShareX");
+
+            UpdateChecker updateChecker = new GitHubUpdateChecker("ultramancool", "ShareX");
             updateChecker.CurrentVersion = Program.AssemblyVersion;
             updateChecker.Proxy = ProxyInfo.Current.GetWebProxy();
             updateChecker.CheckUpdate();
-
-            // Fallback if GitHub API fails
-            if (updateChecker.UpdateInfo == null || updateChecker.UpdateInfo.Status == UpdateStatus.UpdateCheckFailed)
-            {
-                updateChecker = new XMLUpdateChecker("http://getsharex.com/Update.xml", "ShareX");
-                updateChecker.CurrentVersion = Program.AssemblyVersion;
-                updateChecker.Proxy = ProxyInfo.Current.GetWebProxy();
-                updateChecker.CheckUpdate();
-            }
-
             return updateChecker;
         }
 

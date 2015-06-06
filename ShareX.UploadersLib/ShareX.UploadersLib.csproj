@@ -72,6 +72,9 @@
       <HintPath>..\packages\AWSSDK.2.3.36.0\lib\net35\AWSSDK.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ClouDeveloper.Mime">
+      <HintPath>..\packages\cloudeveloper.mime.1.0.0\lib\net40-client\ClouDeveloper.Mime.dll</HintPath>
+    </Reference>
     <Reference Include="crypto">
       <HintPath>..\packages\Portable.BouncyCastle.1.7.0.2\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch10+MonoAndroid10+xamarinmac20+xamarinios10\crypto.dll</HintPath>
     </Reference>
@@ -186,7 +189,7 @@
     <Compile Include="FileUploaders\GfycatUploader.cs" />
     <Compile Include="HelperClasses\OAuth\IOAuthBase.cs" />
     <Compile Include="ImageUploaders\Chevereto.cs" />
-    <Compile Include="ImageUploaders\Encrypted3d3ImageUploader.cs" />
+    <Compile Include="FileUploaders\Encrypted3d3Uploader.cs" />
     <Compile Include="ImageUploaders\HizliResim.cs" />
     <Compile Include="ImageUploaders\VgymeUploader.cs" />
     <Compile Include="TextUploaders\Hastebin.cs" />

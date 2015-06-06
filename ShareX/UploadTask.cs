@@ -727,9 +727,6 @@ namespace ShareX
                 case ImageDestination.Vgyme:
                     imageUploader = new VgymeUploader();
                     break;
-                case ImageDestination.Encrypted3d3ImageUploader:
-                    imageUploader = new Encrypted3d3ImageUploader();
-                    break;
                 case ImageDestination.CustomImageUploader:
                     CustomUploaderItem customUploader = GetCustomUploader(Program.UploadersConfig.CustomImageUploaderSelected);
                     if (customUploader != null)
@@ -998,6 +995,9 @@ namespace ShareX
                     break;
                 case FileDestination.Imgrush:
                     fileUploader = new MediaCrushUploader("https://imgrush.com");
+                    break;
+                case FileDestination.Encrypted3d3Uploader:
+                    fileUploader = new Encrypted3d3Uploader();
                     break;
             }
 

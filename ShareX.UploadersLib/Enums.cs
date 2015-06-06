@@ -30,8 +30,6 @@ namespace ShareX.UploadersLib
     [Description("Image uploaders"), DefaultValue(Imgur)]
     public enum ImageDestination
     {
-        [Description("3d3.ca")]
-        Encrypted3d3ImageUploader,
         [Description("Imgur")]
         Imgur,
         [Description("ImageShack")]
@@ -82,6 +80,8 @@ namespace ShareX.UploadersLib
     [Description("File uploaders"), DefaultValue(Dropbox)]
     public enum FileDestination
     {
+        [Description("3d3.ca")]
+        Encrypted3d3Uploader,
         [Description("Dropbox")]
         Dropbox,
         [Description("FTP")]

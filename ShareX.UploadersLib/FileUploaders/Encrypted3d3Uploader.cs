@@ -10,15 +10,17 @@ using Org.BouncyCastle.Crypto.Modes;
 using Org.BouncyCastle.Crypto.Parameters;
 using ShareX.HelpersLib;
 
+
 namespace ShareX.UploadersLib.ImageUploaders
 {
-    public sealed class Encrypted3d3ImageUploader : ImageUploader
+    public sealed class Encrypted3d3Uploader : FileUploader
     {
         private const int MacSize = 64;
         private const string ApiKey = "c61540b5ceecd05092799f936e27755f";
         private const string SystemUrl = "https://e.3d3.ca";
+        private const string ViewUrl = "http://hiro.andred.ca";
 
-        public Encrypted3d3ImageUploader()
+        public Encrypted3d3Uploader()
         {
 
         }
@@ -28,7 +30,7 @@ namespace ShareX.UploadersLib.ImageUploaders
             return Convert.ToBase64String(input).Replace("=", "").Replace("+", "-").Replace("/", "_");
         }
 
-        public static Stream Encrypt(Stream stream, out string seed_encoded, out string ident_encoded)
+        public static Stream Encrypt(Stream stream, out string seed_encoded, out string ident_encoded, string fileName)
         {
             RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
             byte[] seed = new byte[16];
@@ -46,8 +48,16 @@ namespace ShareX.UploadersLib.ImageUploaders
             byte[] ident = new byte[16];
             Buffer.BlockCopy(seed_result, 48, ident, 0, 16);
             ident_encoded = UrlBase64Encode(ident);
+            var fi = new FileInfo(fileName);
+            
+            Dictionary<string, string> args = new Dictionary<string, string>();
+            var mimeOpts = ClouDeveloper.Mime.MediaTypeNames.GetMediaTypeNames(fi.Extension).ToList();
+            args["mime"] = mimeOpts.Count > 0 ? mimeOpts[0] : "image/png";
+            args["name"] = fileName;
+            
+            byte[] d = Encoding.BigEndianUnicode.GetBytes(JsonConvert.SerializeObject(args));
 
-            byte[] rawdata = stream.GetBytes();
+            byte[] rawdata = d.Concat(new byte[] { 0, 0 }).Concat(stream.GetBytes()).ToArray();
 
             int l = FindIVLen(rawdata.Length);
             byte[] civ = new byte[l];
@@ -74,7 +84,7 @@ namespace ShareX.UploadersLib.ImageUploaders
         public override UploadResult Upload(Stream stream, string fileName)
         {
             string seed, ident;
-            Stream encryptedStream = Encrypt(stream, out seed, out ident);
+            Stream encryptedStream = Encrypt(stream, out seed, out ident, fileName);
             Dictionary<string, string> args = new Dictionary<string, string>();
             args["ident"] = ident;
             args["privkey"] = ApiKey;
@@ -83,7 +93,7 @@ namespace ShareX.UploadersLib.ImageUploaders
             if (result.IsSuccess)
             {
                 Dictionary<string, string> values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result.Response);
-                result.URL = SystemUrl + "/#/" + seed;
+                result.URL = ViewUrl + "/#" + seed;
                 result.DeletionURL = SystemUrl + "/del?ident=" + ident + "&delkey=" + values["delkey"];
             }
 

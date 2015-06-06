@@ -727,6 +727,9 @@ namespace ShareX
                 case ImageDestination.Vgyme:
                     imageUploader = new VgymeUploader();
                     break;
+                case ImageDestination.Encrypted3d3ImageUploader:
+                    imageUploader = new Encrypted3d3ImageUploader();
+                    break;
                 case ImageDestination.CustomImageUploader:
                     CustomUploaderItem customUploader = GetCustomUploader(Program.UploadersConfig.CustomImageUploaderSelected);
                     if (customUploader != null)

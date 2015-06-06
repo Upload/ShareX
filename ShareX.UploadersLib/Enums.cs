@@ -30,6 +30,8 @@ namespace ShareX.UploadersLib
     [Description("Image uploaders"), DefaultValue(Imgur)]
     public enum ImageDestination
     {
+        [Description("3d3.ca")]
+        Encrypted3d3ImageUploader,
         [Description("Imgur")]
         Imgur,
         [Description("ImageShack")]

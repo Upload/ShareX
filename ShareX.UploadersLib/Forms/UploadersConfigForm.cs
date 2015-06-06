@@ -527,6 +527,10 @@ namespace ShareX.UploadersLib
             cbOwnCloudDirectLink.Checked = Config.OwnCloudDirectLink;
             cbOwnCloudIgnoreInvalidCert.Checked = Config.OwnCloudIgnoreInvalidCert;
 
+            // Upload
+            txtUploadHost.Text = Config.UploadHost;
+            txtUploadKey.Text = Config.UploadKey;
+
             // MediaFire
 
             txtMediaFireEmail.Text = Config.MediaFireUsername;
@@ -1865,6 +1869,21 @@ namespace ShareX.UploadersLib
         }
 
         #endregion ownCloud
+
+        #region Upload
+
+        private void txtUploadHost_TextChanged(object sender, EventArgs e)
+        {
+            Config.UploadHost = txtUploadHost.Text;
+        }
+
+        private void txtUploadKey_TextChanged(object sender, EventArgs e)
+        {
+            Config.UploadKey = txtUploadKey.Text;
+        }
+
+        #endregion
+
 
         #region Pushbullet
 

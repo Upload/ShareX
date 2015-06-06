@@ -230,6 +230,10 @@ namespace ShareX.UploadersLib
         public bool OwnCloudDirectLink = false;
         public bool OwnCloudIgnoreInvalidCert = false;
 
+        // Upload
+        public string UploadHost = "https://e.3d3.ca";
+        public string UploadKey = "c61540b5ceecd05092799f936e27755f";
+
         // MediaFire
 
         public string MediaFireUsername = "";

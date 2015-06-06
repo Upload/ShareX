@@ -37,7 +37,6 @@
             this.tpOtherUploaders = new System.Windows.Forms.TabPage();
             this.tcOtherUploaders = new System.Windows.Forms.TabControl();
             this.tpTwitter = new System.Windows.Forms.TabPage();
-            this.lvTwitterAccounts = new ShareX.HelpersLib.MyListView();
             this.lblTwitterDefaultMessage = new System.Windows.Forms.Label();
             this.txtTwitterDefaultMessage = new System.Windows.Forms.TextBox();
             this.cbTwitterSkipMessageBox = new System.Windows.Forms.CheckBox();
@@ -61,7 +60,6 @@
             this.lblCustomUploaderResponseType = new System.Windows.Forms.Label();
             this.cbCustomUploaderURLShortener = new System.Windows.Forms.ComboBox();
             this.gbCustomUploaders = new System.Windows.Forms.GroupBox();
-            this.eiCustomUploaders = new ShareX.HelpersLib.ExportImportControl();
             this.lbCustomUploaderList = new System.Windows.Forms.ListBox();
             this.btnCustomUploaderRemove = new System.Windows.Forms.Button();
             this.btnCustomUploaderUpdate = new System.Windows.Forms.Button();
@@ -73,8 +71,6 @@
             this.gbCustomUploaderRegexp = new System.Windows.Forms.GroupBox();
             this.btnCustomUploaderRegexpEdit = new System.Windows.Forms.Button();
             this.txtCustomUploaderRegexp = new System.Windows.Forms.TextBox();
-            this.lvCustomUploaderRegexps = new ShareX.HelpersLib.MyListView();
-            this.lvRegexpsColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnCustomUploaderRegexpRemove = new System.Windows.Forms.Button();
             this.btnCustomUploaderRegexpAdd = new System.Windows.Forms.Button();
             this.cbCustomUploaderTextUploader = new System.Windows.Forms.ComboBox();
@@ -96,9 +92,6 @@
             this.btnCustomUploaderArgEdit = new System.Windows.Forms.Button();
             this.txtCustomUploaderArgValue = new System.Windows.Forms.TextBox();
             this.btnCustomUploaderArgRemove = new System.Windows.Forms.Button();
-            this.lvCustomUploaderArguments = new ShareX.HelpersLib.MyListView();
-            this.chArgumentsName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chArgumentsValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnCustomUploaderArgAdd = new System.Windows.Forms.Button();
             this.txtCustomUploaderArgName = new System.Windows.Forms.TextBox();
             this.tpURLShorteners = new System.Windows.Forms.TabPage();
@@ -126,7 +119,6 @@
             this.tpFileUploaders = new System.Windows.Forms.TabPage();
             this.tcFileUploaders = new System.Windows.Forms.TabControl();
             this.tpFTP = new System.Windows.Forms.TabPage();
-            this.eiFTP = new ShareX.HelpersLib.ExportImportControl();
             this.btnFtpClient = new System.Windows.Forms.Button();
             this.lblFtpFiles = new System.Windows.Forms.Label();
             this.lblFtpText = new System.Windows.Forms.Label();
@@ -151,16 +143,11 @@
             this.cbGoogleDriveUseFolder = new System.Windows.Forms.CheckBox();
             this.txtGoogleDriveFolderID = new System.Windows.Forms.TextBox();
             this.lblGoogleDriveFolderID = new System.Windows.Forms.Label();
-            this.lvGoogleDriveFoldersList = new ShareX.HelpersLib.MyListView();
-            this.chGoogleDriveTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chGoogleDriveDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnGoogleDriveRefreshFolders = new System.Windows.Forms.Button();
             this.cbGoogleDriveIsPublic = new System.Windows.Forms.CheckBox();
             this.tpBox = new System.Windows.Forms.TabPage();
             this.lblBoxFolderTip = new System.Windows.Forms.Label();
             this.cbBoxShare = new System.Windows.Forms.CheckBox();
-            this.lvBoxFolders = new ShareX.HelpersLib.MyListView();
-            this.chBoxFoldersName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblBoxFolderID = new System.Windows.Forms.Label();
             this.btnBoxRefreshFolders = new System.Windows.Forms.Button();
             this.tpCopy = new System.Windows.Forms.TabPage();
@@ -173,8 +160,6 @@
             this.tpHubic = new System.Windows.Forms.TabPage();
             this.cbHubicPublishLink = new System.Windows.Forms.CheckBox();
             this.lblHubicSelectedFolderNote = new System.Windows.Forms.Label();
-            this.lvHubicFolders = new ShareX.HelpersLib.MyListView();
-            this.chHubicFolderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblHubicSelectedFolder = new System.Windows.Forms.Label();
             this.btnHubicRefreshFolders = new System.Windows.Forms.Button();
             this.tpAmazonS3 = new System.Windows.Forms.TabPage();
@@ -404,8 +389,28 @@
             this.lblCheveretoAPIKey = new System.Windows.Forms.Label();
             this.tcUploaders = new System.Windows.Forms.TabControl();
             this.lblWidthHint = new System.Windows.Forms.Label();
-            this.ttlvMain = new ShareX.HelpersLib.TabToListView();
+            this.tpUpload = new System.Windows.Forms.TabPage();
+            this.txtUploadKey = new System.Windows.Forms.TextBox();
+            this.txtUploadHost = new System.Windows.Forms.TextBox();
+            this.lblUploadKey = new System.Windows.Forms.Label();
+            this.lblUploadHost = new System.Windows.Forms.Label();
+            this.eiFTP = new ShareX.HelpersLib.ExportImportControl();
+            this.lvGoogleDriveFoldersList = new ShareX.HelpersLib.MyListView();
+            this.chGoogleDriveTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chGoogleDriveDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvBoxFolders = new ShareX.HelpersLib.MyListView();
+            this.chBoxFoldersName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvHubicFolders = new ShareX.HelpersLib.MyListView();
+            this.chHubicFolderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvTwitterAccounts = new ShareX.HelpersLib.MyListView();
             this.chTwitterAccount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.eiCustomUploaders = new ShareX.HelpersLib.ExportImportControl();
+            this.lvCustomUploaderRegexps = new ShareX.HelpersLib.MyListView();
+            this.lvRegexpsColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvCustomUploaderArguments = new ShareX.HelpersLib.MyListView();
+            this.chArgumentsName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chArgumentsValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ttlvMain = new ShareX.HelpersLib.TabToListView();
             this.atcImgurAccountType = new ShareX.UploadersLib.AccountTypeControl();
             this.oauth2Imgur = new ShareX.UploadersLib.OAuthControl();
             this.atcTinyPicAccountType = new ShareX.UploadersLib.AccountTypeControl();
@@ -488,6 +493,7 @@
             this.tpPicasa.SuspendLayout();
             this.tpChevereto.SuspendLayout();
             this.tcUploaders.SuspendLayout();
+            this.tpUpload.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtRapidSharePremiumUserName
@@ -551,21 +557,6 @@
             resources.ApplyResources(this.tpTwitter, "tpTwitter");
             this.tpTwitter.Name = "tpTwitter";
             this.tpTwitter.UseVisualStyleBackColor = true;
-            // 
-            // lvTwitterAccounts
-            // 
-            this.lvTwitterAccounts.AutoFillColumn = true;
-            this.lvTwitterAccounts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chTwitterAccount});
-            this.lvTwitterAccounts.FullRowSelect = true;
-            this.lvTwitterAccounts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvTwitterAccounts.HideSelection = false;
-            resources.ApplyResources(this.lvTwitterAccounts, "lvTwitterAccounts");
-            this.lvTwitterAccounts.MultiSelect = false;
-            this.lvTwitterAccounts.Name = "lvTwitterAccounts";
-            this.lvTwitterAccounts.UseCompatibleStateImageBehavior = false;
-            this.lvTwitterAccounts.View = System.Windows.Forms.View.Details;
-            this.lvTwitterAccounts.SelectedIndexChanged += new System.EventHandler(this.lvTwitterAccounts_SelectedIndexChanged);
             // 
             // lblTwitterDefaultMessage
             // 
@@ -751,14 +742,6 @@
             this.gbCustomUploaders.Name = "gbCustomUploaders";
             this.gbCustomUploaders.TabStop = false;
             // 
-            // eiCustomUploaders
-            // 
-            resources.ApplyResources(this.eiCustomUploaders, "eiCustomUploaders");
-            this.eiCustomUploaders.Name = "eiCustomUploaders";
-            this.eiCustomUploaders.ObjectType = null;
-            this.eiCustomUploaders.ExportRequested += new ShareX.HelpersLib.ExportImportControl.ExportEventHandler(this.eiCustomUploaders_ExportRequested);
-            this.eiCustomUploaders.ImportRequested += new ShareX.HelpersLib.ExportImportControl.ImportEventHandler(this.eiCustomUploaders_ImportRequested);
-            // 
             // lbCustomUploaderList
             // 
             this.lbCustomUploaderList.FormattingEnabled = true;
@@ -831,29 +814,6 @@
             // 
             resources.ApplyResources(this.txtCustomUploaderRegexp, "txtCustomUploaderRegexp");
             this.txtCustomUploaderRegexp.Name = "txtCustomUploaderRegexp";
-            // 
-            // lvCustomUploaderRegexps
-            // 
-            this.lvCustomUploaderRegexps.AllowDrop = true;
-            this.lvCustomUploaderRegexps.AllowItemDrag = true;
-            this.lvCustomUploaderRegexps.AutoFillColumn = true;
-            this.lvCustomUploaderRegexps.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.lvRegexpsColumn});
-            this.lvCustomUploaderRegexps.FullRowSelect = true;
-            this.lvCustomUploaderRegexps.GridLines = true;
-            this.lvCustomUploaderRegexps.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvCustomUploaderRegexps.HideSelection = false;
-            resources.ApplyResources(this.lvCustomUploaderRegexps, "lvCustomUploaderRegexps");
-            this.lvCustomUploaderRegexps.MultiSelect = false;
-            this.lvCustomUploaderRegexps.Name = "lvCustomUploaderRegexps";
-            this.lvCustomUploaderRegexps.Scrollable = false;
-            this.lvCustomUploaderRegexps.UseCompatibleStateImageBehavior = false;
-            this.lvCustomUploaderRegexps.View = System.Windows.Forms.View.Details;
-            this.lvCustomUploaderRegexps.SelectedIndexChanged += new System.EventHandler(this.lvCustomUploaderRegexps_SelectedIndexChanged);
-            // 
-            // lvRegexpsColumn
-            // 
-            resources.ApplyResources(this.lvRegexpsColumn, "lvRegexpsColumn");
             // 
             // btnCustomUploaderRegexpRemove
             // 
@@ -988,33 +948,6 @@
             this.btnCustomUploaderArgRemove.Name = "btnCustomUploaderArgRemove";
             this.btnCustomUploaderArgRemove.UseVisualStyleBackColor = true;
             this.btnCustomUploaderArgRemove.Click += new System.EventHandler(this.btnCustomUploaderArgRemove_Click);
-            // 
-            // lvCustomUploaderArguments
-            // 
-            this.lvCustomUploaderArguments.AllowDrop = true;
-            this.lvCustomUploaderArguments.AllowItemDrag = true;
-            this.lvCustomUploaderArguments.AutoFillColumn = true;
-            this.lvCustomUploaderArguments.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chArgumentsName,
-            this.chArgumentsValue});
-            this.lvCustomUploaderArguments.FullRowSelect = true;
-            this.lvCustomUploaderArguments.GridLines = true;
-            this.lvCustomUploaderArguments.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvCustomUploaderArguments.HideSelection = false;
-            resources.ApplyResources(this.lvCustomUploaderArguments, "lvCustomUploaderArguments");
-            this.lvCustomUploaderArguments.MultiSelect = false;
-            this.lvCustomUploaderArguments.Name = "lvCustomUploaderArguments";
-            this.lvCustomUploaderArguments.UseCompatibleStateImageBehavior = false;
-            this.lvCustomUploaderArguments.View = System.Windows.Forms.View.Details;
-            this.lvCustomUploaderArguments.SelectedIndexChanged += new System.EventHandler(this.lvCustomUploaderArguments_SelectedIndexChanged);
-            // 
-            // chArgumentsName
-            // 
-            resources.ApplyResources(this.chArgumentsName, "chArgumentsName");
-            // 
-            // chArgumentsValue
-            // 
-            resources.ApplyResources(this.chArgumentsValue, "chArgumentsValue");
             // 
             // btnCustomUploaderArgAdd
             // 
@@ -1189,6 +1122,7 @@
             // 
             // tcFileUploaders
             // 
+            this.tcFileUploaders.Controls.Add(this.tpUpload);
             this.tcFileUploaders.Controls.Add(this.tpFTP);
             this.tcFileUploaders.Controls.Add(this.tpDropbox);
             this.tcFileUploaders.Controls.Add(this.tpOneDrive);
@@ -1228,14 +1162,6 @@
             resources.ApplyResources(this.tpFTP, "tpFTP");
             this.tpFTP.Name = "tpFTP";
             this.tpFTP.UseVisualStyleBackColor = true;
-            // 
-            // eiFTP
-            // 
-            resources.ApplyResources(this.eiFTP, "eiFTP");
-            this.eiFTP.Name = "eiFTP";
-            this.eiFTP.ObjectType = null;
-            this.eiFTP.ExportRequested += new ShareX.HelpersLib.ExportImportControl.ExportEventHandler(this.eiFTP_ExportRequested);
-            this.eiFTP.ImportRequested += new ShareX.HelpersLib.ExportImportControl.ImportEventHandler(this.eiFTP_ImportRequested);
             // 
             // btnFtpClient
             // 
@@ -1409,28 +1335,6 @@
             resources.ApplyResources(this.lblGoogleDriveFolderID, "lblGoogleDriveFolderID");
             this.lblGoogleDriveFolderID.Name = "lblGoogleDriveFolderID";
             // 
-            // lvGoogleDriveFoldersList
-            // 
-            this.lvGoogleDriveFoldersList.AutoFillColumn = true;
-            this.lvGoogleDriveFoldersList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chGoogleDriveTitle,
-            this.chGoogleDriveDescription});
-            this.lvGoogleDriveFoldersList.FullRowSelect = true;
-            resources.ApplyResources(this.lvGoogleDriveFoldersList, "lvGoogleDriveFoldersList");
-            this.lvGoogleDriveFoldersList.MultiSelect = false;
-            this.lvGoogleDriveFoldersList.Name = "lvGoogleDriveFoldersList";
-            this.lvGoogleDriveFoldersList.UseCompatibleStateImageBehavior = false;
-            this.lvGoogleDriveFoldersList.View = System.Windows.Forms.View.Details;
-            this.lvGoogleDriveFoldersList.SelectedIndexChanged += new System.EventHandler(this.lvGoogleDriveFoldersList_SelectedIndexChanged);
-            // 
-            // chGoogleDriveTitle
-            // 
-            resources.ApplyResources(this.chGoogleDriveTitle, "chGoogleDriveTitle");
-            // 
-            // chGoogleDriveDescription
-            // 
-            resources.ApplyResources(this.chGoogleDriveDescription, "chGoogleDriveDescription");
-            // 
             // btnGoogleDriveRefreshFolders
             // 
             resources.ApplyResources(this.btnGoogleDriveRefreshFolders, "btnGoogleDriveRefreshFolders");
@@ -1468,23 +1372,6 @@
             this.cbBoxShare.Name = "cbBoxShare";
             this.cbBoxShare.UseVisualStyleBackColor = true;
             this.cbBoxShare.CheckedChanged += new System.EventHandler(this.cbBoxShare_CheckedChanged);
-            // 
-            // lvBoxFolders
-            // 
-            this.lvBoxFolders.AutoFillColumn = true;
-            this.lvBoxFolders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chBoxFoldersName});
-            this.lvBoxFolders.FullRowSelect = true;
-            resources.ApplyResources(this.lvBoxFolders, "lvBoxFolders");
-            this.lvBoxFolders.Name = "lvBoxFolders";
-            this.lvBoxFolders.UseCompatibleStateImageBehavior = false;
-            this.lvBoxFolders.View = System.Windows.Forms.View.Details;
-            this.lvBoxFolders.SelectedIndexChanged += new System.EventHandler(this.lvBoxFolders_SelectedIndexChanged);
-            this.lvBoxFolders.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvBoxFolders_MouseDoubleClick);
-            // 
-            // chBoxFoldersName
-            // 
-            resources.ApplyResources(this.chBoxFoldersName, "chBoxFoldersName");
             // 
             // lblBoxFolderID
             // 
@@ -1571,23 +1458,6 @@
             // 
             resources.ApplyResources(this.lblHubicSelectedFolderNote, "lblHubicSelectedFolderNote");
             this.lblHubicSelectedFolderNote.Name = "lblHubicSelectedFolderNote";
-            // 
-            // lvHubicFolders
-            // 
-            this.lvHubicFolders.AutoFillColumn = true;
-            this.lvHubicFolders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chHubicFolderName});
-            this.lvHubicFolders.FullRowSelect = true;
-            resources.ApplyResources(this.lvHubicFolders, "lvHubicFolders");
-            this.lvHubicFolders.Name = "lvHubicFolders";
-            this.lvHubicFolders.UseCompatibleStateImageBehavior = false;
-            this.lvHubicFolders.View = System.Windows.Forms.View.Details;
-            this.lvHubicFolders.SelectedIndexChanged += new System.EventHandler(this.lvHubicFolders_SelectedIndexChanged);
-            this.lvHubicFolders.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvHubicFolders_MouseDoubleClick);
-            // 
-            // chHubicFolderName
-            // 
-            resources.ApplyResources(this.chHubicFolderName, "chHubicFolderName");
             // 
             // lblHubicSelectedFolder
             // 
@@ -3209,6 +3079,179 @@
             resources.ApplyResources(this.lblWidthHint, "lblWidthHint");
             this.lblWidthHint.Name = "lblWidthHint";
             // 
+            // tpUpload
+            // 
+            this.tpUpload.Controls.Add(this.txtUploadKey);
+            this.tpUpload.Controls.Add(this.txtUploadHost);
+            this.tpUpload.Controls.Add(this.lblUploadKey);
+            this.tpUpload.Controls.Add(this.lblUploadHost);
+            resources.ApplyResources(this.tpUpload, "tpUpload");
+            this.tpUpload.Name = "tpUpload";
+            this.tpUpload.UseVisualStyleBackColor = true;
+            // 
+            // txtUploadKey
+            // 
+            resources.ApplyResources(this.txtUploadKey, "txtUploadKey");
+            this.txtUploadKey.Name = "txtUploadKey";
+            this.txtUploadKey.TextChanged += new System.EventHandler(this.txtUploadKey_TextChanged);
+            // 
+            // txtUploadHost
+            // 
+            resources.ApplyResources(this.txtUploadHost, "txtUploadHost");
+            this.txtUploadHost.Name = "txtUploadHost";
+            this.txtUploadHost.TextChanged += new System.EventHandler(this.txtUploadHost_TextChanged);
+            // 
+            // lblUploadKey
+            // 
+            resources.ApplyResources(this.lblUploadKey, "lblUploadKey");
+            this.lblUploadKey.Name = "lblUploadKey";
+            // 
+            // lblUploadHost
+            // 
+            resources.ApplyResources(this.lblUploadHost, "lblUploadHost");
+            this.lblUploadHost.Name = "lblUploadHost";
+            // 
+            // eiFTP
+            // 
+            resources.ApplyResources(this.eiFTP, "eiFTP");
+            this.eiFTP.Name = "eiFTP";
+            this.eiFTP.ObjectType = null;
+            this.eiFTP.ExportRequested += new ShareX.HelpersLib.ExportImportControl.ExportEventHandler(this.eiFTP_ExportRequested);
+            this.eiFTP.ImportRequested += new ShareX.HelpersLib.ExportImportControl.ImportEventHandler(this.eiFTP_ImportRequested);
+            // 
+            // lvGoogleDriveFoldersList
+            // 
+            this.lvGoogleDriveFoldersList.AutoFillColumn = true;
+            this.lvGoogleDriveFoldersList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chGoogleDriveTitle,
+            this.chGoogleDriveDescription});
+            this.lvGoogleDriveFoldersList.FullRowSelect = true;
+            resources.ApplyResources(this.lvGoogleDriveFoldersList, "lvGoogleDriveFoldersList");
+            this.lvGoogleDriveFoldersList.MultiSelect = false;
+            this.lvGoogleDriveFoldersList.Name = "lvGoogleDriveFoldersList";
+            this.lvGoogleDriveFoldersList.UseCompatibleStateImageBehavior = false;
+            this.lvGoogleDriveFoldersList.View = System.Windows.Forms.View.Details;
+            this.lvGoogleDriveFoldersList.SelectedIndexChanged += new System.EventHandler(this.lvGoogleDriveFoldersList_SelectedIndexChanged);
+            // 
+            // chGoogleDriveTitle
+            // 
+            resources.ApplyResources(this.chGoogleDriveTitle, "chGoogleDriveTitle");
+            // 
+            // chGoogleDriveDescription
+            // 
+            resources.ApplyResources(this.chGoogleDriveDescription, "chGoogleDriveDescription");
+            // 
+            // lvBoxFolders
+            // 
+            this.lvBoxFolders.AutoFillColumn = true;
+            this.lvBoxFolders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chBoxFoldersName});
+            this.lvBoxFolders.FullRowSelect = true;
+            resources.ApplyResources(this.lvBoxFolders, "lvBoxFolders");
+            this.lvBoxFolders.Name = "lvBoxFolders";
+            this.lvBoxFolders.UseCompatibleStateImageBehavior = false;
+            this.lvBoxFolders.View = System.Windows.Forms.View.Details;
+            this.lvBoxFolders.SelectedIndexChanged += new System.EventHandler(this.lvBoxFolders_SelectedIndexChanged);
+            this.lvBoxFolders.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvBoxFolders_MouseDoubleClick);
+            // 
+            // chBoxFoldersName
+            // 
+            resources.ApplyResources(this.chBoxFoldersName, "chBoxFoldersName");
+            // 
+            // lvHubicFolders
+            // 
+            this.lvHubicFolders.AutoFillColumn = true;
+            this.lvHubicFolders.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chHubicFolderName});
+            this.lvHubicFolders.FullRowSelect = true;
+            resources.ApplyResources(this.lvHubicFolders, "lvHubicFolders");
+            this.lvHubicFolders.Name = "lvHubicFolders";
+            this.lvHubicFolders.UseCompatibleStateImageBehavior = false;
+            this.lvHubicFolders.View = System.Windows.Forms.View.Details;
+            this.lvHubicFolders.SelectedIndexChanged += new System.EventHandler(this.lvHubicFolders_SelectedIndexChanged);
+            this.lvHubicFolders.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvHubicFolders_MouseDoubleClick);
+            // 
+            // chHubicFolderName
+            // 
+            resources.ApplyResources(this.chHubicFolderName, "chHubicFolderName");
+            // 
+            // lvTwitterAccounts
+            // 
+            this.lvTwitterAccounts.AutoFillColumn = true;
+            this.lvTwitterAccounts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chTwitterAccount});
+            this.lvTwitterAccounts.FullRowSelect = true;
+            this.lvTwitterAccounts.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvTwitterAccounts.HideSelection = false;
+            resources.ApplyResources(this.lvTwitterAccounts, "lvTwitterAccounts");
+            this.lvTwitterAccounts.MultiSelect = false;
+            this.lvTwitterAccounts.Name = "lvTwitterAccounts";
+            this.lvTwitterAccounts.UseCompatibleStateImageBehavior = false;
+            this.lvTwitterAccounts.View = System.Windows.Forms.View.Details;
+            this.lvTwitterAccounts.SelectedIndexChanged += new System.EventHandler(this.lvTwitterAccounts_SelectedIndexChanged);
+            // 
+            // chTwitterAccount
+            // 
+            resources.ApplyResources(this.chTwitterAccount, "chTwitterAccount");
+            // 
+            // eiCustomUploaders
+            // 
+            resources.ApplyResources(this.eiCustomUploaders, "eiCustomUploaders");
+            this.eiCustomUploaders.Name = "eiCustomUploaders";
+            this.eiCustomUploaders.ObjectType = null;
+            this.eiCustomUploaders.ExportRequested += new ShareX.HelpersLib.ExportImportControl.ExportEventHandler(this.eiCustomUploaders_ExportRequested);
+            this.eiCustomUploaders.ImportRequested += new ShareX.HelpersLib.ExportImportControl.ImportEventHandler(this.eiCustomUploaders_ImportRequested);
+            // 
+            // lvCustomUploaderRegexps
+            // 
+            this.lvCustomUploaderRegexps.AllowDrop = true;
+            this.lvCustomUploaderRegexps.AllowItemDrag = true;
+            this.lvCustomUploaderRegexps.AutoFillColumn = true;
+            this.lvCustomUploaderRegexps.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvRegexpsColumn});
+            this.lvCustomUploaderRegexps.FullRowSelect = true;
+            this.lvCustomUploaderRegexps.GridLines = true;
+            this.lvCustomUploaderRegexps.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvCustomUploaderRegexps.HideSelection = false;
+            resources.ApplyResources(this.lvCustomUploaderRegexps, "lvCustomUploaderRegexps");
+            this.lvCustomUploaderRegexps.MultiSelect = false;
+            this.lvCustomUploaderRegexps.Name = "lvCustomUploaderRegexps";
+            this.lvCustomUploaderRegexps.Scrollable = false;
+            this.lvCustomUploaderRegexps.UseCompatibleStateImageBehavior = false;
+            this.lvCustomUploaderRegexps.View = System.Windows.Forms.View.Details;
+            this.lvCustomUploaderRegexps.SelectedIndexChanged += new System.EventHandler(this.lvCustomUploaderRegexps_SelectedIndexChanged);
+            // 
+            // lvRegexpsColumn
+            // 
+            resources.ApplyResources(this.lvRegexpsColumn, "lvRegexpsColumn");
+            // 
+            // lvCustomUploaderArguments
+            // 
+            this.lvCustomUploaderArguments.AllowDrop = true;
+            this.lvCustomUploaderArguments.AllowItemDrag = true;
+            this.lvCustomUploaderArguments.AutoFillColumn = true;
+            this.lvCustomUploaderArguments.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chArgumentsName,
+            this.chArgumentsValue});
+            this.lvCustomUploaderArguments.FullRowSelect = true;
+            this.lvCustomUploaderArguments.GridLines = true;
+            this.lvCustomUploaderArguments.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lvCustomUploaderArguments.HideSelection = false;
+            resources.ApplyResources(this.lvCustomUploaderArguments, "lvCustomUploaderArguments");
+            this.lvCustomUploaderArguments.MultiSelect = false;
+            this.lvCustomUploaderArguments.Name = "lvCustomUploaderArguments";
+            this.lvCustomUploaderArguments.UseCompatibleStateImageBehavior = false;
+            this.lvCustomUploaderArguments.View = System.Windows.Forms.View.Details;
+            this.lvCustomUploaderArguments.SelectedIndexChanged += new System.EventHandler(this.lvCustomUploaderArguments_SelectedIndexChanged);
+            // 
+            // chArgumentsName
+            // 
+            resources.ApplyResources(this.chArgumentsName, "chArgumentsName");
+            // 
+            // chArgumentsValue
+            // 
+            resources.ApplyResources(this.chArgumentsValue, "chArgumentsValue");
+            // 
             // ttlvMain
             // 
             resources.ApplyResources(this.ttlvMain, "ttlvMain");
@@ -3216,10 +3259,6 @@
             this.ttlvMain.ListViewSize = 180;
             this.ttlvMain.MainTabControl = null;
             this.ttlvMain.Name = "ttlvMain";
-            // 
-            // chTwitterAccount
-            // 
-            resources.ApplyResources(this.chTwitterAccount, "chTwitterAccount");
             // 
             // atcImgurAccountType
             // 
@@ -3506,6 +3545,8 @@
             this.tpChevereto.ResumeLayout(false);
             this.tpChevereto.PerformLayout();
             this.tcUploaders.ResumeLayout(false);
+            this.tpUpload.ResumeLayout(false);
+            this.tpUpload.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3908,6 +3949,11 @@
         private System.Windows.Forms.TextBox txtTwitterDefaultMessage;
         private System.Windows.Forms.CheckBox cbTwitterSkipMessageBox;
         private HelpersLib.MyListView lvTwitterAccounts;
-        private System.Windows.Forms.ColumnHeader chTwitterAccount;        
+        private System.Windows.Forms.ColumnHeader chTwitterAccount;
+        private System.Windows.Forms.TabPage tpUpload;
+        private System.Windows.Forms.TextBox txtUploadKey;
+        private System.Windows.Forms.TextBox txtUploadHost;
+        private System.Windows.Forms.Label lblUploadKey;
+        private System.Windows.Forms.Label lblUploadHost;        
     }
 }

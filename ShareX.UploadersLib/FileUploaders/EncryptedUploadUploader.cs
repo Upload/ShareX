@@ -13,17 +13,19 @@ using ShareX.HelpersLib;
 
 namespace ShareX.UploadersLib.ImageUploaders
 {
-    public sealed class Encrypted3d3Uploader : FileUploader
+    public sealed class EncryptedUploadUploader : FileUploader
     {
         private const int MacSize = 64;
-        private const string ApiKey = "c61540b5ceecd05092799f936e27755f";
-        private const string SystemUrl = "https://e.3d3.ca";
-        private const string ViewUrl = "http://hiro.andred.ca";
 
-        public Encrypted3d3Uploader()
+        public string ApiKey { get; set; }
+        public string SystemUrl { get; set; }
+
+        public EncryptedUploadUploader(string systemUrl, string apiKey)
         {
-
+            SystemUrl = systemUrl;
+            ApiKey = apiKey;
         }
+
 
         public static string UrlBase64Encode(byte[] input)
         {
@@ -93,7 +95,7 @@ namespace ShareX.UploadersLib.ImageUploaders
             if (result.IsSuccess)
             {
                 Dictionary<string, string> values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result.Response);
-                result.URL = ViewUrl + "/#" + seed;
+                result.URL = SystemUrl + "/#" + seed;
                 result.DeletionURL = SystemUrl + "/del?ident=" + ident + "&delkey=" + values["delkey"];
             }
 

@@ -53,8 +53,17 @@ namespace ShareX.UploadersLib.ImageUploaders
             var fi = new FileInfo(fileName);
             
             Dictionary<string, string> args = new Dictionary<string, string>();
-            var mimeOpts = ClouDeveloper.Mime.MediaTypeNames.GetMediaTypeNames(fi.Extension).ToList();
-            args["mime"] = mimeOpts.Count > 0 ? mimeOpts[0] : "image/png";
+
+            // text files aren't detected well by the "ClouDeveloper" mime type library, use ShareX's builtin list first.
+            if (Helpers.IsTextFile(fileName))
+            {
+                args["mime"] = "text/plain";
+            }
+            else
+            {
+                var mimeOpts = ClouDeveloper.Mime.MediaTypeNames.GetMediaTypeNames(fi.Extension).ToList();
+                args["mime"] = mimeOpts.Count > 0 ? mimeOpts[0] : "image/png";
+            }
             args["name"] = fileName;
             
             byte[] d = Encoding.BigEndianUnicode.GetBytes(JsonConvert.SerializeObject(args));

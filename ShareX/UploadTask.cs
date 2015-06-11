@@ -996,7 +996,7 @@ namespace ShareX
                 case FileDestination.Imgrush:
                     fileUploader = new MediaCrushUploader("https://imgrush.com");
                     break;
-                case FileDestination.Encrypted3d3Uploader:
+                case FileDestination.EncryptedUploadUploader:
                     fileUploader = new EncryptedUploadUploader(Program.UploadersConfig.UploadHost, Program.UploadersConfig.UploadKey);
                     break;
             }

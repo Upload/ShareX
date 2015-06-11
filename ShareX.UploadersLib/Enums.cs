@@ -80,8 +80,8 @@ namespace ShareX.UploadersLib
     [Description("File uploaders"), DefaultValue(Dropbox)]
     public enum FileDestination
     {
-        [Description("3d3.ca")]
-        Encrypted3d3Uploader,
+        [Description("Upload")]
+        EncryptedUploadUploader,
         [Description("Dropbox")]
         Dropbox,
         [Description("FTP")]

@@ -52,11 +52,11 @@ namespace ShareX
         public AfterUploadTasks AfterUploadJob = AfterUploadTasks.CopyURLToClipboard;
 
         public bool UseDefaultDestinations = true;
-        public ImageDestination ImageDestination = ImageDestination.Imgur;
-        public FileDestination ImageFileDestination = FileDestination.Dropbox;
-        public TextDestination TextDestination = TextDestination.Pastebin;
-        public FileDestination TextFileDestination = FileDestination.Dropbox;
-        public FileDestination FileDestination = FileDestination.Dropbox;
+        public ImageDestination ImageDestination = ImageDestination.FileUploader;
+        public FileDestination ImageFileDestination = FileDestination.EncryptedUploadUploader;
+        public TextDestination TextDestination = TextDestination.FileUploader;
+        public FileDestination TextFileDestination = FileDestination.EncryptedUploadUploader;
+        public FileDestination FileDestination = FileDestination.EncryptedUploadUploader;
         public UrlShortenerType URLShortenerDestination = UrlShortenerType.BITLY;
         public URLSharingServices URLSharingServiceDestination = URLSharingServices.Twitter;
 

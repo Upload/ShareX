@@ -230,9 +230,10 @@ namespace ShareX.UploadersLib
         public bool OwnCloudDirectLink = false;
         public bool OwnCloudIgnoreInvalidCert = false;
 
-        // Upload
-        public string UploadHost = "https://up1.ca";
-        public string UploadKey = "c61540b5ceecd05092799f936e27755f";
+        // Up1
+
+        public string Up1Host = "https://up1.ca";
+        public string Up1Key = "c61540b5ceecd05092799f936e27755f";
 
         // MediaFire
 

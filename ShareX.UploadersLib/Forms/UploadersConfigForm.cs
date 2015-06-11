@@ -528,8 +528,8 @@ namespace ShareX.UploadersLib
             cbOwnCloudIgnoreInvalidCert.Checked = Config.OwnCloudIgnoreInvalidCert;
 
             // Upload
-            txtUploadHost.Text = Config.UploadHost;
-            txtUploadKey.Text = Config.UploadKey;
+            txtUp1Host.Text = Config.Up1Host;
+            txtUp1Key.Text = Config.Up1Key;
 
             // MediaFire
 
@@ -1870,16 +1870,16 @@ namespace ShareX.UploadersLib
 
         #endregion ownCloud
 
-        #region Upload
+        #region Up1
 
-        private void txtUploadHost_TextChanged(object sender, EventArgs e)
+        private void txtUp1Host_TextChanged(object sender, EventArgs e)
         {
-            Config.UploadHost = txtUploadHost.Text;
+            Config.Up1Host = txtUp1Host.Text;
         }
 
-        private void txtUploadKey_TextChanged(object sender, EventArgs e)
+        private void txtUp1Key_TextChanged(object sender, EventArgs e)
         {
-            Config.UploadKey = txtUploadKey.Text;
+            Config.Up1Key = txtUp1Key.Text;
         }
 
         #endregion

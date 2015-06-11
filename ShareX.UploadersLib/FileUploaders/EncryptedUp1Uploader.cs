@@ -13,14 +13,14 @@ using ShareX.HelpersLib;
 
 namespace ShareX.UploadersLib.ImageUploaders
 {
-    public sealed class EncryptedUploadUploader : FileUploader
+    public sealed class EncryptedUp1Uploader : FileUploader
     {
         private const int MacSize = 64;
 
         public string ApiKey { get; set; }
         public string SystemUrl { get; set; }
 
-        public EncryptedUploadUploader(string systemUrl, string apiKey)
+        public EncryptedUp1Uploader(string systemUrl, string apiKey)
         {
             SystemUrl = systemUrl;
             ApiKey = apiKey;

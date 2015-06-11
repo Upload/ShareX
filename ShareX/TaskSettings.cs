@@ -53,10 +53,10 @@ namespace ShareX
 
         public bool UseDefaultDestinations = true;
         public ImageDestination ImageDestination = ImageDestination.FileUploader;
-        public FileDestination ImageFileDestination = FileDestination.EncryptedUploadUploader;
+        public FileDestination ImageFileDestination = FileDestination.EncryptedUp1Uploader;
         public TextDestination TextDestination = TextDestination.FileUploader;
-        public FileDestination TextFileDestination = FileDestination.EncryptedUploadUploader;
-        public FileDestination FileDestination = FileDestination.EncryptedUploadUploader;
+        public FileDestination TextFileDestination = FileDestination.EncryptedUp1Uploader;
+        public FileDestination FileDestination = FileDestination.EncryptedUp1Uploader;
         public UrlShortenerType URLShortenerDestination = UrlShortenerType.BITLY;
         public URLSharingServices URLSharingServiceDestination = URLSharingServices.Twitter;
 

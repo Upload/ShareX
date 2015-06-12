@@ -1,8 +1,8 @@
 ### ShareX with support for Upload servers
 
-This ShareX fork has an added destination for Upload-based hosts.
+This ShareX fork has an added destination for Up1-based hosts.
 
-For more information on Upload itself, view the readme at https://github.com/Upload/Upload .
+For more information on Upload itself, view the readme at https://github.com/Upload/Up1 .
 
 ### Original ShareX Website: [getsharex.com](https://getsharex.com)
 

@@ -98,7 +98,7 @@ namespace ShareX.UploadersLib.ImageUploaders
             Stream encryptedStream = Encrypt(stream, out seed, out ident, fileName);
             Dictionary<string, string> args = new Dictionary<string, string>();
             args["ident"] = ident;
-            args["privkey"] = ApiKey;
+            args["api_key"] = ApiKey;
             UploadResult result = UploadData(encryptedStream, SystemUrl + "/up", "blob", "file", args);
 
             if (result.IsSuccess)

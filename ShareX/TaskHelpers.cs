@@ -421,11 +421,12 @@ namespace ShareX
 
         public static UpdateChecker CheckUpdate()
         {
-            return null;
-            UpdateChecker updateChecker = new GitHubUpdateChecker("ShareX", "ShareX");
+            UpdateChecker updateChecker = new GitHubUpdateChecker("Upload", "ShareX");
             updateChecker.IsBeta = Program.IsBeta;
             updateChecker.Proxy = HelpersOptions.CurrentProxy.GetWebProxy();
             updateChecker.CheckUpdate();
+            return updateChecker;
+
 
             // Fallback if GitHub API fails
             if (updateChecker.Status == UpdateStatus.None || updateChecker.Status == UpdateStatus.UpdateCheckFailed)
@@ -436,7 +437,6 @@ namespace ShareX
                 updateChecker.CheckUpdate();
             }
 
-            return updateChecker;
         }
 
         public static void CheckDownloadCounts()
